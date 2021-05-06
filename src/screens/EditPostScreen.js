@@ -35,7 +35,7 @@ const EditPostScreen = ({ route, navigation }) => {
         title='Submit Edit'
         onPress={() => {
           editPost(postId, title, text, () => {
-            navigation.navigate('PostDetail');
+            navigation.pop();
           });
         }}
       />

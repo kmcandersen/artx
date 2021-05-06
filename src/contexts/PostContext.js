@@ -47,7 +47,7 @@ export const PostProvider = ({ children }) => {
 
   const addPost = (title, text, callback) => {
     dispatch({ type: 'ADD_POST', payload: { title, text } });
-    callback();
+    if (callback) callback();
   };
 
   const removePost = (id) => {
@@ -55,9 +55,8 @@ export const PostProvider = ({ children }) => {
   };
 
   const editPost = (id, title, text, callback) => {
-    console.log(id, title, text);
     dispatch({ type: 'EDIT_POST', payload: { id, title, text } });
-    callback();
+    if (callback) callback();
   };
 
   return (
