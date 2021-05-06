@@ -50,16 +50,6 @@ const PostListScreen = ({ navigation }) => {
   );
 };
 
-// PostListScreen.navigationOptions = {
-//   headerRight: () => (
-//     <TouchableOpacity onPress={() => navigation.navigate('CreatePost')}>
-//       {/* <TouchableOpacity onPress={console.log('clickd')}> */}
-//       {/* <Feather name='plus' size={30} /> */}
-//       <Text>CLICK ME</Text>
-//     </TouchableOpacity>
-//   ),
-// };
-
 const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
