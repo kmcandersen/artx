@@ -22,14 +22,18 @@ const PostListScreen = ({ navigation }) => {
         keyExtractor={(post) => post.title}
         renderItem={({ item }) => {
           return (
-            <View style={styles.row}>
-              <Text style={styles.title}>
-                {item.title}-{item.id}
-              </Text>
-              <TouchableOpacity onPress={() => removePost(item.id)}>
-                <Feather style={styles.icon} name='trash' />
-              </TouchableOpacity>
-            </View>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('PostDetail', { id: item.id })}
+            >
+              <View style={styles.row}>
+                <Text style={styles.title}>
+                  {item.title}-{item.id}
+                </Text>
+                <TouchableOpacity onPress={() => removePost(item.id)}>
+                  <Feather style={styles.icon} name='trash' />
+                </TouchableOpacity>
+              </View>
+            </TouchableOpacity>
           );
         }}
       />
