@@ -9,11 +9,10 @@ import {
 import { Feather } from '@expo/vector-icons';
 
 import PostContext from '../contexts/PostContext';
-import AppButton from '../components/AppButton';
 import Screen from '../components/Screen';
 
 const PostListScreen = ({ navigation }) => {
-  const { data, addPost, removePost } = useContext(PostContext);
+  const { data, removePost } = useContext(PostContext);
 
   return (
     <Screen>
@@ -36,11 +35,6 @@ const PostListScreen = ({ navigation }) => {
             </TouchableOpacity>
           );
         }}
-      />
-      <AppButton title='Add a Post' onPress={addPost} />
-      <AppButton
-        title='Go to Post Details'
-        onPress={() => navigation.navigate('PostDetail')}
       />
     </Screen>
   );
