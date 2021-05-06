@@ -15,10 +15,12 @@ const postReducer = (state, action) => {
       ];
     case 'REMOVE_POST':
       return state.filter((post) => post.id !== action.payload);
-    // case 'EDIT_POST':
-    //   return state.map((post) =>
-    //     post.id === action.id ? { ...post, text: action.newPost } : post
-    //   );
+    case 'EDIT_POST':
+      return state.map((post) =>
+        post.id === action.payload.id
+          ? { ...post, title: action.payload.title, text: action.payload.text }
+          : post
+      );
 
     default:
       return state;
@@ -26,11 +28,16 @@ const postReducer = (state, action) => {
 };
 
 const initialPosts = [
-  { id: 123, title: 'Hellow wrld', text: "It's just me." },
+  { id: 123, title: 'Hellow wrld', text: "Is it me you're looking for?" },
   {
     id: 456,
     title: 'My name is Kramer',
     text: 'These pretzels are making me thirsty!',
+  },
+  {
+    id: 789,
+    title: 'Allo, guvnur',
+    text: 'Bears R awesome',
   },
 ];
 
@@ -47,8 +54,16 @@ export const PostProvider = ({ children }) => {
     dispatch({ type: 'REMOVE_POST', payload: id });
   };
 
+  const editPost = (id, title, text, callback) => {
+    console.log(id, title, text);
+    dispatch({ type: 'EDIT_POST', payload: { id, title, text } });
+    callback();
+  };
+
   return (
-    <PostContext.Provider value={{ data: posts, addPost, removePost }}>
+    <PostContext.Provider
+      value={{ data: posts, addPost, removePost, editPost }}
+    >
       {children}
     </PostContext.Provider>
   );

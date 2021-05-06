@@ -1,33 +1,41 @@
 import React, { useContext, useState } from 'react';
 import { StyleSheet, Text, TextInput } from 'react-native';
+
 import PostContext from '../contexts/PostContext';
+
 import Screen from '../components/Screen';
 import AppButton from '../components/AppButton';
 
-const CreatePostScreen = ({ navigation }) => {
-  const { addPost } = useContext(PostContext);
-  const [title, setTitle] = useState('');
-  const [text, setText] = useState('');
+const EditPostScreen = ({ route, navigation }) => {
+  const postId = route.params.id;
+
+  const { data, editPost } = useContext(PostContext);
+
+  const post = data.find((post) => post.id === postId);
+
+  const [title, setTitle] = useState(post.title);
+  const [text, setText] = useState(post.text);
 
   return (
     <Screen>
-      <Text style={styles.label}>Enter title</Text>
+      <Text style={styles.label}>Edit title</Text>
+      <Text>Post Id:{post.id}</Text>
       <TextInput
         style={styles.inputs}
         value={title}
         onChangeText={(text) => setTitle(text)}
       />
-      <Text style={styles.label}>Enter Text</Text>
+      <Text style={styles.label}>Edit Text</Text>
       <TextInput
         style={styles.inputs}
         value={text}
         onChangeText={(text) => setText(text)}
       />
       <AppButton
-        title='Submit Post'
+        title='Submit Edit'
         onPress={() => {
-          addPost(title, text, () => {
-            navigation.navigate('PostList');
+          editPost(postId, title, text, () => {
+            navigation.navigate('PostDetail');
           });
         }}
       />
@@ -50,4 +58,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CreatePostScreen;
+export default EditPostScreen;

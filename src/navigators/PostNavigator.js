@@ -1,9 +1,8 @@
 import React from 'react';
-import { TouchableOpacity } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { Feather } from '@expo/vector-icons';
 
 import CreatePostScreen from '../screens/CreatePostScreen';
+import EditPostScreen from '../screens/EditPostScreen';
 import PostDetailScreen from '../screens/PostDetailScreen';
 import PostListScreen from '../screens/PostListScreen';
 
@@ -14,14 +13,7 @@ const PostNavigator = () => (
     <Stack.Screen
       name='PostList'
       component={PostListScreen}
-      options={({ navigation }) => ({
-        headerTitle: 'My Posts',
-        headerRight: () => (
-          <TouchableOpacity onPress={() => navigation.navigate('CreatePost')}>
-            <Feather name='plus' size={30} />
-          </TouchableOpacity>
-        ),
-      })}
+      options={{ headerTitle: 'Post List' }}
     />
     <Stack.Screen
       name='PostDetail'
@@ -31,7 +23,12 @@ const PostNavigator = () => (
     <Stack.Screen
       name='CreatePost'
       component={CreatePostScreen}
-      options={{ headerTitle: 'New Post' }}
+      options={{ headerTitle: 'Add Post' }}
+    />
+    <Stack.Screen
+      name='EditPost'
+      component={EditPostScreen}
+      options={{ headerTitle: 'Edit Post' }}
     />
   </Stack.Navigator>
 );
