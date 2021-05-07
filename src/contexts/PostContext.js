@@ -1,9 +1,14 @@
 import React, { useReducer } from 'react';
+import axios from 'axios';
+
+const BASE_URL = 'https://rn-artx.herokuapp.com';
 
 const PostContext = React.createContext();
 
 const postReducer = (state, action) => {
   switch (action.type) {
+    case 'GET_POSTS':
+      return action.payload;
     case 'ADD_POST':
       return [
         ...state,
@@ -27,23 +32,28 @@ const postReducer = (state, action) => {
   }
 };
 
-const initialPosts = [
-  { id: 123, title: 'Hellow wrld', text: "Is it me you're looking for?" },
-  {
-    id: 456,
-    title: 'My name is Kramer',
-    text: 'These pretzels are making me thirsty!',
-  },
-  {
-    id: 789,
-    title: 'Allo, guvnur',
-    text: 'Bears R awesome',
-  },
-];
+// const initialPosts = [
+//   { id: 123, title: 'Hellow wrld', text: "Is it me you're looking for?" },
+//   {
+//     id: 456,
+//     title: 'My name is Kramer',
+//     text: 'These pretzels are making me thirsty!',
+//   },
+//   {
+//     id: 789,
+//     title: 'Allo, guvnur',
+//     text: 'Bears R awesome',
+//   },
+// ];
 
 export const PostProvider = ({ children }) => {
   // posts = state
-  const [posts, dispatch] = useReducer(postReducer, initialPosts);
+  const [posts, dispatch] = useReducer(postReducer, []);
+
+  const getPosts = async () => {
+    const response = await axios.get(`${BASE_URL}/artwork`);
+    dispatch({ type: 'GET_POSTS', payload: response.data });
+  };
 
   const addPost = (title, text, callback) => {
     dispatch({ type: 'ADD_POST', payload: { title, text } });
@@ -61,7 +71,7 @@ export const PostProvider = ({ children }) => {
 
   return (
     <PostContext.Provider
-      value={{ data: posts, addPost, removePost, editPost }}
+      value={{ data: posts, getPosts, addPost, removePost, editPost }}
     >
       {children}
     </PostContext.Provider>

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import {
   FlatList,
   StyleSheet,
@@ -12,7 +12,11 @@ import PostContext from '../contexts/PostContext';
 import Screen from '../components/Screen';
 
 const PostListScreen = ({ navigation }) => {
-  const { data, removePost } = useContext(PostContext);
+  const { data, getPosts, removePost } = useContext(PostContext);
+
+  useEffect(() => {
+    getPosts();
+  }, []);
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
@@ -32,13 +36,15 @@ const PostListScreen = ({ navigation }) => {
         renderItem={({ item }) => {
           return (
             <TouchableOpacity
-              onPress={() => navigation.navigate('PostDetail', { id: item.id })}
+              onPress={() =>
+                navigation.navigate('PostDetail', { id: item._id })
+              }
             >
               <View style={styles.row}>
                 <Text style={styles.title}>
-                  {item.title}-{item.id}
+                  {item.title}-{item._id}
                 </Text>
-                <TouchableOpacity onPress={() => removePost(item.id)}>
+                <TouchableOpacity onPress={() => removePost(item._id)}>
                   <Feather style={styles.icon} name='trash' />
                 </TouchableOpacity>
               </View>
