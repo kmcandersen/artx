@@ -4,29 +4,33 @@ import axios from 'axios';
 const BASE_URL = 'https://rn-artx.herokuapp.com';
 //const BASE_URL = 'https://localhost:3000';
 
-const PostContext = React.createContext();
+const ArtworkContext = React.createContext();
 
-const postReducer = (state, action) => {
+const artworkReducer = (state, action) => {
   switch (action.type) {
-    case 'GET_POSTS':
+    case 'GET_ALL_ARTWORK':
       return action.payload;
-    case 'ADD_POST':
+    case 'ADD_ARTWORK':
       return [
         ...state,
         {
           id: Math.floor(Math.random() * 99999),
           artistFbId: action.payload.artistFbId,
           title: action.payload.title,
-          text: action.payload.text,
+          address: action.payload.address,
         },
       ];
-    case 'REMOVE_POST':
-      return state.filter((post) => post.id !== action.payload);
-    case 'EDIT_POST':
-      return state.map((post) =>
-        post.id === action.payload.id
-          ? { ...post, title: action.payload.title, text: action.payload.text }
-          : post
+    case 'REMOVE_ARTWORK':
+      return state.filter((work) => work.id !== action.payload);
+    case 'EDIT_ARTWORK':
+      return state.map((work) =>
+        work.id === action.payload.id
+          ? {
+              ...work,
+              title: action.payload.title,
+              address: action.payload.address,
+            }
+          : work
       );
 
     default:
@@ -48,43 +52,52 @@ const postReducer = (state, action) => {
 //   },
 // ];
 
-export const PostProvider = ({ children }) => {
-  // posts = state
-  const [posts, dispatch] = useReducer(postReducer, []);
+export const ArtworkProvider = ({ children }) => {
+  // artwork = state
+  const [artwork, dispatch] = useReducer(artworkReducer, []);
 
-  const getPosts = async () => {
+  const getArtwork = async () => {
     const response = await axios.get(`${BASE_URL}/artwork`);
-    dispatch({ type: 'GET_POSTS', payload: response.data });
+    dispatch({ type: 'GET_ALL_ARTWORK', payload: response.data });
   };
 
-  const addPost = async (artistFbId, title, address, callback) => {
+  const addArtwork = async (artistFbId, title, address, callback) => {
     await axios.post(`${BASE_URL}/artwork`, { artistFbId, title, address });
     dispatch({
-      type: 'ADD_POST',
-      payload: { artistFbId, title, text: address },
+      type: 'ADD_ARTWORK',
+      payload: { artistFbId, title, address: address },
     });
     if (callback) callback();
   };
 
-  const removePost = async (id, callback) => {
+  const removeArtwork = async (id, callback) => {
     await axios.delete(`${BASE_URL}/artwork/${id}`);
-    dispatch({ type: 'REMOVE_POST', payload: id });
+    dispatch({ type: 'REMOVE_ARTWORK', payload: id });
     if (callback) callback();
   };
 
-  const editPost = async (id, title, address, callback) => {
+  const editArtwork = async (id, title, address, callback) => {
     await axios.patch(`${BASE_URL}/artwork/${id}`, { title, address });
-    dispatch({ type: 'EDIT_POST', payload: { id, title, text: address } });
+    dispatch({
+      type: 'EDIT_ARTWORK',
+      payload: { id, title, address: address },
+    });
     if (callback) callback();
   };
 
   return (
-    <PostContext.Provider
-      value={{ data: posts, getPosts, addPost, removePost, editPost }}
+    <ArtworkContext.Provider
+      value={{
+        data: artwork,
+        getArtwork,
+        addArtwork,
+        removeArtwork,
+        editArtwork,
+      }}
     >
       {children}
-    </PostContext.Provider>
+    </ArtworkContext.Provider>
   );
 };
 
-export default PostContext;
+export default ArtworkContext;

@@ -1,40 +1,40 @@
 import React, { useContext, useState } from 'react';
 import { StyleSheet, Text, TextInput } from 'react-native';
 
-import PostContext from '../contexts/PostContext';
+import ArtworkContext from '../contexts/PostContext';
 
 import Screen from '../components/Screen';
 import AppButton from '../components/AppButton';
 
 const EditPostScreen = ({ route, navigation }) => {
-  const postId = route.params.id;
+  const artworkId = route.params.id;
 
-  const { data, editPost } = useContext(PostContext);
+  const { data, editArtwork } = useContext(ArtworkContext);
 
-  const post = data.find((post) => post._id === postId);
+  const work = data.find((work) => work._id === artworkId);
 
-  const [title, setTitle] = useState(post.title);
-  const [text, setText] = useState(post.address);
+  const [title, setTitle] = useState(work.title);
+  const [address, setAddress] = useState(work.address);
 
   return (
     <Screen>
       <Text style={styles.label}>Edit title</Text>
-      <Text>Post Id:{post._id}</Text>
+      <Text>Artwork Id:{work._id}</Text>
       <TextInput
         style={styles.inputs}
         value={title}
         onChangeText={(text) => setTitle(text)}
       />
-      <Text style={styles.label}>Edit Text</Text>
+      <Text style={styles.label}>Edit Address</Text>
       <TextInput
         style={styles.inputs}
-        value={text}
-        onChangeText={(text) => setText(text)}
+        value={address}
+        onChangeText={(text) => setAddress(text)}
       />
       <AppButton
         title='Submit Edit'
         onPress={() => {
-          editPost(postId, title, text, () => {
+          editArtwork(artworkId, title, address, () => {
             navigation.pop();
           });
         }}

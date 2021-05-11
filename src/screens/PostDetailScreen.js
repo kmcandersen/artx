@@ -2,23 +2,19 @@ import React, { useContext, useEffect } from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { EvilIcons } from '@expo/vector-icons';
 import Screen from '../components/Screen';
-import PostContext from '../contexts/PostContext';
+import ArtworkContext from '../contexts/PostContext';
 import { Feather } from '@expo/vector-icons';
 
 const PostDetailScreen = ({ route, navigation }) => {
-  const postId = route.params.id;
-  const { data, removePost } = useContext(PostContext);
-  const post = data.find((post) => post._id === postId);
-
-  // useEffect(() => {
-  //   getPosts();
-  // }, [data]);
+  const artworkId = route.params.id;
+  const { data, removeArtwork } = useContext(ArtworkContext);
+  const work = data.find((work) => work._id === artworkId);
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
         <TouchableOpacity
-          onPress={() => navigation.navigate('EditPost', { id: postId })}
+          onPress={() => navigation.navigate('EditPost', { id: artworkId })}
         >
           <EvilIcons name='pencil' size={35} />
         </TouchableOpacity>
@@ -26,16 +22,16 @@ const PostDetailScreen = ({ route, navigation }) => {
     });
   }, [navigation]);
 
-  // if post is removed, doesn't try to render DetailScreen; callback redirects to PostList
-  if (post) {
+  // if work is removed, doesn't try to render DetailScreen; callback redirects to PostList
+  if (work) {
     return (
       <Screen>
-        <Text>{post.title}</Text>
-        <Text>{post.address}</Text>
+        <Text>{work.title}</Text>
+        <Text>{work.address}</Text>
 
         <TouchableOpacity
           onPress={() =>
-            removePost(post._id, () => navigation.navigate('PostList'))
+            removeArtwork(work._id, () => navigation.navigate('PostList'))
           }
         >
           <Feather style={styles.icon} name='trash' />
@@ -45,8 +41,6 @@ const PostDetailScreen = ({ route, navigation }) => {
   }
   return null;
 };
-
-// onPress={() => navigation.navigate('EditPost')}
 
 const styles = StyleSheet.create({
   container: {},

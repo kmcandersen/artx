@@ -8,14 +8,14 @@ import {
 } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 
-import PostContext from '../contexts/PostContext';
+import ArtworkContext from '../contexts/PostContext';
 import Screen from '../components/Screen';
 
 const PostListScreen = ({ navigation }) => {
-  const { data, getPosts } = useContext(PostContext);
+  const { data, getArtwork } = useContext(ArtworkContext);
 
   useEffect(() => {
-    getPosts();
+    getArtwork();
   }, [data]);
 
   React.useLayoutEffect(() => {
@@ -32,7 +32,7 @@ const PostListScreen = ({ navigation }) => {
     <Screen>
       <FlatList
         data={data}
-        keyExtractor={(post) => post._id}
+        keyExtractor={(work) => work._id}
         renderItem={({ item }) => {
           return (
             <TouchableOpacity

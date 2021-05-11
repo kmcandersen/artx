@@ -1,13 +1,13 @@
 import React, { useContext, useState } from 'react';
 import { StyleSheet, Text, TextInput } from 'react-native';
-import PostContext from '../contexts/PostContext';
+import ArtworkContext from '../contexts/PostContext';
 import Screen from '../components/Screen';
 import AppButton from '../components/AppButton';
 
 const CreatePostScreen = ({ navigation }) => {
-  const { addPost } = useContext(PostContext);
+  const { addArtwork } = useContext(ArtworkContext);
   const [title, setTitle] = useState('');
-  const [text, setText] = useState('');
+  const [address, setAddress] = useState('');
 
   return (
     <Screen>
@@ -17,16 +17,16 @@ const CreatePostScreen = ({ navigation }) => {
         value={title}
         onChangeText={(text) => setTitle(text)}
       />
-      <Text style={styles.label}>Enter Text</Text>
+      <Text style={styles.label}>Enter Address</Text>
       <TextInput
         style={styles.inputs}
-        value={text}
-        onChangeText={(text) => setText(text)}
+        value={address}
+        onChangeText={(text) => setAddress(text)}
       />
       <AppButton
-        title='Submit Post'
+        title='Submit New Artwork'
         onPress={() => {
-          addPost('A012', title, text, () => {
+          addArtwork('A012', title, address, () => {
             navigation.navigate('PostList');
           });
         }}
