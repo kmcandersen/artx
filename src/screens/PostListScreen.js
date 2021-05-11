@@ -12,7 +12,7 @@ import PostContext from '../contexts/PostContext';
 import Screen from '../components/Screen';
 
 const PostListScreen = ({ navigation }) => {
-  const { data, getPosts, removePost } = useContext(PostContext);
+  const { data, getPosts } = useContext(PostContext);
 
   useEffect(() => {
     getPosts();
@@ -41,12 +41,15 @@ const PostListScreen = ({ navigation }) => {
               }
             >
               <View style={styles.row}>
-                <Text style={styles.title}>
-                  {item.title}-{item._id}
-                </Text>
-                <TouchableOpacity onPress={() => removePost(item._id)}>
+                {item.title && (
+                  <Text style={styles.title}>
+                    {item.title}-{item._id}
+                  </Text>
+                )}
+
+                {/* <TouchableOpacity onPress={() => removePost(item._id)}>
                   <Feather style={styles.icon} name='trash' />
-                </TouchableOpacity>
+                </TouchableOpacity> */}
               </View>
             </TouchableOpacity>
           );

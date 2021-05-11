@@ -66,9 +66,10 @@ export const PostProvider = ({ children }) => {
     if (callback) callback();
   };
 
-  const removePost = async (id) => {
+  const removePost = async (id, callback) => {
     await axios.delete(`${BASE_URL}/artwork/${id}`);
     dispatch({ type: 'REMOVE_POST', payload: id });
+    if (callback) callback();
   };
 
   const editPost = async (id, title, address, callback) => {
