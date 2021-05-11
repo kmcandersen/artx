@@ -33,19 +33,19 @@ const postReducer = (state, action) => {
   }
 };
 
-const initialPosts = [
-  { id: 123, title: 'Hellow wrld', text: "Is it me you're looking for?" },
-  {
-    id: 456,
-    title: 'My name is Kramer',
-    text: 'These pretzels are making me thirsty!',
-  },
-  {
-    id: 789,
-    title: 'Allo, guvnur',
-    text: 'Bears R awesome',
-  },
-];
+// const initialPosts = [
+//   { id: 123, title: 'Hellow wrld', text: "Is it me you're looking for?" },
+//   {
+//     id: 456,
+//     title: 'My name is Kramer',
+//     text: 'These pretzels are making me thirsty!',
+//   },
+//   {
+//     id: 789,
+//     title: 'Allo, guvnur',
+//     text: 'Bears R awesome',
+//   },
+// ];
 
 export const PostProvider = ({ children }) => {
   // posts = state
@@ -66,8 +66,9 @@ export const PostProvider = ({ children }) => {
     dispatch({ type: 'REMOVE_POST', payload: id });
   };
 
-  const editPost = (id, title, text, callback) => {
-    dispatch({ type: 'EDIT_POST', payload: { id, title, text } });
+  const editPost = async (id, title, address, callback) => {
+    await axios.patch(`${BASE_URL}/artwork/${id}`, { title, address });
+    dispatch({ type: 'EDIT_POST', payload: { id, title, text: address } });
     if (callback) callback();
   };
 

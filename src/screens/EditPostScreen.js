@@ -11,15 +11,15 @@ const EditPostScreen = ({ route, navigation }) => {
 
   const { data, editPost } = useContext(PostContext);
 
-  const post = data.find((post) => post.id === postId);
+  const post = data.find((post) => post._id === postId);
 
   const [title, setTitle] = useState(post.title);
-  const [text, setText] = useState(post.text);
+  const [text, setText] = useState(post.address);
 
   return (
     <Screen>
       <Text style={styles.label}>Edit title</Text>
-      <Text>Post Id:{post.id}</Text>
+      <Text>Post Id:{post._id}</Text>
       <TextInput
         style={styles.inputs}
         value={title}

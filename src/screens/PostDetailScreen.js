@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { EvilIcons } from '@expo/vector-icons';
 import Screen from '../components/Screen';
@@ -7,7 +7,11 @@ import PostContext from '../contexts/PostContext';
 const PostDetailScreen = ({ route, navigation }) => {
   const postId = route.params.id;
   const { data } = useContext(PostContext);
-  const post = data.find((post) => post.id === postId);
+  const post = data.find((post) => post._id === postId);
+
+  // useEffect(() => {
+  //   getPosts();
+  // }, [data]);
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
@@ -24,7 +28,7 @@ const PostDetailScreen = ({ route, navigation }) => {
   return (
     <Screen>
       <Text>{post.title}</Text>
-      <Text>{post.text}</Text>
+      <Text>{post.address}</Text>
     </Screen>
   );
 };
