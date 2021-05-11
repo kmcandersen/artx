@@ -16,7 +16,7 @@ const PostListScreen = ({ navigation }) => {
 
   useEffect(() => {
     getPosts();
-  }, []);
+  }, [data]);
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
@@ -32,7 +32,7 @@ const PostListScreen = ({ navigation }) => {
     <Screen>
       <FlatList
         data={data}
-        keyExtractor={(post) => post.title}
+        keyExtractor={(post) => post._id}
         renderItem={({ item }) => {
           return (
             <TouchableOpacity

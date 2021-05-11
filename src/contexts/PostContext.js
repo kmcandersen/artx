@@ -2,6 +2,7 @@ import React, { useReducer } from 'react';
 import axios from 'axios';
 
 const BASE_URL = 'https://rn-artx.herokuapp.com';
+//const BASE_URL = 'https://localhost:3000';
 
 const PostContext = React.createContext();
 
@@ -32,19 +33,19 @@ const postReducer = (state, action) => {
   }
 };
 
-// const initialPosts = [
-//   { id: 123, title: 'Hellow wrld', text: "Is it me you're looking for?" },
-//   {
-//     id: 456,
-//     title: 'My name is Kramer',
-//     text: 'These pretzels are making me thirsty!',
-//   },
-//   {
-//     id: 789,
-//     title: 'Allo, guvnur',
-//     text: 'Bears R awesome',
-//   },
-// ];
+const initialPosts = [
+  { id: 123, title: 'Hellow wrld', text: "Is it me you're looking for?" },
+  {
+    id: 456,
+    title: 'My name is Kramer',
+    text: 'These pretzels are making me thirsty!',
+  },
+  {
+    id: 789,
+    title: 'Allo, guvnur',
+    text: 'Bears R awesome',
+  },
+];
 
 export const PostProvider = ({ children }) => {
   // posts = state
@@ -60,7 +61,8 @@ export const PostProvider = ({ children }) => {
     if (callback) callback();
   };
 
-  const removePost = (id) => {
+  const removePost = async (id) => {
+    await axios.delete(`${BASE_URL}/artwork/${id}`);
     dispatch({ type: 'REMOVE_POST', payload: id });
   };
 
