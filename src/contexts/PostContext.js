@@ -15,6 +15,7 @@ const postReducer = (state, action) => {
         ...state,
         {
           id: Math.floor(Math.random() * 99999),
+          artistFbId: action.payload.artistFbId,
           title: action.payload.title,
           text: action.payload.text,
         },
@@ -56,8 +57,12 @@ export const PostProvider = ({ children }) => {
     dispatch({ type: 'GET_POSTS', payload: response.data });
   };
 
-  const addPost = (title, text, callback) => {
-    dispatch({ type: 'ADD_POST', payload: { title, text } });
+  const addPost = async (artistFbId, title, address, callback) => {
+    await axios.post(`${BASE_URL}/artwork`, { artistFbId, title, address });
+    dispatch({
+      type: 'ADD_POST',
+      payload: { artistFbId, title, text: address },
+    });
     if (callback) callback();
   };
 

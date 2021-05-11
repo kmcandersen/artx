@@ -26,7 +26,7 @@ const CreatePostScreen = ({ navigation }) => {
       <AppButton
         title='Submit Post'
         onPress={() => {
-          addPost(title, text, () => {
+          addPost('A012', title, text, () => {
             navigation.navigate('PostList');
           });
         }}
