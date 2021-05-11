@@ -8,10 +8,10 @@ import {
 } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 
-import ArtworkContext from '../contexts/PostContext';
+import ArtworkContext from '../contexts/ArtworkContext';
 import Screen from '../components/Screen';
 
-const PostListScreen = ({ navigation }) => {
+const ArtworkListScreen = ({ navigation }) => {
   const { data, getArtwork } = useContext(ArtworkContext);
 
   useEffect(() => {
@@ -21,7 +21,7 @@ const PostListScreen = ({ navigation }) => {
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <TouchableOpacity onPress={() => navigation.navigate('CreatePost')}>
+        <TouchableOpacity onPress={() => navigation.navigate('CreateArtwork')}>
           <Feather name='plus' size={20} />
         </TouchableOpacity>
       ),
@@ -37,20 +37,19 @@ const PostListScreen = ({ navigation }) => {
           return (
             <TouchableOpacity
               onPress={() =>
-                navigation.navigate('PostDetail', { id: item._id })
+                navigation.navigate('ArtworkDetail', { id: item._id })
               }
             >
-              <View style={styles.row}>
-                {item.title && (
-                  <Text style={styles.title}>
-                    {item.title}-{item._id}
-                  </Text>
-                )}
-
-                {/* <TouchableOpacity onPress={() => removePost(item._id)}>
-                  <Feather style={styles.icon} name='trash' />
-                </TouchableOpacity> */}
-              </View>
+              {/* so new item won't render before it's assigned an Id/key */}
+              {item._id && (
+                <View style={styles.row}>
+                  {item.title && (
+                    <Text style={styles.title}>
+                      {item.title}-{item._id}
+                    </Text>
+                  )}
+                </View>
+              )}
             </TouchableOpacity>
           );
         }}
@@ -75,4 +74,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default PostListScreen;
+export default ArtworkListScreen;

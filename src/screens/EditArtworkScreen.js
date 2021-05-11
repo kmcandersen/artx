@@ -1,33 +1,41 @@
 import React, { useContext, useState } from 'react';
 import { StyleSheet, Text, TextInput } from 'react-native';
-import ArtworkContext from '../contexts/PostContext';
+
+import ArtworkContext from '../contexts/ArtworkContext';
+
 import Screen from '../components/Screen';
 import AppButton from '../components/AppButton';
 
-const CreatePostScreen = ({ navigation }) => {
-  const { addArtwork } = useContext(ArtworkContext);
-  const [title, setTitle] = useState('');
-  const [address, setAddress] = useState('');
+const EditArtworkScreen = ({ route, navigation }) => {
+  const artworkId = route.params.id;
+
+  const { data, editArtwork } = useContext(ArtworkContext);
+
+  const work = data.find((work) => work._id === artworkId);
+
+  const [title, setTitle] = useState(work.title);
+  const [address, setAddress] = useState(work.address);
 
   return (
     <Screen>
-      <Text style={styles.label}>Enter title</Text>
+      <Text style={styles.label}>Edit title</Text>
+      <Text>Artwork Id:{work._id}</Text>
       <TextInput
         style={styles.inputs}
         value={title}
         onChangeText={(text) => setTitle(text)}
       />
-      <Text style={styles.label}>Enter Address</Text>
+      <Text style={styles.label}>Edit Address</Text>
       <TextInput
         style={styles.inputs}
         value={address}
         onChangeText={(text) => setAddress(text)}
       />
       <AppButton
-        title='Submit New Artwork'
+        title='Submit Edit'
         onPress={() => {
-          addArtwork('A012', title, address, () => {
-            navigation.navigate('PostList');
+          editArtwork(artworkId, title, address, () => {
+            navigation.pop();
           });
         }}
       />
@@ -50,4 +58,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CreatePostScreen;
+export default EditArtworkScreen;

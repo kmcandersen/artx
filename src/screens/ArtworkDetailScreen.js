@@ -2,10 +2,10 @@ import React, { useContext, useEffect } from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { EvilIcons } from '@expo/vector-icons';
 import Screen from '../components/Screen';
-import ArtworkContext from '../contexts/PostContext';
+import ArtworkContext from '../contexts/ArtworkContext';
 import { Feather } from '@expo/vector-icons';
 
-const PostDetailScreen = ({ route, navigation }) => {
+const ArtworkDetailScreen = ({ route, navigation }) => {
   const artworkId = route.params.id;
   const { data, removeArtwork } = useContext(ArtworkContext);
   const work = data.find((work) => work._id === artworkId);
@@ -14,7 +14,7 @@ const PostDetailScreen = ({ route, navigation }) => {
     navigation.setOptions({
       headerRight: () => (
         <TouchableOpacity
-          onPress={() => navigation.navigate('EditPost', { id: artworkId })}
+          onPress={() => navigation.navigate('EditArtwork', { id: artworkId })}
         >
           <EvilIcons name='pencil' size={35} />
         </TouchableOpacity>
@@ -22,7 +22,7 @@ const PostDetailScreen = ({ route, navigation }) => {
     });
   }, [navigation]);
 
-  // if work is removed, doesn't try to render DetailScreen; callback redirects to PostList
+  // if work is removed, doesn't try to render DetailScreen; callback redirects to ArtworkList
   if (work) {
     return (
       <Screen>
@@ -31,7 +31,7 @@ const PostDetailScreen = ({ route, navigation }) => {
 
         <TouchableOpacity
           onPress={() =>
-            removeArtwork(work._id, () => navigation.navigate('PostList'))
+            removeArtwork(work._id, () => navigation.navigate('ArtworkList'))
           }
         >
           <Feather style={styles.icon} name='trash' />
@@ -46,4 +46,4 @@ const styles = StyleSheet.create({
   container: {},
 });
 
-export default PostDetailScreen;
+export default ArtworkDetailScreen;
