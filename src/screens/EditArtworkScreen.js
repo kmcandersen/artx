@@ -11,7 +11,7 @@ const EditArtworkScreen = ({ route, navigation }) => {
 
   const { data, editArtwork } = useContext(ArtworkContext);
 
-  const work = data.find((work) => work._id === artworkId);
+  const work = data.artwork.find((work) => work._id === artworkId);
 
   const [title, setTitle] = useState(work.title);
   const [address, setAddress] = useState(work.address);

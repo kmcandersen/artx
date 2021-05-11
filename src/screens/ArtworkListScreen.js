@@ -31,7 +31,7 @@ const ArtworkListScreen = ({ navigation }) => {
   return (
     <Screen>
       <FlatList
-        data={data}
+        data={data.artwork}
         keyExtractor={(work) => work._id}
         renderItem={({ item }) => {
           return (

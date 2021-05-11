@@ -6,24 +6,28 @@ const BASE_URL = 'https://rn-artx.herokuapp.com';
 
 const ArtworkContext = React.createContext();
 
-const artworkReducer = (state, action) => {
+const artworkReducer = (state = {}, action) => {
   switch (action.type) {
     case 'GET_ALL_ARTWORK':
-      return action.payload;
+      return { artwork: action.payload };
     case 'ADD_ARTWORK':
       return [
-        ...state,
+        ...state.artwork,
         {
-          id: Math.floor(Math.random() * 99999),
-          artistFbId: action.payload.artistFbId,
-          title: action.payload.title,
-          address: action.payload.address,
+          artwork: {
+            artistFbId: action.payload.artistFbId,
+            title: action.payload.title,
+            address: action.payload.address,
+          },
         },
       ];
     case 'REMOVE_ARTWORK':
-      return state.filter((work) => work.id !== action.payload);
+      const removedList = state.artwork.filter(
+        (work) => work._id !== action.payload
+      );
+      return { artwork: removedList };
     case 'EDIT_ARTWORK':
-      return state.map((work) =>
+      const editedList = state.artwork.map((work) =>
         work.id === action.payload.id
           ? {
               ...work,
@@ -32,28 +36,14 @@ const artworkReducer = (state, action) => {
             }
           : work
       );
+      return { artwork: editedList };
 
     default:
       return state;
   }
 };
 
-// const initialPosts = [
-//   { id: 123, title: 'Hellow wrld', text: "Is it me you're looking for?" },
-//   {
-//     id: 456,
-//     title: 'My name is Kramer',
-//     text: 'These pretzels are making me thirsty!',
-//   },
-//   {
-//     id: 789,
-//     title: 'Allo, guvnur',
-//     text: 'Bears R awesome',
-//   },
-// ];
-
 export const ArtworkProvider = ({ children }) => {
-  // artwork = state
   const [artwork, dispatch] = useReducer(artworkReducer, []);
 
   const getArtwork = async () => {

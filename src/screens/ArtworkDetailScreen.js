@@ -8,7 +8,7 @@ import { Feather } from '@expo/vector-icons';
 const ArtworkDetailScreen = ({ route, navigation }) => {
   const artworkId = route.params.id;
   const { data, removeArtwork } = useContext(ArtworkContext);
-  const work = data.find((work) => work._id === artworkId);
+  const work = data.artwork.find((work) => work._id === artworkId);
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
@@ -22,7 +22,7 @@ const ArtworkDetailScreen = ({ route, navigation }) => {
     });
   }, [navigation]);
 
-  // if work is removed, doesn't try to render DetailScreen; callback redirects to ArtworkList
+  // if an indiv artwork is deleted, doesn't try to render DetailScreen; callback redirects to ArtworkList
   if (work) {
     return (
       <Screen>
