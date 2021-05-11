@@ -11,13 +11,16 @@ const EditArtworkScreen = ({ route, navigation }) => {
 
   const { data, editArtwork } = useContext(ArtworkContext);
 
-  const work = data.artwork.find((work) => work._id === artworkId);
+  const work = data.artwork
+    ? data.artwork.find((work) => work._id === artworkId)
+    : [];
 
   const [title, setTitle] = useState(work.title);
   const [address, setAddress] = useState(work.address);
 
   return (
     <Screen>
+      <Text>ERROR is: {data.error}</Text>
       <Text style={styles.label}>Edit title</Text>
       <Text>Artwork Id:{work._id}</Text>
       <TextInput

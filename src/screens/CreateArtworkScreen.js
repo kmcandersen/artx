@@ -5,12 +5,13 @@ import Screen from '../components/Screen';
 import AppButton from '../components/AppButton';
 
 const CreateArtworkScreen = ({ navigation }) => {
-  const { addArtwork } = useContext(ArtworkContext);
+  const { data, addArtwork } = useContext(ArtworkContext);
   const [title, setTitle] = useState('');
   const [address, setAddress] = useState('');
 
   return (
     <Screen>
+      <Text>ERROR is: {data.error}</Text>
       <Text style={styles.label}>Enter title</Text>
       <TextInput
         style={styles.inputs}

@@ -8,7 +8,10 @@ import { Feather } from '@expo/vector-icons';
 const ArtworkDetailScreen = ({ route, navigation }) => {
   const artworkId = route.params.id;
   const { data, removeArtwork } = useContext(ArtworkContext);
-  const work = data.artwork.find((work) => work._id === artworkId);
+
+  const work = data.artwork
+    ? data.artwork.find((work) => work._id === artworkId)
+    : [];
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
@@ -26,6 +29,7 @@ const ArtworkDetailScreen = ({ route, navigation }) => {
   if (work) {
     return (
       <Screen>
+        <Text>ERROR is:{data.error}</Text>
         <Text>{work.title}</Text>
         <Text>{work.address}</Text>
 
