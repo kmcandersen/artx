@@ -30,30 +30,34 @@ const ArtworkListScreen = ({ navigation }) => {
 
   return (
     <Screen>
-      <FlatList
-        data={data.artwork}
-        keyExtractor={(work) => work._id}
-        renderItem={({ item }) => {
-          return (
-            <TouchableOpacity
-              onPress={() =>
-                navigation.navigate('ArtworkDetail', { id: item._id })
-              }
-            >
-              {/* so new item won't render before it's assigned an Id/key */}
-              {item._id && (
-                <View style={styles.row}>
-                  {item.title && (
-                    <Text style={styles.title}>
-                      {item.title}-{item._id}
-                    </Text>
-                  )}
-                </View>
-              )}
-            </TouchableOpacity>
-          );
-        }}
-      />
+      {data.error ? (
+        <Text>{data.error}</Text>
+      ) : (
+        <FlatList
+          data={data.artwork}
+          keyExtractor={(work) => work._id}
+          renderItem={({ item }) => {
+            return (
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate('ArtworkDetail', { id: item._id })
+                }
+              >
+                {/* so new item won't render before it's assigned an Id/key */}
+                {item._id && (
+                  <View style={styles.row}>
+                    {item.title && (
+                      <Text style={styles.title}>
+                        {item.title}-{item._id}
+                      </Text>
+                    )}
+                  </View>
+                )}
+              </TouchableOpacity>
+            );
+          }}
+        />
+      )}
     </Screen>
   );
 };

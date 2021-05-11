@@ -6,10 +6,17 @@ const BASE_URL = 'https://rn-artx.herokuapp.com';
 
 const ArtworkContext = React.createContext();
 
-const artworkReducer = (state = {}, action) => {
+const initialState = {
+  artwork: [],
+  error: '',
+};
+
+const artworkReducer = (state, action) => {
   switch (action.type) {
     case 'GET_ALL_ARTWORK':
-      return { artwork: action.payload };
+      return { artwork: action.payload, error: '' };
+    case 'GET_ALL_ARTWORK_ERROR':
+      return { artwork: [], error: action.payload };
     case 'ADD_ARTWORK':
       return [
         ...state.artwork,
@@ -44,11 +51,18 @@ const artworkReducer = (state = {}, action) => {
 };
 
 export const ArtworkProvider = ({ children }) => {
-  const [artwork, dispatch] = useReducer(artworkReducer, []);
+  const [artwork, dispatch] = useReducer(artworkReducer, initialState);
 
   const getArtwork = async () => {
-    const response = await axios.get(`${BASE_URL}/artwork`);
-    dispatch({ type: 'GET_ALL_ARTWORK', payload: response.data });
+    try {
+      const response = await axios.get(`https://rn-art.herokuapp.com/artwork`);
+      dispatch({ type: 'GET_ALL_ARTWORK', payload: response.data });
+    } catch (error) {
+      dispatch({
+        type: 'GET_ALL_ARTWORK_ERROR',
+        payload: `Artwork not fetched: ${error.message}`,
+      });
+    }
   };
 
   const addArtwork = async (artistFbId, title, address, callback) => {
