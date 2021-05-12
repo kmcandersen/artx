@@ -43,6 +43,16 @@ export const AuthProvider = ({ children }) => {
       });
   };
 
+  const onLogout = () => {
+    firebase
+      .auth()
+      .signOut()
+      .then(() => {
+        setUser(null);
+        setError(null);
+      });
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -52,6 +62,7 @@ export const AuthProvider = ({ children }) => {
         error,
         onLogin,
         onRegister,
+        onLogout,
       }}
     >
       {children}

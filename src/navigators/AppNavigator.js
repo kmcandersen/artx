@@ -1,27 +1,11 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { Ionicons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
-
 import ArtworkNavigator from './ArtworkNavigator';
+import AccountProfileScreen from '../screens/AccountProfileScreen';
 
 const Tab = createBottomTabNavigator();
-
-// const TAB_ICON = {
-//   Restaurants: "md-restaurant",
-//   Map: "md-map",
-//   Settings: "md-settings",
-// };
-
-// const createScreenOptions = ({ route }) => {
-//   const iconName = TAB_ICON[route.name];
-//   return {
-//     tabBarIcon: ({ size, color }) => (
-//       <Ionicons name={iconName} size={size} color={color} />
-//     ),
-//   };
-// };
 
 const AppNavigator = () => (
   <Tab.Navigator
@@ -44,13 +28,14 @@ const AppNavigator = () => (
       options={{
         tabBarIcon: () => <Ionicons name='md-people' size={24} color='black' />,
       }}
-    />
+    /> */}
     <Tab.Screen
       name='My Profile'
+      component={AccountProfileScreen}
       options={{
         tabBarIcon: () => <AntDesign name='profile' size={24} color='black' />,
       }}
-    /> */}
+    />
   </Tab.Navigator>
 );
 
