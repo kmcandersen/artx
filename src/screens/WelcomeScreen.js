@@ -1,22 +1,30 @@
 import React from 'react';
-import { Image, ImageBackground, StyleSheet, SafeAreaView } from 'react-native';
-import { Button } from 'react-native-elements';
+import {
+  Image,
+  ImageBackground,
+  StyleSheet,
+  SafeAreaView,
+  Text,
+} from 'react-native';
+import Screen from '../components/Screen';
+import AppButton from '../components/AppButton';
 import colors from '../config/colors';
 
 const WelcomeScreen = ({ navigation }) => {
   return (
-    <SafeAreaView style={styles.buttonsContainer}>
-      <Button
+    <Screen style={styles.buttonsContainer}>
+      <Text>WELCOME SCREEN</Text>
+      <AppButton
         buttonStyle={{ backgroundColor: colors.primary }}
         title='Log In'
-        // onPress={() => navigation.navigate('Login')}
+        onPress={() => navigation.navigate('Login')}
       />
-      <Button
+      <AppButton
         buttonStyle={{ backgroundColor: colors.secondary }}
-        title='Sign Up'
-        // onPress={() => navigation.navigate('Signup')}
+        title='Register'
+        onPress={() => navigation.navigate('Register')}
       />
-    </SafeAreaView>
+    </Screen>
   );
 };
 

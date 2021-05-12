@@ -1,15 +1,23 @@
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-
+import * as firebase from 'firebase';
+import Navigation from './src/navigators';
 import { ArtworkProvider } from './src/contexts/ArtworkContext';
-import ArtworkNavigator from './src/navigators/ArtworkNavigator';
+import { AuthProvider } from './src/contexts/AuthContext';
 
-export default function App() {
-  return (
-    <ArtworkProvider>
-      <NavigationContainer>
-        <ArtworkNavigator />
-      </NavigationContainer>
-    </ArtworkProvider>
-  );
+const firebaseConfig = {};
+
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
 }
+
+const App = () => {
+  return (
+    <AuthProvider>
+      <ArtworkProvider>
+        <Navigation />
+      </ArtworkProvider>
+    </AuthProvider>
+  );
+};
+
+export default App;
