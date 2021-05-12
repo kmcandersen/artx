@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import * as firebase from 'firebase';
 
 const loginRequest = (email, password) => {
-  console.log('loginReq', email, password);
   return firebase.auth().signInWithEmailAndPassword(email, password);
 };
 
@@ -17,13 +16,29 @@ export const AuthProvider = ({ children }) => {
     setIsLoading(true);
     loginRequest(email, password)
       .then((u) => {
-        console.log('u', u);
         setUser(u);
         setIsLoading(false);
       })
       .catch((e) => {
         setIsLoading(false);
-        console.log('context e', e);
+        setError(e.toString());
+      });
+  };
+
+  const onRegister = (email, password, repeatedPassword) => {
+    if (password !== repeatedPassword) {
+      setError('Error: Passwords do not match');
+      return;
+    }
+    firebase
+      .auth()
+      .createUserWithEmailAndPassword(email, password)
+      .then((u) => {
+        setUser(u);
+        setIsLoading(false);
+      })
+      .catch((e) => {
+        setIsLoading(false);
         setError(e.toString());
       });
   };
@@ -36,6 +51,7 @@ export const AuthProvider = ({ children }) => {
         isLoading,
         error,
         onLogin,
+        onRegister,
       }}
     >
       {children}

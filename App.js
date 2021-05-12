@@ -26,7 +26,6 @@ if (!firebase.apps.length) {
 }
 
 const App = () => {
-  console.log(firebaseConfig.apiKey);
   return (
     <AuthProvider>
       <ArtworkProvider>

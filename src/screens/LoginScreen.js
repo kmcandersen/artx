@@ -8,9 +8,7 @@ const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const { onLogin, error } = useContext(AuthContext);
-  if (error) {
-    console.log('error', error);
-  }
+
   return (
     <Screen>
       <Text>LOGIN SCREEN</Text>
@@ -30,13 +28,12 @@ const LoginScreen = ({ navigation }) => {
         textContentType='password'
         secureTextEntry
         autoCapitalize='none'
-        secure
         onChangeText={(p) => setPassword(p)}
         style={styles.inputs}
       />
       {error && (
         <View size='large'>
-          <Text variant='error'>{error[0]}</Text>
+          <Text variant='error'>{error}</Text>
         </View>
       )}
       <AppButton
