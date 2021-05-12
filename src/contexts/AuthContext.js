@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import * as firebase from 'firebase';
 
 const loginRequest = (email, password) => {
-  firebase.auth().signInWithEmailAndPassword(email, password);
+  console.log('loginReq', email, password);
+  return firebase.auth().signInWithEmailAndPassword(email, password);
 };
 
 const AuthContext = React.createContext();
@@ -16,12 +17,14 @@ export const AuthProvider = ({ children }) => {
     setIsLoading(true);
     loginRequest(email, password)
       .then((u) => {
+        console.log('u', u);
         setUser(u);
         setIsLoading(false);
       })
       .catch((e) => {
         setIsLoading(false);
-        setError(e);
+        console.log('context e', e);
+        setError(e.toString());
       });
   };
 
