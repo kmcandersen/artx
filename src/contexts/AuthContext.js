@@ -12,45 +12,44 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
 
-  const onLogin = (email, password) => {
-    setIsLoading(true);
-    loginRequest(email, password)
-      .then((u) => {
-        setUser(u);
-        setIsLoading(false);
-      })
-      .catch((e) => {
-        setIsLoading(false);
-        setError(e.toString());
-      });
+  const onLogin = async (email, password) => {
+    try {
+      setError(null);
+      setIsLoading(true);
+      const response = await loginRequest(email, password);
+      setUser(response);
+      setIsLoading(false);
+    } catch (error) {
+      setIsLoading(false);
+      setError(error.toString());
+    }
   };
 
-  const onRegister = (email, password, repeatedPassword) => {
+  const onRegister = async (email, password, repeatedPassword) => {
     if (password !== repeatedPassword) {
       setError('Error: Passwords do not match');
       return;
     }
-    firebase
-      .auth()
-      .createUserWithEmailAndPassword(email, password)
-      .then((u) => {
-        setUser(u);
-        setIsLoading(false);
-      })
-      .catch((e) => {
-        setIsLoading(false);
-        setError(e.toString());
-      });
+    try {
+      const response = await firebase
+        .auth()
+        .createUserWithEmailAndPassword(email, password);
+      setUser(response);
+      setIsLoading(false);
+    } catch (error) {
+      setIsLoading(false);
+      setError(error.toString());
+    }
   };
 
-  const onLogout = () => {
-    firebase
-      .auth()
-      .signOut()
-      .then(() => {
-        setUser(null);
-        setError(null);
-      });
+  const onLogout = async () => {
+    try {
+      await firebase.auth().signOut();
+      setUser(null);
+      setError(null);
+    } catch (error) {
+      setError(error.toString());
+    }
   };
 
   return (
