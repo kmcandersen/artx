@@ -1,5 +1,5 @@
-import React, { useContext, useEffect } from 'react';
-import { StyleSheet, Text, TouchableOpacity } from 'react-native';
+import React, { useContext } from 'react';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { EvilIcons } from '@expo/vector-icons';
 import Screen from '../components/Screen';
 import ArtworkContext from '../contexts/ArtworkContext';
@@ -7,11 +7,9 @@ import { Feather } from '@expo/vector-icons';
 
 const ArtworkDetailScreen = ({ route, navigation }) => {
   const artworkId = route.params.id;
-  const { data, removeArtwork } = useContext(ArtworkContext);
+  const { artwork, error, removeArtwork } = useContext(ArtworkContext);
 
-  const work = data.artwork
-    ? data.artwork.find((work) => work._id === artworkId)
-    : [];
+  const work = artwork ? artwork.find((work) => work._id === artworkId) : [];
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
@@ -29,7 +27,11 @@ const ArtworkDetailScreen = ({ route, navigation }) => {
   if (work) {
     return (
       <Screen>
-        <Text>ERROR is:{data.error}</Text>
+        {error && (
+          <View>
+            <Text>{error}</Text>
+          </View>
+        )}
         <Text>{work.title}</Text>
         <Text>{work.address}</Text>
 

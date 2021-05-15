@@ -1,17 +1,21 @@
 import React, { useContext, useState } from 'react';
-import { StyleSheet, Text, TextInput } from 'react-native';
+import { StyleSheet, Text, TextInput, View } from 'react-native';
 import ArtworkContext from '../contexts/ArtworkContext';
 import Screen from '../components/Screen';
 import AppButton from '../components/AppButton';
 
 const CreateArtworkScreen = ({ navigation }) => {
-  const { data, addArtwork } = useContext(ArtworkContext);
+  const { error, addArtwork } = useContext(ArtworkContext);
   const [title, setTitle] = useState('');
   const [address, setAddress] = useState('');
 
   return (
     <Screen>
-      <Text>ERROR is: {data.error}</Text>
+      {error && (
+        <View>
+          <Text>{error}</Text>
+        </View>
+      )}
       <Text style={styles.label}>Enter title</Text>
       <TextInput
         style={styles.inputs}

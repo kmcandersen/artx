@@ -1,5 +1,6 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import {
+  Alert,
   FlatList,
   StyleSheet,
   Text,
@@ -7,16 +8,24 @@ import {
   View,
 } from 'react-native';
 import { Feather } from '@expo/vector-icons';
+import { ActivityIndicator } from 'react-native-paper';
 
 import ArtworkContext from '../contexts/ArtworkContext';
 import Screen from '../components/Screen';
+import colors from '../config/colors';
 
 const ArtworkListScreen = ({ navigation }) => {
-  const { data, getArtwork } = useContext(ArtworkContext);
+  const { artwork, error, getArtwork } = useContext(ArtworkContext);
+  const [isDataLoading, setIsDataLoading] = useState(true);
 
   useEffect(() => {
-    getArtwork();
-  }, [data]);
+    let data = getArtwork();
+    if (data) {
+      setIsDataLoading(false);
+    } else {
+      setIsDataLoading(true);
+    }
+  }, [artwork]);
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
@@ -30,37 +39,59 @@ const ArtworkListScreen = ({ navigation }) => {
 
   return (
     <Screen>
-      <Text>ERROR is: {data.error}</Text>
-
-      <FlatList
-        data={data.artwork}
-        keyExtractor={(work) => work._id}
-        renderItem={({ item }) => {
-          return (
-            <TouchableOpacity
-              onPress={() =>
-                navigation.navigate('ArtworkDetail', { id: item._id })
-              }
-            >
-              {/* so new item won't render before it's assigned an Id/key */}
-              {item._id && (
-                <View style={styles.row}>
-                  {item.title && (
-                    <Text style={styles.title}>
-                      {item.title}-{item._id}
-                    </Text>
-                  )}
-                </View>
-              )}
-            </TouchableOpacity>
-          );
-        }}
-      />
+      {isDataLoading && !error ? (
+        <View style={styles.loadingContainer}>
+          <ActivityIndicator
+            style={styles.loading}
+            size={50}
+            animating={true}
+            color={colors.secondary}
+          />
+        </View>
+      ) : null}
+      {error ? (
+        <View>
+          <Text>{error}</Text>
+        </View>
+      ) : (
+        <FlatList
+          data={artwork}
+          keyExtractor={(work) => work._id}
+          renderItem={({ item }) => {
+            return (
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate('ArtworkDetail', { id: item._id })
+                }
+              >
+                {/* so new item won't render before it's assigned an Id/key */}
+                {item._id && (
+                  <View style={styles.row}>
+                    {item.title && (
+                      <Text style={styles.title}>
+                        {item.title}-{item._id}
+                      </Text>
+                    )}
+                  </View>
+                )}
+              </TouchableOpacity>
+            );
+          }}
+        />
+      )}
     </Screen>
   );
 };
 
 const styles = StyleSheet.create({
+  loading: {
+    marginLeft: -25,
+  },
+  loadingContainer: {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+  },
   row: {
     flexDirection: 'row',
     justifyContent: 'space-between',

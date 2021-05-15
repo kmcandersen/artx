@@ -26,6 +26,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const onRegister = async (email, password, repeatedPassword) => {
+    setIsLoading(true);
     if (password !== repeatedPassword) {
       setError('Error: Passwords do not match');
       return;

@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { StyleSheet, Text, TextInput } from 'react-native';
+import { StyleSheet, Text, TextInput, View } from 'react-native';
 
 import ArtworkContext from '../contexts/ArtworkContext';
 
@@ -9,18 +9,20 @@ import AppButton from '../components/AppButton';
 const EditArtworkScreen = ({ route, navigation }) => {
   const artworkId = route.params.id;
 
-  const { data, editArtwork } = useContext(ArtworkContext);
+  const { artwork, error, editArtwork } = useContext(ArtworkContext);
 
-  const work = data.artwork
-    ? data.artwork.find((work) => work._id === artworkId)
-    : [];
+  const work = artwork ? artwork.find((work) => work._id === artworkId) : [];
 
   const [title, setTitle] = useState(work.title);
   const [address, setAddress] = useState(work.address);
 
   return (
     <Screen>
-      <Text>ERROR is: {data.error}</Text>
+      {error && (
+        <View>
+          <Text>{error}</Text>
+        </View>
+      )}
       <Text style={styles.label}>Edit title</Text>
       <Text>Artwork Id:{work._id}</Text>
       <TextInput

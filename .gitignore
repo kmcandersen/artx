@@ -9,6 +9,7 @@ npm-debug.*
 *.orig.*
 web-build/
 src/config/vars.js
+src/contexts/ArtworkContext_reducer.js
 
 # macOS
 .DS_Store
