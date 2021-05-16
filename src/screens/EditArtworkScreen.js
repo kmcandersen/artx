@@ -42,9 +42,8 @@ const EditArtworkScreen = ({ route, navigation }) => {
         validationSchema={validationSchema}
       >
         <ErrorMessage error={error} visible={error} />
-        <AppFormField icon='email' name='title' placeholder='Title' />
+        <AppFormField name='title' placeholder='Title' />
         <AppFormField
-          icon='lock'
           name='address'
           placeholder='Address or Intersection'
           textContentType='streetAddressLine1'

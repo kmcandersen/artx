@@ -3,7 +3,7 @@ import { StyleSheet, TextInput, View } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import defaultStyles from '../config/styles';
 
-function AppTextInput({ icon, width = '100%', ...otherProps }) {
+function AppTextInput({ icon = null, width = '100%', ...otherProps }) {
   return (
     <View style={[styles.container, (width = { width })]}>
       {icon && (
