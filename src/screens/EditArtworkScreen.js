@@ -1,5 +1,12 @@
-import React, { useContext, useState } from 'react';
-import { StyleSheet, Text, TextInput, View } from 'react-native';
+import React, { useContext } from 'react';
+import { StyleSheet } from 'react-native';
+import * as Yup from 'yup';
+import {
+  ErrorMessage,
+  AppForm,
+  AppFormField,
+  SubmitButton,
+} from '../components/forms';
 
 import ArtworkContext from '../contexts/ArtworkContext';
 
@@ -13,54 +20,42 @@ const EditArtworkScreen = ({ route, navigation }) => {
 
   const work = artwork ? artwork.find((work) => work._id === artworkId) : [];
 
-  const [title, setTitle] = useState(work.title);
-  const [address, setAddress] = useState(work.address);
+  const validationSchema = Yup.object().shape({
+    title: Yup.string().required().label('Title'),
+    address: Yup.string().required().min(4).label('Address'),
+  });
+
+  const initialValues = {
+    id: work._id,
+    title: work.title,
+    address: work.address,
+    callback: () => {
+      navigation.pop();
+    },
+  };
 
   return (
     <Screen>
-      {error && (
-        <View>
-          <Text>{error}</Text>
-        </View>
-      )}
-      <Text style={styles.label}>Edit title</Text>
-      <Text>Artwork Id:{work._id}</Text>
-      <TextInput
-        style={styles.inputs}
-        value={title}
-        onChangeText={(text) => setTitle(text)}
-      />
-      <Text style={styles.label}>Edit Address</Text>
-      <TextInput
-        style={styles.inputs}
-        value={address}
-        onChangeText={(text) => setAddress(text)}
-      />
-      <AppButton
-        title='Submit Edit'
-        onPress={() => {
-          editArtwork(artworkId, title, address, () => {
-            navigation.pop();
-          });
-        }}
-      />
+      <AppForm
+        initialValues={initialValues}
+        onSubmit={editArtwork}
+        validationSchema={validationSchema}
+      >
+        <ErrorMessage error={error} visible={error} />
+        <AppFormField icon='email' name='title' placeholder='Title' />
+        <AppFormField
+          icon='lock'
+          name='address'
+          placeholder='Address or Intersection'
+          textContentType='streetAddressLine1'
+        />
+        <SubmitButton title='Update Artwork' />
+        <AppButton title='Back' onPress={() => navigation.goBack()} />
+      </AppForm>
     </Screen>
   );
 };
 
-const styles = StyleSheet.create({
-  inputs: {
-    fontSize: 18,
-    borderWidth: 1,
-    borderColor: 'black',
-    marginBottom: 15,
-    margin: 5,
-    padding: 5,
-  },
-  labels: {
-    fontSize: 20,
-    marginBottom: 5,
-  },
-});
+const styles = StyleSheet.create({});
 
 export default EditArtworkScreen;

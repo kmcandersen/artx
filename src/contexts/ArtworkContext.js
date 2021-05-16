@@ -48,7 +48,7 @@ export const ArtworkProvider = ({ children }) => {
     }
   };
 
-  const editArtwork = async (id, title, address, callback) => {
+  const editArtwork = async ({ id, title, address, callback }) => {
     try {
       setError(null);
       await axios.patch(`${BASE_URL}/artwork/${id}`, { title, address });

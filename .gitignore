@@ -13,6 +13,7 @@ src/contexts/ArtworkContext_reducer.js
 src/screens/LoginScreen_woFormik.js
 src/screens/RegisterScreen_woFormik.js
 src/screens/CreateArtworkScreen_woFormik.js
+src/screens/EditArtworkScreen_woFormik.js
 
 # macOS
 .DS_Store
