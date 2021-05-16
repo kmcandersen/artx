@@ -10,6 +10,7 @@ npm-debug.*
 web-build/
 src/config/vars.js
 src/contexts/ArtworkContext_reducer.js
+src/screens/LoginScreen_woFormik.js
 
 # macOS
 .DS_Store
