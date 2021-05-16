@@ -12,8 +12,8 @@ import Screen from '../components/Screen';
 import AppButton from '../components/AppButton';
 
 const validationSchema = Yup.object().shape({
-  title: Yup.string().required(),
-  address: Yup.string().required().min(4),
+  title: Yup.string().required().label('Title'),
+  address: Yup.string().required().min(4).label('Address'),
 });
 
 const CreateArtworkScreen = ({ navigation }) => {
