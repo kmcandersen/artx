@@ -1,58 +1,55 @@
 import React, { useContext, useState } from 'react';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
+import * as Yup from 'yup';
+import {
+  ErrorMessage,
+  AppForm,
+  AppFormField,
+  SubmitButton,
+} from '../components/forms';
 import ArtworkContext from '../contexts/ArtworkContext';
 import Screen from '../components/Screen';
 import AppButton from '../components/AppButton';
 
+const validationSchema = Yup.object().shape({
+  title: Yup.string().required(),
+  address: Yup.string().required().min(4),
+});
+
 const CreateArtworkScreen = ({ navigation }) => {
   const { error, addArtwork } = useContext(ArtworkContext);
-  const [title, setTitle] = useState('');
-  const [address, setAddress] = useState('');
+
+  const initialValues = {
+    artistFbId: 'A012',
+    title: '',
+    address: '',
+    callback: () => {
+      navigation.navigate('ArtworkList');
+    },
+  };
 
   return (
     <Screen>
-      {error && (
-        <View>
-          <Text>{error}</Text>
-        </View>
-      )}
-      <Text style={styles.label}>Enter title</Text>
-      <TextInput
-        style={styles.inputs}
-        value={title}
-        onChangeText={(text) => setTitle(text)}
-      />
-      <Text style={styles.label}>Enter Address</Text>
-      <TextInput
-        style={styles.inputs}
-        value={address}
-        onChangeText={(text) => setAddress(text)}
-      />
-      <AppButton
-        title='Submit New Artwork'
-        onPress={() => {
-          addArtwork('A012', title, address, () => {
-            navigation.navigate('ArtworkList');
-          });
-        }}
-      />
+      <AppForm
+        initialValues={initialValues}
+        onSubmit={addArtwork}
+        validationSchema={validationSchema}
+      >
+        <ErrorMessage error={error} visible={error} />
+        <AppFormField icon='email' name='title' placeholder='Title' />
+        <AppFormField
+          icon='lock'
+          name='address'
+          placeholder='Address or Intersection'
+          textContentType='streetAddressLine1'
+        />
+        <SubmitButton title='Add Artwork' />
+        <AppButton title='Back' onPress={() => navigation.goBack()} />
+      </AppForm>
     </Screen>
   );
 };
 
-const styles = StyleSheet.create({
-  inputs: {
-    fontSize: 18,
-    borderWidth: 1,
-    borderColor: 'black',
-    marginBottom: 15,
-    margin: 5,
-    padding: 5,
-  },
-  labels: {
-    fontSize: 20,
-    marginBottom: 5,
-  },
-});
+const styles = StyleSheet.create({});
 
 export default CreateArtworkScreen;
