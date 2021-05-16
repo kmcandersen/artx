@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import * as firebase from 'firebase';
 
-const loginRequest = ({ email, password }) => {
+const loginRequest = (email, password) => {
   return firebase.auth().signInWithEmailAndPassword(email, password);
 };
 
@@ -12,7 +12,7 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
 
-  const onLogin = async (email, password) => {
+  const onLogin = async ({ email, password }) => {
     try {
       setError(null);
       setIsLoading(true);
@@ -25,8 +25,9 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const onRegister = async (email, password, repeatedPassword) => {
+  const onRegister = async ({ email, password, repeatedPassword }) => {
     setIsLoading(true);
+
     if (password !== repeatedPassword) {
       setError('Error: Passwords do not match');
       return;
