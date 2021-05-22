@@ -15,7 +15,7 @@ import AppButton from '../components/AppButton';
 const validationSchema = Yup.object().shape({
   title: Yup.string().required().label('Title'),
   address: Yup.string().required().min(4).label('Address'),
-  // photoUrl: Yup.string().min(1, 'Please select at least 1 image'),
+  // photoUrls: Yup.string().min(1, 'Please select at least 1 image'),
 });
 
 const CreateArtworkScreen = ({ navigation }) => {
@@ -25,7 +25,7 @@ const CreateArtworkScreen = ({ navigation }) => {
     artistFbId: 'A012',
     title: '',
     address: '',
-    photoUrl: [],
+    photoUrls: [],
     callback: () => {
       navigation.navigate('ArtworkList');
     },
@@ -45,7 +45,7 @@ const CreateArtworkScreen = ({ navigation }) => {
           placeholder='Address or Intersection'
           textContentType='streetAddressLine1'
         />
-        <FormImagePicker name='photoUrl' />
+        <FormImagePicker name='photoUrls' />
         <SubmitButton title='Add Artwork' />
         <AppButton title='Back' onPress={() => navigation.goBack()} />
       </AppForm>

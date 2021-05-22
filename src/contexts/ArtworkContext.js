@@ -20,13 +20,20 @@ export const ArtworkProvider = ({ children }) => {
     }
   };
 
-  const addArtwork = async ({ artistFbId, title, address, callback }) => {
+  const addArtwork = async ({
+    artistFbId,
+    title,
+    address,
+    photoUrls,
+    callback,
+  }) => {
     try {
       setError(null);
       const newArtwork = await axios.post(`${BASE_URL}/artwork`, {
         artistFbId,
         title,
         address,
+        photoUrls,
       });
       setArtwork({ ...artwork, newArtwork });
       if (callback) callback();
