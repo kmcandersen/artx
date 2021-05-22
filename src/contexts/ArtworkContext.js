@@ -25,6 +25,7 @@ export const ArtworkProvider = ({ children }) => {
     title,
     address,
     photoUrls,
+    tags,
     callback,
   }) => {
     try {
@@ -33,6 +34,7 @@ export const ArtworkProvider = ({ children }) => {
         artistFbId,
         title,
         address,
+        tags,
         photoUrls,
       });
       setArtwork({ ...artwork, newArtwork });

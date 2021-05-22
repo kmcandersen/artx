@@ -5,9 +5,12 @@ import {
   ErrorMessage,
   AppForm,
   AppFormField,
+  AppFormPicker,
   FormImagePicker,
   SubmitButton,
 } from '../components/forms';
+import TagPickerItem from '../components/TagPickerItem';
+import tags from '../config/tags';
 import ArtworkContext from '../contexts/ArtworkContext';
 import Screen from '../components/Screen';
 import AppButton from '../components/AppButton';
@@ -26,6 +29,7 @@ const CreateArtworkScreen = ({ navigation }) => {
     title: '',
     address: '',
     photoUrls: [],
+    tags: [],
     callback: () => {
       navigation.navigate('ArtworkList');
     },
@@ -46,6 +50,14 @@ const CreateArtworkScreen = ({ navigation }) => {
           textContentType='streetAddressLine1'
         />
         <FormImagePicker name='photoUrls' />
+        <AppFormPicker
+          items={tags}
+          name='tags'
+          numberOfColumns={3}
+          PickerItemComponent={TagPickerItem}
+          placeholder='Select Tag'
+          width='50%'
+        />
         <SubmitButton title='Add Artwork' />
         <AppButton title='Back' onPress={() => navigation.goBack()} />
       </AppForm>
