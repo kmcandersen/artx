@@ -11,6 +11,7 @@ export const ArtworkProvider = ({ children }) => {
   const [error, setError] = useState(null);
   const [coords, setCoords] = useState([]);
   const [imgCount, setImgCount] = useState(0);
+  const [deleteTokens, setDeleteTokens] = useState([]);
 
   const getArtwork = async () => {
     try {
@@ -42,6 +43,7 @@ export const ArtworkProvider = ({ children }) => {
       });
       setArtwork({ ...artwork, newArtwork });
       setCoords([]);
+      setDeleteTokens([]);
       if (callback) callback();
     } catch (error) {
       setError(error.toString());
@@ -91,6 +93,8 @@ export const ArtworkProvider = ({ children }) => {
         imgCount,
         setImgCount,
         setCoords,
+        deleteTokens,
+        setDeleteTokens,
         getArtwork,
         addArtwork,
         removeArtwork,

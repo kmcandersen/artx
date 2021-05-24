@@ -19,8 +19,14 @@ import {
 import ArtworkContext from '../contexts/ArtworkContext';
 
 function ImageInput({ imageUri, onChangeImage }) {
-  const { coords, setCoords, imgCount, setImgCount } =
-    useContext(ArtworkContext);
+  const {
+    coords,
+    setCoords,
+    imgCount,
+    setImgCount,
+    deleteTokens,
+    setDeleteTokens,
+  } = useContext(ArtworkContext);
 
   useEffect(() => {
     requestPermission();
@@ -37,12 +43,20 @@ function ImageInput({ imageUri, onChangeImage }) {
     if (!imageUri) {
       selectImage();
     } else {
+      const imageUriKey = imageUri.split('/')[8].split('.')[0];
+      const matchingToken = deleteTokens.find(
+        (obj) => obj.uri === imageUriKey
+      ).token;
+
       Alert.alert('Delete', 'Are you sure you want to delete this image?', [
         {
           text: 'Yes',
-          // null bc image not physically deleted from the library, just the container
-          onPress: () => {
+          onPress: async () => {
+            await axios.post(`${CLOUD_URL}/delete_by_token`, {
+              token: matchingToken,
+            });
             setImgCount(imgCount - 1);
+            // null bc image not physically deleted from the library, just the container
             onChangeImage(null);
             if (imgCount === 1) {
               setCoords([]);
@@ -88,7 +102,12 @@ function ImageInput({ imageUri, onChangeImage }) {
       data.append('upload_preset', CLOUD_PRESET_A);
       data.append('folder', CLOUD_FOLDER_A);
       data.append('cloud_name', CLOUD_NAME);
-      const response = await axios.post(CLOUD_URL, data);
+      const response = await axios.post(`${CLOUD_URL}/image/upload`, data);
+      const imageUriKey = response.data.url.split('/')[8].split('.')[0];
+      setDeleteTokens([
+        ...deleteTokens,
+        { uri: imageUriKey, token: response.data.delete_token },
+      ]);
       onChangeImage(response.data.url);
       setImgCount(imgCount + 1);
     } catch (error) {
