@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { EvilIcons } from '@expo/vector-icons';
 import Screen from '../components/Screen';
+import PhotoSlider from '../components/PhotoSlider';
 import ArtworkContext from '../contexts/ArtworkContext';
 import { Feather } from '@expo/vector-icons';
 
@@ -32,6 +33,9 @@ const ArtworkDetailScreen = ({ route, navigation }) => {
             <Text>{error}</Text>
           </View>
         )}
+        <View>
+          <PhotoSlider photos={work.photoUrls} />
+        </View>
         <Text>{work.title}</Text>
         <Text>{work.address}</Text>
 
@@ -48,8 +52,6 @@ const ArtworkDetailScreen = ({ route, navigation }) => {
   return null;
 };
 
-const styles = StyleSheet.create({
-  container: {},
-});
+const styles = StyleSheet.create({});
 
 export default ArtworkDetailScreen;
