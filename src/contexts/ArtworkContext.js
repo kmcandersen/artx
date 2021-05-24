@@ -9,6 +9,8 @@ const ArtworkContext = React.createContext();
 export const ArtworkProvider = ({ children }) => {
   const [artwork, setArtwork] = useState([]);
   const [error, setError] = useState(null);
+  const [coords, setCoords] = useState([]);
+  const [imgCount, setImgCount] = useState(0);
 
   const getArtwork = async () => {
     try {
@@ -24,8 +26,8 @@ export const ArtworkProvider = ({ children }) => {
     artistFbId,
     title,
     address,
-    photoUrls,
     tags,
+    photoUrls,
     callback,
   }) => {
     try {
@@ -36,8 +38,10 @@ export const ArtworkProvider = ({ children }) => {
         address,
         tags,
         photoUrls,
+        coords,
       });
       setArtwork({ ...artwork, newArtwork });
+      setCoords([]);
       if (callback) callback();
     } catch (error) {
       setError(error.toString());
@@ -83,6 +87,10 @@ export const ArtworkProvider = ({ children }) => {
       value={{
         artwork,
         error,
+        coords,
+        imgCount,
+        setImgCount,
+        setCoords,
         getArtwork,
         addArtwork,
         removeArtwork,

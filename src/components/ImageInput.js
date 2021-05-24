@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import axios from 'axios';
 import * as ImagePicker from 'expo-image-picker';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -10,10 +10,15 @@ import {
   TouchableWithoutFeedback,
 } from 'react-native';
 import colors from '../config/styles';
+import ArtworkContext from '../contexts/ArtworkContext';
 
 function ImageInput({ imageUri, onChangeImage }) {
+  const { coords, setCoords, imgCount, setImgCount } =
+    useContext(ArtworkContext);
+
   useEffect(() => {
     requestPermission();
+    setImgCount(0);
   }, []);
 
   const requestPermission = async () => {
@@ -30,7 +35,13 @@ function ImageInput({ imageUri, onChangeImage }) {
         {
           text: 'Yes',
           // null bc image not physically deleted from the library, just the container
-          onPress: () => onChangeImage(null),
+          onPress: () => {
+            setImgCount(imgCount - 1);
+            onChangeImage(null);
+            if (imgCount === 1) {
+              setCoords([]);
+            }
+          },
         },
         {
           text: 'No',
@@ -44,18 +55,23 @@ function ImageInput({ imageUri, onChangeImage }) {
       const result = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
         quality: 0.5,
+        aspect: [4, 3],
+        exif: true,
       });
       if (!result.cancelled) {
-        // TODO: EXTRACT COORDS
-        let newfile = {
+        if (result.exif.GPSLatitude && coords.length === 0) {
+          setCoords([result.exif.GPSLongitude, result.exif.GPSLatitude]);
+        }
+
+        let newImage = {
           uri: result.uri,
           type: `test/${result.uri.split('.')[1]}`,
           name: `test.${result.uri.split('.')[1]}`,
         };
-        handleUpload(newfile);
+        handleUpload(newImage);
       }
     } catch (error) {
-      console.log('Error reading an image');
+      console.log('Error reading the image');
     }
   };
 
@@ -70,6 +86,7 @@ function ImageInput({ imageUri, onChangeImage }) {
         data
       );
       onChangeImage(response.data.url);
+      setImgCount(imgCount + 1);
     } catch (error) {
       Alert.alert('error while uploading');
     }
