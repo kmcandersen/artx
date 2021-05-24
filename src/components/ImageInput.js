@@ -10,6 +10,12 @@ import {
   TouchableWithoutFeedback,
 } from 'react-native';
 import colors from '../config/styles';
+import {
+  CLOUD_NAME,
+  CLOUD_FOLDER_A,
+  CLOUD_PRESET_A,
+  CLOUD_URL,
+} from '../config/vars';
 import ArtworkContext from '../contexts/ArtworkContext';
 
 function ImageInput({ imageUri, onChangeImage }) {
@@ -79,12 +85,10 @@ function ImageInput({ imageUri, onChangeImage }) {
     try {
       const data = new FormData();
       data.append('file', image);
-      data.append('upload_preset', 'rn-artx');
-      data.append('cloud_name', 'kmcandersen');
-      const response = await axios.post(
-        `https://api.cloudinary.com/v1_1/kmcandersen/image/upload`,
-        data
-      );
+      data.append('upload_preset', CLOUD_PRESET_A);
+      data.append('folder', CLOUD_FOLDER_A);
+      data.append('cloud_name', CLOUD_NAME);
+      const response = await axios.post(CLOUD_URL, data);
       onChangeImage(response.data.url);
       setImgCount(imgCount + 1);
     } catch (error) {
