@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { EvilIcons } from '@expo/vector-icons';
 import Screen from '../components/Screen';
+import ArtworkDetailMap from '../components/ArtworkDetailMap';
 import PhotoSlider from '../components/PhotoSlider';
 import ArtworkContext from '../contexts/ArtworkContext';
 import { Feather } from '@expo/vector-icons';
@@ -27,7 +28,7 @@ const ArtworkDetailScreen = ({ route, navigation }) => {
   // if an indiv artwork is deleted, doesn't try to render DetailScreen; callback redirects to ArtworkList
   if (work) {
     return (
-      <Screen>
+      <Screen style={{ backgroundColor: '#fff' }}>
         {error && (
           <View>
             <Text>{error}</Text>
@@ -46,6 +47,7 @@ const ArtworkDetailScreen = ({ route, navigation }) => {
         >
           <Feather style={styles.icon} name='trash' />
         </TouchableOpacity>
+        <ArtworkDetailMap coords={work.coords} title={work.title} />
       </Screen>
     );
   }
