@@ -48,13 +48,11 @@ const PhotoSlider = ({ photos }) => {
             </TouchableWithoutFeedback>
             <Modal visible={modalVisible} animationType='slide'>
               <Screen>
-                <TouchableOpacity onPress={() => setModalVisible(false)}>
-                  <AntDesign
-                    name='closecircleo'
-                    size={30}
-                    color='black'
-                    style={styles.icon}
-                  />
+                <TouchableOpacity
+                  style={styles.iconContainer}
+                  onPress={() => setModalVisible(false)}
+                >
+                  <AntDesign name='closecircleo' size={30} color='black' />
                 </TouchableOpacity>
                 {/* <Button title='Close' onPress={() => setModalVisible(false)} /> */}
                 <View style={styles.photoEnlargedContainer}>
@@ -104,11 +102,12 @@ const styles = StyleSheet.create({
     bottom: 0,
     alignSelf: 'center',
   },
-  //   icon: {
-  //     position: 'absolute',
-  //     right: 30,
-  //     top: 10,
-  //   },
+  iconContainer: {
+    position: 'absolute',
+    right: 30,
+    top: 10,
+    zIndex: 1,
+  },
   photo: {
     width,
     height: thumbHeight,
