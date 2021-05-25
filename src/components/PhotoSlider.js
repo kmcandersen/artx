@@ -8,9 +8,11 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  TouchableOpacity,
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
+import { AntDesign } from '@expo/vector-icons';
 import Screen from './Screen';
 
 const { width } = Dimensions.get('window');
@@ -46,7 +48,15 @@ const PhotoSlider = ({ photos }) => {
             </TouchableWithoutFeedback>
             <Modal visible={modalVisible} animationType='slide'>
               <Screen>
-                <Button title='Close' onPress={() => setModalVisible(false)} />
+                <TouchableOpacity onPress={() => setModalVisible(false)}>
+                  <AntDesign
+                    name='closecircleo'
+                    size={30}
+                    color='black'
+                    style={styles.icon}
+                  />
+                </TouchableOpacity>
+                {/* <Button title='Close' onPress={() => setModalVisible(false)} /> */}
                 <View style={styles.photoEnlargedContainer}>
                   <ImageBackground
                     source={{ uri: photos[activePhoto] }}
@@ -94,6 +104,11 @@ const styles = StyleSheet.create({
     bottom: 0,
     alignSelf: 'center',
   },
+  //   icon: {
+  //     position: 'absolute',
+  //     right: 30,
+  //     top: 10,
+  //   },
   photo: {
     width,
     height: thumbHeight,
