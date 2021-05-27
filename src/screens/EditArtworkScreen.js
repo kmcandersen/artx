@@ -23,12 +23,14 @@ const EditArtworkScreen = ({ route, navigation }) => {
   const validationSchema = Yup.object().shape({
     title: Yup.string().required().label('Title'),
     address: Yup.string().required().min(4).label('Address'),
+    aboutText: Yup.string().max(450).label('About'),
   });
 
   const initialValues = {
     id: work._id,
     title: work.title,
     address: work.address,
+    aboutText: work.aboutText,
     callback: () => {
       navigation.pop();
     },
@@ -47,6 +49,11 @@ const EditArtworkScreen = ({ route, navigation }) => {
           name='address'
           placeholder='Address or Intersection'
           textContentType='streetAddressLine1'
+        />
+        <AppFormField
+          name='aboutText'
+          placeholder='About this project'
+          textContentType='none'
         />
         <SubmitButton title='Update Artwork' />
         <AppButton title='Back' onPress={() => navigation.goBack()} />

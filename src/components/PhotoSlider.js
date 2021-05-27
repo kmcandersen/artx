@@ -16,7 +16,7 @@ import { AntDesign } from '@expo/vector-icons';
 import Screen from './Screen';
 
 const { width } = Dimensions.get('window');
-const thumbHeight = width * 0.6;
+const thumbHeight = width * 0.7;
 
 const PhotoSlider = ({ photos }) => {
   const [activePhoto, setActivePhoto] = useState(0);
@@ -67,16 +67,18 @@ const PhotoSlider = ({ photos }) => {
           </View>
         ))}
       </ScrollView>
-      <View style={styles.dotContainer}>
-        {photos.map((i, k) => (
-          <Text
-            key={k}
-            style={k === activePhoto ? styles.dotActive : styles.dot}
-          >
-            •
-          </Text>
-        ))}
-      </View>
+      {photos.length > 1 && (
+        <View style={styles.dotContainer}>
+          {photos.map((i, k) => (
+            <Text
+              key={k}
+              style={k === activePhoto ? styles.dotActive : styles.dot}
+            >
+              •
+            </Text>
+          ))}
+        </View>
+      )}
     </View>
   );
 };

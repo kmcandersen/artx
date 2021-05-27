@@ -63,16 +63,20 @@ export const ArtworkProvider = ({ children }) => {
     }
   };
 
-  const editArtwork = async ({ id, title, address, callback }) => {
+  const editArtwork = async ({ id, callback, ...otherProps }) => {
     try {
       setError(null);
-      await axios.patch(`${BASE_URL}/artwork/${id}`, { title, address });
+      const { data } = await axios.patch(
+        `${BASE_URL}/artwork/${id}`,
+        otherProps
+      );
       const editedList = artwork.map((work) =>
         work.id === id
           ? {
               ...work,
-              title: title,
-              address: address,
+              data,
+              // title: title,
+              // address: address,
             }
           : work
       );

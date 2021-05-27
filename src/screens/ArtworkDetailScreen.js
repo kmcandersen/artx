@@ -1,17 +1,30 @@
-import React, { useContext } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import React, { useContext, useEffect } from 'react';
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import { EvilIcons } from '@expo/vector-icons';
 import Screen from '../components/Screen';
 import ArtworkDetailMap from '../components/ArtworkDetailMap';
 import PhotoSlider from '../components/PhotoSlider';
 import ArtworkContext from '../contexts/ArtworkContext';
+import ArtistsContext from '../contexts/ArtistsContext';
 import { Feather } from '@expo/vector-icons';
 
 const ArtworkDetailScreen = ({ route, navigation }) => {
   const artworkId = route.params.id;
   const { artwork, error, removeArtwork } = useContext(ArtworkContext);
+  const { oneArtist, getOneArtist } = useContext(ArtistsContext);
 
   const work = artwork ? artwork.find((work) => work._id === artworkId) : [];
+  const { aboutText, address, coords, photoUrls, title, year } = work;
+
+  useEffect(() => {
+    getOneArtist(route.params.artistFbId);
+  }, []);
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
@@ -34,20 +47,29 @@ const ArtworkDetailScreen = ({ route, navigation }) => {
             <Text>{error}</Text>
           </View>
         )}
-        <View>
-          <PhotoSlider photos={work.photoUrls} />
-        </View>
-        <Text>{work.title}</Text>
-        <Text>{work.address}</Text>
+        <ScrollView>
+          <View>
+            <PhotoSlider photos={photoUrls} />
+          </View>
+          <Text>{title}</Text>
+          <Text>{oneArtist.name}</Text>
+          <Text>{address}</Text>
+          <Text>Year: {year ? year : 'NA'}</Text>
+          <Text>{aboutText}</Text>
 
-        <TouchableOpacity
-          onPress={() =>
-            removeArtwork(work._id, () => navigation.navigate('ArtworkList'))
-          }
-        >
-          <Feather style={styles.icon} name='trash' />
-        </TouchableOpacity>
-        <ArtworkDetailMap coords={work.coords} title={work.title} />
+          <TouchableOpacity
+            onPress={() =>
+              removeArtwork(work._id, () => navigation.navigate('ArtworkList'))
+            }
+          >
+            <Feather style={styles.icon} name='trash' />
+          </TouchableOpacity>
+          {coords ? (
+            <ArtworkDetailMap coords={coords} title={title} />
+          ) : (
+            <Text>Map not available</Text>
+          )}
+        </ScrollView>
       </Screen>
     );
   }

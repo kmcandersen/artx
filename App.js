@@ -9,6 +9,7 @@ import {
   APP_ID,
 } from './src/config/vars';
 import Navigation from './src/navigators';
+import { ArtistsProvider } from './src/contexts/ArtistsContext';
 import { ArtworkProvider } from './src/contexts/ArtworkContext';
 import { AuthProvider } from './src/contexts/AuthContext';
 
@@ -28,9 +29,11 @@ if (!firebase.apps.length) {
 const App = () => {
   return (
     <AuthProvider>
-      <ArtworkProvider>
-        <Navigation />
-      </ArtworkProvider>
+      <ArtistsProvider>
+        <ArtworkProvider>
+          <Navigation />
+        </ArtworkProvider>
+      </ArtistsProvider>
     </AuthProvider>
   );
 };

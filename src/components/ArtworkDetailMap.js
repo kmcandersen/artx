@@ -3,9 +3,8 @@ import { Dimensions, StyleSheet, View } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 
 const ArtworkDetailMap = ({ coords, title }) => {
-  // transform earlier?
   const artworkLat = coords[0];
-  const artworkLong = -coords[1];
+  const artworkLong = coords[1] > 0 ? -coords[1] : coords[1];
 
   // austin: 30.267222, -97.743056
   // chicago: 41.881944, -87.627778
