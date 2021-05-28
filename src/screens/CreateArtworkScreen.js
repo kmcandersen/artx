@@ -12,11 +12,13 @@ import {
 import TagPickerItem from '../components/TagPickerItem';
 import tags from '../config/tags';
 import ArtworkContext from '../contexts/ArtworkContext';
+import AuthContext from '../contexts/AuthContext';
 import Screen from '../components/Screen';
 import AppButton from '../components/AppButton';
 
 const CreateArtworkScreen = ({ navigation }) => {
   const { error, addArtwork, currYear } = useContext(ArtworkContext);
+  const { user } = useContext(AuthContext);
 
   const validationSchema = Yup.object().shape({
     title: Yup.string().required().label('Title'),
@@ -25,9 +27,8 @@ const CreateArtworkScreen = ({ navigation }) => {
     aboutText: Yup.string().max(450).label('About'),
     //photoUrls: Yup.array().min(1, 'Please select at least 1 image'),
   });
-
   const initialValues = {
-    artistFbId: 'A012',
+    artistFbId: user.user.uid,
     title: '',
     address: '',
     year: '',

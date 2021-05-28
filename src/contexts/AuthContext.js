@@ -19,6 +19,9 @@ export const AuthProvider = ({ children }) => {
       const response = await loginRequest(email, password);
       setUser(response);
       setIsLoading(false);
+      setTimeout(() => {
+        console.log('user', response.uid);
+      }, 2000);
     } catch (error) {
       setIsLoading(false);
       setError(error.toString());
