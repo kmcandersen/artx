@@ -23,7 +23,7 @@ const CreateArtworkScreen = ({ navigation }) => {
     address: Yup.string().required().min(4).label('Address'),
     year: Yup.number().min(1950).max(currYear).label('Year'),
     aboutText: Yup.string().max(450).label('About'),
-    photoUrls: Yup.array().min(1, 'Please select at least 1 image'),
+    //photoUrls: Yup.array().min(1, 'Please select at least 1 image'),
   });
 
   const initialValues = {

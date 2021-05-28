@@ -64,7 +64,7 @@ const ArtworkDetailScreen = ({ route, navigation }) => {
           >
             <Feather style={styles.icon} name='trash' />
           </TouchableOpacity>
-          {coords ? (
+          {coords.length ? (
             <ArtworkDetailMap coords={coords} title={title} />
           ) : (
             <Text>Map not available</Text>
