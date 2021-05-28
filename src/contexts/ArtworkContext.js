@@ -12,9 +12,11 @@ export const ArtworkProvider = ({ children }) => {
   const [coords, setCoords] = useState([]);
   const [imgCount, setImgCount] = useState(0);
   const [deleteTokens, setDeleteTokens] = useState([]);
+  const [currYear, setCurrYear] = useState(0);
 
   const getArtwork = async () => {
     try {
+      setCurrYear(new Date().getFullYear());
       setError(null);
       const response = await axios.get(`${BASE_URL}/artwork`);
       setArtwork(response.data);
@@ -99,6 +101,8 @@ export const ArtworkProvider = ({ children }) => {
         setCoords,
         deleteTokens,
         setDeleteTokens,
+        currYear,
+        setCurrYear,
         getArtwork,
         addArtwork,
         removeArtwork,

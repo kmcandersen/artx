@@ -16,20 +16,24 @@ import AppButton from '../components/AppButton';
 const EditArtworkScreen = ({ route, navigation }) => {
   const artworkId = route.params.id;
 
-  const { artwork, error, editArtwork } = useContext(ArtworkContext);
+  const { artwork, error, editArtwork, currYear } = useContext(ArtworkContext);
 
   const work = artwork ? artwork.find((work) => work._id === artworkId) : [];
 
   const validationSchema = Yup.object().shape({
     title: Yup.string().required().label('Title'),
     address: Yup.string().required().min(4).label('Address'),
+    year: Yup.number().min(1950).max(currYear).label('Year'),
     aboutText: Yup.string().max(450).label('About'),
   });
+
+  const initialYear = work.year === 0 ? 'Year completed' : String(work.year);
 
   const initialValues = {
     id: work._id,
     title: work.title,
     address: work.address,
+    year: initialYear,
     aboutText: work.aboutText,
     callback: () => {
       navigation.pop();
@@ -44,16 +48,36 @@ const EditArtworkScreen = ({ route, navigation }) => {
         validationSchema={validationSchema}
       >
         <ErrorMessage error={error} visible={error} />
-        <AppFormField name='title' placeholder='Title' />
+        <AppFormField
+          name='title'
+          placeholder='Title'
+          autoCapitalize='sentences'
+          autoCompleteType='off'
+          autoCorrect={false}
+        />
         <AppFormField
           name='address'
           placeholder='Address or Intersection'
           textContentType='streetAddressLine1'
+          autoCapitalize='words'
+          autoCompleteType='off'
+          autoCorrect={false}
+        />
+        <AppFormField
+          keyboardType='numeric'
+          name='year'
+          placeholder='Year completed'
+          maxLength={4}
         />
         <AppFormField
           name='aboutText'
           placeholder='About this project'
           textContentType='none'
+          maxLength={450}
+          multiline
+          autoCapitalize='sentences'
+          autoCompleteType='off'
+          autoCorrect={false}
         />
         <SubmitButton title='Update Artwork' />
         <AppButton title='Back' onPress={() => navigation.goBack()} />
