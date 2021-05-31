@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-
-const BASE_URL = 'https://rn-artx.herokuapp.com';
-//const BASE_URL = 'https://localhost:3000';
+import { BASE_URL } from '../config/vars';
 
 const ArtworkContext = React.createContext();
 
@@ -29,6 +27,8 @@ export const ArtworkProvider = ({ children }) => {
     artistFbId,
     title,
     address,
+    year,
+    aboutText,
     tags,
     photoUrls,
     callback,
@@ -39,6 +39,8 @@ export const ArtworkProvider = ({ children }) => {
         artistFbId,
         title,
         address,
+        year,
+        aboutText,
         tags,
         photoUrls,
         coords,

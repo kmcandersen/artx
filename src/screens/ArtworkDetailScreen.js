@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import {
   ScrollView,
   StyleSheet,
@@ -7,24 +7,26 @@ import {
   View,
 } from 'react-native';
 import { EvilIcons } from '@expo/vector-icons';
+import { Feather } from '@expo/vector-icons';
 import Screen from '../components/Screen';
 import ArtworkDetailMap from '../components/ArtworkDetailMap';
 import PhotoSlider from '../components/PhotoSlider';
+
 import ArtworkContext from '../contexts/ArtworkContext';
 import ArtistsContext from '../contexts/ArtistsContext';
-import { Feather } from '@expo/vector-icons';
 
 const ArtworkDetailScreen = ({ route, navigation }) => {
   const artworkId = route.params.id;
+  const artistId = route.params.artistFbId;
+
   const { artwork, error, removeArtwork } = useContext(ArtworkContext);
-  const { oneArtist, getOneArtist } = useContext(ArtistsContext);
+  const { artists } = useContext(ArtistsContext);
 
-  const work = artwork ? artwork.find((work) => work._id === artworkId) : [];
+  const work = artwork ? artwork.find((work) => work._id === artworkId) : {};
+  const artist = artists ? artists.find((a) => a.fbId === artistId) : {};
+
   const { aboutText, address, coords, photoUrls, title, year } = work;
-
-  useEffect(() => {
-    getOneArtist(route.params.artistFbId);
-  }, []);
+  const { name } = artist;
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
@@ -48,19 +50,21 @@ const ArtworkDetailScreen = ({ route, navigation }) => {
           </View>
         )}
         <ScrollView>
-          <View>
-            <PhotoSlider photos={photoUrls} />
-          </View>
+          <View>{photoUrls && <PhotoSlider photos={photoUrls} />}</View>
           <Text>{title}</Text>
-          <Text>{oneArtist.name}</Text>
+          <Text>{name}</Text>
           <Text>{address}</Text>
           <Text>Year: {year ? year : 'NA'}</Text>
           <Text>{aboutText}</Text>
 
           <TouchableOpacity
-            onPress={() =>
-              removeArtwork(work._id, () => navigation.navigate('ArtworkList'))
-            }
+            onPress={() => {
+              navigation.navigate('ArtworkList');
+              removeArtwork(work._id);
+            }}
+            // onPress={() =>
+            //   removeArtwork(work._id, () => navigation.navigate('ArtworkList'))
+            // }
           >
             <Feather style={styles.icon} name='trash' />
           </TouchableOpacity>

@@ -20,6 +20,7 @@ const ArtworkNavigator = () => (
       component={ArtworkDetailScreen}
       options={{ headerTitle: 'Art Deets' }}
     />
+    {/* REMOVE: */}
     <Stack.Screen
       name='CreateArtwork'
       component={CreateArtworkScreen}

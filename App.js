@@ -28,13 +28,13 @@ if (!firebase.apps.length) {
 
 const App = () => {
   return (
-    <AuthProvider>
-      <ArtistsProvider>
-        <ArtworkProvider>
+    <ArtistsProvider>
+      <ArtworkProvider>
+        <AuthProvider>
           <Navigation />
-        </ArtworkProvider>
-      </ArtistsProvider>
-    </AuthProvider>
+        </AuthProvider>
+      </ArtworkProvider>
+    </ArtistsProvider>
   );
 };
 

@@ -28,7 +28,7 @@ const CreateArtworkScreen = ({ navigation }) => {
     //photoUrls: Yup.array().min(1, 'Please select at least 1 image'),
   });
   const initialValues = {
-    artistFbId: user.user.uid,
+    artistFbId: user.fbId,
     title: '',
     address: '',
     year: '',

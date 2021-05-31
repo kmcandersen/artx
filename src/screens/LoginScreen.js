@@ -23,7 +23,7 @@ const LoginScreen = ({ navigation }) => {
     <Screen>
       <Text>LOGIN SCREEN error is: {error}</Text>
       <AppForm
-        initialValues={{ email: 'lfitz@sample.com', password: 'test123' }}
+        initialValues={{ email: 'wross@example.com', password: 'test123' }}
         //initialValues={{ email: '', password: '' }}
         onSubmit={onLogin}
         validationSchema={validationSchema}

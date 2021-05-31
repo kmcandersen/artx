@@ -3,7 +3,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import ArtworkNavigator from './ArtworkNavigator';
-import AccountProfileScreen from '../screens/AccountProfileScreen';
+import ArtistsNavigator from './ArtistsNavigator';
 
 const Tab = createBottomTabNavigator();
 
@@ -23,15 +23,9 @@ const AppNavigator = () => (
         ),
       }}
     />
-    {/* <Tab.Screen
-      name='Artists'
-      options={{
-        tabBarIcon: () => <Ionicons name='md-people' size={24} color='black' />,
-      }}
-    /> */}
     <Tab.Screen
-      name='My Profile'
-      component={AccountProfileScreen}
+      name='Account Profile'
+      component={ArtistsNavigator}
       options={{
         tabBarIcon: () => <AntDesign name='profile' size={24} color='black' />,
       }}

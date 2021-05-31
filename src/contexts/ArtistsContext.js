@@ -1,14 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-
-const BASE_URL = 'https://rn-artx.herokuapp.com';
-//const BASE_URL = 'https://localhost:3000';
+import { BASE_URL } from '../config/vars';
 
 const ArtistsContext = React.createContext();
 
 export const ArtistsProvider = ({ children }) => {
   const [artists, setArtists] = useState();
-  const [oneArtist, setOneArtist] = useState({});
   const [artistError, setError] = useState(null);
 
   const getArtists = async () => {
@@ -21,29 +18,32 @@ export const ArtistsProvider = ({ children }) => {
     }
   };
 
-  const getOneArtist = async (id) => {
-    try {
-      setError(null);
-      const response = await axios.get(`${BASE_URL}/artists/${id}`);
-      setOneArtist(response.data);
-    } catch (error) {
-      setError(error.toString());
-    }
-  };
+  // moved to ArtistProfileScreen & ArtworkDetailScreen
+  // const getOneArtist = async (id) => {
+  //   try {
+  //     setSelectedArtist({});
+  //     setError(null);
+  //     const response = await axios.get(`${BASE_URL}/artists/${id}`);
+  //     setSelectedArtist(response.data);
+  //   } catch (error) {
+  //     setError(error.toString());
+  //   }
+  // };
 
-  const addArtist = async ({ fbId, name, email }) => {
-    try {
-      setError(null);
-      const newArtist = await axios.post(`${BASE_URL}/artists`, {
-        fbId,
-        name,
-        email,
-      });
-      setArtists({ ...artists, newArtist });
-    } catch (error) {
-      setError(error.toString());
-    }
-  };
+  // moved to AuthContext
+  // const addArtist = async ({ fbId, name, email }) => {
+  //   try {
+  //     setError(null);
+  //     const newArtist = await axios.post(`${BASE_URL}/artists`, {
+  //       fbId,
+  //       name,
+  //       email,
+  //     });
+  //     setArtists({ ...artists, newArtist });
+  //   } catch (error) {
+  //     setError(error.toString());
+  //   }
+  // };
 
   const editArtist = async ({ id, callback, ...otherProps }) => {
     try {
@@ -72,11 +72,9 @@ export const ArtistsProvider = ({ children }) => {
     <ArtistsContext.Provider
       value={{
         artists,
+        setArtists,
         artistError,
         getArtists,
-        oneArtist,
-        getOneArtist,
-        addArtist,
         editArtist,
       }}
     >

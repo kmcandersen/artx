@@ -17,7 +17,6 @@ import colors from '../config/colors';
 
 const ArtworkListScreen = ({ navigation }) => {
   const { artwork, error, getArtwork } = useContext(ArtworkContext);
-
   const [isDataLoading, setIsDataLoading] = useState(true);
 
   useEffect(() => {
@@ -29,6 +28,7 @@ const ArtworkListScreen = ({ navigation }) => {
     }
   }, [artwork]);
 
+  // MOVE TO ACCOUNT PROFILE:
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (

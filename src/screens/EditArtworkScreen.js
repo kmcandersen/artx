@@ -27,7 +27,7 @@ const EditArtworkScreen = ({ route, navigation }) => {
     aboutText: Yup.string().max(450).label('About'),
   });
 
-  const initialYear = work.year === 0 ? 'Year completed' : String(work.year);
+  const initialYear = work.year === null ? null : String(work.year);
 
   const initialValues = {
     id: work._id,
