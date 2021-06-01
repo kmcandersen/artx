@@ -17,6 +17,7 @@ src/screens/EditArtworkScreen_woFormik.js
 src/contexts/ArtistsContext_v1.js
 src/contexts/AuthContext_v2.js
 src/contexts/AuthContext_v3_works.js
+src/screens/ArtworkDetailScreen_removeBroken.js
 
 # macOS
 .DS_Store

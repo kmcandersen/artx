@@ -3,7 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import UserProfileScreen from '../screens/UserProfileScreen';
 // import EditArtistScreen from '../screens/EditArtistScreen';
-// import CreateArtworkScreen from '../screens/CreateArtworkScreen';
+import CreateArtworkScreen from '../screens/CreateArtworkScreen';
 // import EditArtworkScreen from '../screens/EditArtworkScreen';
 // import ArtworkDetailScreen from '../screens/ArtworkDetailScreen';
 
@@ -16,6 +16,11 @@ const ArtistsNavigator = () => (
       component={UserProfileScreen}
       options={{ headerTitle: 'User Profile' }}
     />
+    <Stack.Screen
+      name='CreateArtwork'
+      component={CreateArtworkScreen}
+      options={{ headerTitle: 'Add Artwork' }}
+    />
     {/* <Stack.Screen
       name='EditArtist'
       component={EditArtistScreen}
@@ -25,11 +30,6 @@ const ArtistsNavigator = () => (
       name='ArtworkDetail'
       component={ArtworkDetailScreen}
       options={{ headerTitle: 'Art Deets' }}
-    />
-    <Stack.Screen
-      name='CreateArtwork'
-      component={CreateArtworkScreen}
-      options={{ headerTitle: 'Add Artwork' }}
     />
     <Stack.Screen
       name='EditArtwork'

@@ -35,7 +35,7 @@ export const ArtworkProvider = ({ children }) => {
   }) => {
     try {
       setError(null);
-      const newArtwork = await axios.post(`${BASE_URL}/artwork`, {
+      const { data } = await axios.post(`${BASE_URL}/artwork`, {
         artistFbId,
         title,
         address,
@@ -45,10 +45,12 @@ export const ArtworkProvider = ({ children }) => {
         photoUrls,
         coords,
       });
-      setArtwork({ ...artwork, newArtwork });
+      setArtwork([...artwork, data]);
       setCoords([]);
       setDeleteTokens([]);
-      if (callback) callback();
+      if (callback) {
+        callback();
+      }
     } catch (error) {
       setError(error.toString());
     }
@@ -61,7 +63,9 @@ export const ArtworkProvider = ({ children }) => {
       const updatedList = artwork.filter((work) => work._id !== id);
       setArtwork(updatedList);
 
-      if (callback) callback();
+      if (callback) {
+        callback();
+      }
     } catch (error) {
       setError(error.toString());
     }
@@ -75,17 +79,13 @@ export const ArtworkProvider = ({ children }) => {
         otherProps
       );
       const editedList = artwork.map((work) =>
-        work.id === id
+        work._id === id
           ? {
-              ...work,
-              data,
-              // title: title,
-              // address: address,
+              ...data,
             }
           : work
       );
       setArtwork(editedList);
-
       if (callback) callback();
     } catch (error) {
       setError(error.toString());

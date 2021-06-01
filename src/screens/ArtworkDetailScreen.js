@@ -16,60 +16,48 @@ import ArtworkContext from '../contexts/ArtworkContext';
 import ArtistsContext from '../contexts/ArtistsContext';
 
 const ArtworkDetailScreen = ({ route, navigation }) => {
-  const artworkId = route.params.id;
-  const artistId = route.params.artistFbId;
+  const { id, artistId } = route.params;
 
-  const { artwork, error, removeArtwork } = useContext(ArtworkContext);
+  const { artwork, removeArtwork } = useContext(ArtworkContext);
   const { artists } = useContext(ArtistsContext);
 
-  const work = artwork ? artwork.find((work) => work._id === artworkId) : {};
-  const artist = artists ? artists.find((a) => a.fbId === artistId) : {};
+  let work = artwork ? artwork.find((a) => a._id === id) : {};
+  let artist = artists ? artists.find((a) => a.fbId === artistId) : {};
 
-  const { aboutText, address, coords, photoUrls, title, year } = work;
+  // can't destructure 'work' or app fails after removeArtwork
   const { name } = artist;
-
-  React.useLayoutEffect(() => {
-    navigation.setOptions({
-      headerRight: () => (
-        <TouchableOpacity
-          onPress={() => navigation.navigate('EditArtwork', { id: artworkId })}
-        >
-          <EvilIcons name='pencil' size={35} />
-        </TouchableOpacity>
-      ),
-    });
-  }, [navigation]);
 
   // if an indiv artwork is deleted, doesn't try to render DetailScreen; callback redirects to ArtworkList
   if (work) {
     return (
       <Screen style={{ backgroundColor: '#fff' }}>
-        {error && (
-          <View>
-            <Text>{error}</Text>
-          </View>
-        )}
         <ScrollView>
-          <View>{photoUrls && <PhotoSlider photos={photoUrls} />}</View>
-          <Text>{title}</Text>
+          <Text>{work.title}</Text>
+          <View>
+            {work.photoUrls && <PhotoSlider photos={work.photoUrls} />}
+          </View>
+          <Text>{work.title}</Text>
           <Text>{name}</Text>
-          <Text>{address}</Text>
-          <Text>Year: {year ? year : 'NA'}</Text>
-          <Text>{aboutText}</Text>
+          <Text>{work.address}</Text>
+          <Text>Year: {work.year ? work.year : 'NA'}</Text>
+          <Text>{work.aboutText}</Text>
 
           <TouchableOpacity
             onPress={() => {
               navigation.navigate('ArtworkList');
               removeArtwork(work._id);
             }}
-            // onPress={() =>
-            //   removeArtwork(work._id, () => navigation.navigate('ArtworkList'))
-            // }
           >
             <Feather style={styles.icon} name='trash' />
           </TouchableOpacity>
-          {coords.length ? (
-            <ArtworkDetailMap coords={coords} title={title} />
+          {/* formerly: id sent, used by .find in EditArtwork */}
+          <TouchableOpacity
+            onPress={() => navigation.navigate('EditArtwork', { work })}
+          >
+            <EvilIcons name='pencil' size={35} />
+          </TouchableOpacity>
+          {work.coords.length ? (
+            <ArtworkDetailMap coords={work.coords} title={work.title} />
           ) : (
             <Text>Map not available</Text>
           )}

@@ -1,43 +1,34 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {
-  Alert,
   FlatList,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native';
-import { Feather } from '@expo/vector-icons';
 import { ActivityIndicator } from 'react-native-paper';
 
 import ArtworkContext from '../contexts/ArtworkContext';
+import ArtistsContext from '../contexts/ArtistsContext';
 
 import Screen from '../components/Screen';
 import colors from '../config/colors';
 
 const ArtworkListScreen = ({ navigation }) => {
-  const { artwork, error, getArtwork } = useContext(ArtworkContext);
+  const { artwork, getArtwork, error } = useContext(ArtworkContext);
+  const { getArtists } = useContext(ArtistsContext);
+
   const [isDataLoading, setIsDataLoading] = useState(true);
 
   useEffect(() => {
     let data = getArtwork();
+    getArtists();
     if (data) {
       setIsDataLoading(false);
     } else {
       setIsDataLoading(true);
     }
-  }, [artwork]);
-
-  // MOVE TO ACCOUNT PROFILE:
-  React.useLayoutEffect(() => {
-    navigation.setOptions({
-      headerRight: () => (
-        <TouchableOpacity onPress={() => navigation.navigate('CreateArtwork')}>
-          <Feather name='plus' size={20} />
-        </TouchableOpacity>
-      ),
-    });
-  }, [navigation]);
+  }, []);
 
   return (
     <Screen>
@@ -58,14 +49,14 @@ const ArtworkListScreen = ({ navigation }) => {
       ) : (
         <FlatList
           data={artwork}
-          keyExtractor={(work) => work._id}
+          keyExtractor={(item) => item._id}
           renderItem={({ item }) => {
             return (
               <TouchableOpacity
                 onPress={() => {
                   navigation.navigate('ArtworkDetail', {
                     id: item._id,
-                    artistFbId: item.artistFbId,
+                    artistId: item.artistFbId,
                   });
                 }}
               >

@@ -36,7 +36,7 @@ const CreateArtworkScreen = ({ navigation }) => {
     tags: [],
     photoUrls: [],
     callback: () => {
-      navigation.navigate('ArtworkList');
+      navigation.navigate('UserProfile');
     },
   };
 
