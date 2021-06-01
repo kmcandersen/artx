@@ -32,7 +32,6 @@ const ArtworkDetailScreen = ({ route, navigation }) => {
     return (
       <Screen style={{ backgroundColor: '#fff' }}>
         <ScrollView>
-          <Text>{work.title}</Text>
           <View>
             {work.photoUrls && <PhotoSlider photos={work.photoUrls} />}
           </View>
@@ -44,7 +43,7 @@ const ArtworkDetailScreen = ({ route, navigation }) => {
 
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate('ArtworkList');
+              navigation.navigate('BrowseScreen');
               removeArtwork(work._id);
             }}
           >
