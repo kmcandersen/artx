@@ -15,7 +15,7 @@ import ArtistsContext from '../contexts/ArtistsContext';
 
 import Screen from '../components/Screen';
 import colors from '../config/colors';
-import BrowseMap from '../components/BrowseMap';
+import PointsMap from '../components/PointsMap';
 
 const { height } = Dimensions.get('window');
 const listHeight = height * 0.3;
@@ -54,7 +54,7 @@ const BrowseScreen = ({ navigation }) => {
       ) : (
         <>
           <View style={styles.mapContainer}>
-            <BrowseMap navigation={navigation} />
+            <PointsMap navigation={navigation} data={artwork} />
           </View>
           <ScrollView style={styles.listContainer}>
             {artwork.map((item) => (

@@ -1,27 +1,21 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Dimensions, StyleSheet, Text, View } from 'react-native';
 import MapView, { Callout, Marker } from 'react-native-maps';
 import { Ionicons } from '@expo/vector-icons';
 
-import ArtworkContext from '../contexts/ArtworkContext';
-
-const BrowseMap = ({ navigation }) => {
-  const { artwork } = useContext(ArtworkContext);
-
+// data = all artwork (from BrowseScreen) or 1 artist's artwork (from UserProfileScreen)
+const PointsMap = ({ navigation, data }) => {
   const artMapInfo = [];
-
-  if (artwork) {
-    artwork.forEach((work) => {
-      let itemInfo = {
-        artworkId: work._id,
-        artistId: work.artistFbId,
-        title: work.title,
-        long: work.coords[0] > 0 ? -work.coords[0] : work.coords[0],
-        lat: work.coords[1],
-      };
-      artMapInfo.push(itemInfo);
-    });
-  }
+  data.forEach((work) => {
+    let itemInfo = {
+      artworkId: work._id,
+      artistId: work.artistFbId,
+      title: work.title,
+      long: work.coords[0] > 0 ? -work.coords[0] : work.coords[0],
+      lat: work.coords[1],
+    };
+    artMapInfo.push(itemInfo);
+  });
 
   return (
     <View style={styles.container}>
@@ -30,8 +24,8 @@ const BrowseMap = ({ navigation }) => {
         initialRegion={{
           latitude: 30.267222,
           longitude: -97.743056,
-          latitudeDelta: 0.05,
-          longitudeDelta: 0.05,
+          latitudeDelta: 0.07,
+          longitudeDelta: 0.07,
         }}
       >
         {artMapInfo.map((work) => (
@@ -80,4 +74,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default BrowseMap;
+export default PointsMap;
