@@ -14,7 +14,7 @@ import {
   CLOUD_NAME,
   CLOUD_FOLDER_A,
   CLOUD_PRESET_A,
-  CLOUD_URL,
+  CLOUD_UPLOAD_URL,
 } from '../config/vars';
 import ArtworkContext from '../contexts/ArtworkContext';
 
@@ -52,7 +52,7 @@ function ImageInput({ imageUri, onChangeImage }) {
         {
           text: 'Yes',
           onPress: async () => {
-            await axios.post(`${CLOUD_URL}/delete_by_token`, {
+            await axios.post(`${CLOUD_UPLOAD_URL}/delete_by_token`, {
               token: matchingToken,
             });
             setImgCount(imgCount - 1);
@@ -102,7 +102,10 @@ function ImageInput({ imageUri, onChangeImage }) {
       data.append('upload_preset', CLOUD_PRESET_A);
       data.append('folder', CLOUD_FOLDER_A);
       data.append('cloud_name', CLOUD_NAME);
-      const response = await axios.post(`${CLOUD_URL}/image/upload`, data);
+      const response = await axios.post(
+        `${CLOUD_UPLOAD_URL}/image/upload`,
+        data
+      );
       const imageUriKey = response.data.url.split('/')[8].split('.')[0];
       setDeleteTokens([
         ...deleteTokens,
