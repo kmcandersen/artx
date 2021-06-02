@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { Dimensions, StyleSheet, Text, View } from 'react-native';
 import MapView, { Callout, Marker } from 'react-native-maps';
+import { Ionicons } from '@expo/vector-icons';
 
 import ArtworkContext from '../contexts/ArtworkContext';
 
@@ -49,7 +50,10 @@ const BrowseMap = ({ navigation }) => {
                 })
               }
             >
-              <Text>{work.title}</Text>
+              <View style={styles.callout}>
+                <Text>{work.title}</Text>
+                <Ionicons name='chevron-forward' size={18} color='black' />
+              </View>
             </Callout>
           </Marker>
         ))}
@@ -64,6 +68,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  callout: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   map: {
     width: Dimensions.get('window').width,
