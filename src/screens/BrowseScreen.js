@@ -15,7 +15,7 @@ import ArtistsContext from '../contexts/ArtistsContext';
 
 import Screen from '../components/Screen';
 import colors from '../config/colors';
-import ArtworkDetailMap from '../components/ArtworkDetailMap';
+import BrowseMap from '../components/BrowseMap';
 
 const { height } = Dimensions.get('window');
 const listHeight = height * 0.3;
@@ -52,25 +52,32 @@ const BrowseScreen = ({ navigation }) => {
           <Text>{error}</Text>
         </View>
       ) : (
-        <ScrollView>
-          {artwork.map((item) => (
-            <TouchableOpacity
-              key={item._id}
-              onPress={() => {
-                navigation.navigate('ArtworkDetail', {
-                  id: item._id,
-                  artistId: item.artistFbId,
-                });
-              }}
-            >
-              {item._id && (
-                <View style={styles.row}>
-                  {item.title && <Text style={styles.title}>{item.title}</Text>}
-                </View>
-              )}
-            </TouchableOpacity>
-          ))}
-        </ScrollView>
+        <>
+          <View style={styles.mapContainer}>
+            <BrowseMap navigation={navigation} />
+          </View>
+          <ScrollView style={styles.listContainer}>
+            {artwork.map((item) => (
+              <TouchableOpacity
+                key={item._id}
+                onPress={() => {
+                  navigation.navigate('ArtworkDetail', {
+                    id: item._id,
+                    artistId: item.artistFbId,
+                  });
+                }}
+              >
+                {item._id && (
+                  <View style={styles.row}>
+                    {item.title && (
+                      <Text style={styles.title}>{item.title}</Text>
+                    )}
+                  </View>
+                )}
+              </TouchableOpacity>
+            ))}
+          </ScrollView>
+        </>
       )}
     </Screen>
   );
@@ -91,6 +98,9 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
     borderTopWidth: 1,
     borderBottomWidth: 1,
+  },
+  mapContainer: {
+    height: 300,
   },
   listContainer: {
     height: listHeight,

@@ -43,7 +43,7 @@ const ArtworkDetailScreen = ({ route, navigation }) => {
 
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate('BrowseScreen');
+              navigation.navigate('Browse');
               removeArtwork(work._id);
             }}
           >
