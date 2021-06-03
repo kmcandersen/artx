@@ -32,7 +32,7 @@ const PhotoSlider = ({ photos }) => {
   };
 
   return (
-    <View style={styles.container}>
+    <View>
       <ScrollView
         pagingEnabled
         horizontal
@@ -84,10 +84,6 @@ const PhotoSlider = ({ photos }) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    width,
-    height: thumbHeight,
-  },
   dot: {
     fontSize: width / 10,
     color: '#888',
