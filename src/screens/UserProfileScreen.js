@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import {
   FlatList,
   Image,
@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import * as Linking from 'expo-linking';
 import Screen from '../components/Screen';
 import AppButton from '../components/AppButton';
 import PointsMap from '../components/PointsMap';
@@ -36,6 +37,7 @@ const UserProfileScreen = ({ navigation, route }) => {
   const {
     name,
     email,
+    displayEmail,
     city,
     state,
     country,
@@ -59,6 +61,15 @@ const UserProfileScreen = ({ navigation, route }) => {
       });
     }, [navigation]);
 
+  const basedIn = () => {
+    let result = '';
+    result = city ? (result += city) : '';
+    state ? (result += `, ${state}`) : '';
+    country ? (result += `, ${country}`) : '';
+    if (result === '') result = 'NA';
+    return result;
+  };
+
   return (
     <Screen>
       <View style={styles.profilePhotoContainer}>
@@ -67,14 +78,32 @@ const UserProfileScreen = ({ navigation, route }) => {
 
       <View>
         <Text>{name}</Text>
-        <Text>{email}</Text>
-        <Text>
-          Based in: {city}, {state}, {country}
-        </Text>
-        <Text>About me: {aboutMe}</Text>
-        <Text>More info: {moreInfo}</Text>
-      </View>
+        {profileType === 'user' || displayEmail ? (
+          <TouchableOpacity
+            onPress={() =>
+              Linking.openURL(`mailto:${email}`).catch((error) =>
+                console.log(error)
+              )
+            }
+          >
+            <Text>{email}</Text>
+          </TouchableOpacity>
+        ) : null}
 
+        <Text>Based in: {basedIn()}</Text>
+        <Text>About Me: {aboutMe}</Text>
+        <View style={styles.testBorder}>
+          <Text>
+            More info:{' '}
+            <TouchableOpacity
+              style={styles.testBorder}
+              onPress={() => Linking.openURL(`https://www.${moreInfo}`)}
+            >
+              <Text>{moreInfo}</Text>
+            </TouchableOpacity>
+          </Text>
+        </View>
+      </View>
       <Text>Artwork</Text>
       {profileArtwork.length ? (
         <View style={styles.artPhotoContainer}>
@@ -142,6 +171,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     height: 120,
   },
+  testBorder: {
+    borderWidth: 1,
+    borderColor: 'red',
+  },
+  // textLink: {
+  //   flex: 1,
+  //   flexDirection: 'row',
+  //   alignItems: 'center',
+  // },
 });
 
 export default UserProfileScreen;

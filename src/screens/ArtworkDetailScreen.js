@@ -29,10 +29,19 @@ const ArtworkDetailScreen = ({ route, navigation }) => {
         <View>{work.photoUrls && <PhotoSlider photos={work.photoUrls} />}</View>
         <View>
           <Text>{work.title}</Text>
-          <Text>{name}</Text>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate('UserProfile', {
+                artistId,
+              });
+            }}
+          >
+            <Text>{name}</Text>
+          </TouchableOpacity>
+
           <Text>{work.address}</Text>
           <Text>Year: {work.year ? work.year : 'NA'}</Text>
-          <Text>{work.aboutText}</Text>
+          <Text>About: {work.aboutText}</Text>
         </View>
         <TouchableOpacity
           onPress={() => {

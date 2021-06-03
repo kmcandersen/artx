@@ -32,7 +32,7 @@ const CreateArtworkScreen = ({ navigation }) => {
     title: '',
     address: '',
     year: '',
-    aboutText: '',
+    aboutText: 'NA',
     tags: [],
     photoUrls: [],
     callback: () => {
