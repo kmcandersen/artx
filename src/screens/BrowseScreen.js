@@ -82,6 +82,7 @@ const BrowseScreen = ({ navigation }) => {
             <FlatList
               data={artistList}
               horizontal
+              showsHorizontalScrollIndicator={false}
               keyExtractor={(item) => item.artistId}
               style={styles.artistPhotosContainer}
               renderItem={({ item }) => {
