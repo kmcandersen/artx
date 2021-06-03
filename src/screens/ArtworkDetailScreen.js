@@ -1,11 +1,5 @@
 import React, { useContext } from 'react';
-import {
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { EvilIcons } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 import Screen from '../components/Screen';
@@ -28,39 +22,37 @@ const ArtworkDetailScreen = ({ route, navigation }) => {
   const { name } = artist;
 
   // if an indiv artwork is deleted, doesn't try to render DetailScreen; callback redirects to ArtworkList
+  // if there's only 1 photo, slider is still needed, for tap to enlarge
   if (work) {
     return (
       <Screen style={{ backgroundColor: '#fff' }}>
-        <ScrollView>
-          <View>
-            {work.photoUrls && <PhotoSlider photos={work.photoUrls} />}
-          </View>
+        <View>{work.photoUrls && <PhotoSlider photos={work.photoUrls} />}</View>
+        <View>
           <Text>{work.title}</Text>
           <Text>{name}</Text>
           <Text>{work.address}</Text>
           <Text>Year: {work.year ? work.year : 'NA'}</Text>
           <Text>{work.aboutText}</Text>
-
-          <TouchableOpacity
-            onPress={() => {
-              navigation.navigate('Browse');
-              removeArtwork(work._id);
-            }}
-          >
-            <Feather style={styles.icon} name='trash' />
-          </TouchableOpacity>
-          {/* formerly: id sent, used by .find in EditArtwork */}
-          <TouchableOpacity
-            onPress={() => navigation.navigate('EditArtwork', { work })}
-          >
-            <EvilIcons name='pencil' size={35} />
-          </TouchableOpacity>
-          {work.coords.length ? (
-            <ArtworkDetailMap coords={work.coords} title={work.title} />
-          ) : (
-            <Text>Map not available</Text>
-          )}
-        </ScrollView>
+        </View>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate('Browse');
+            removeArtwork(work._id);
+          }}
+        >
+          <Feather style={styles.icon} name='trash' />
+        </TouchableOpacity>
+        {/* formerly: id sent, used by .find in EditArtwork */}
+        <TouchableOpacity
+          onPress={() => navigation.navigate('EditArtwork', { work })}
+        >
+          <EvilIcons name='pencil' size={35} />
+        </TouchableOpacity>
+        {work.coords.length ? (
+          <ArtworkDetailMap coords={work.coords} title={work.title} />
+        ) : (
+          <Text>Map not available</Text>
+        )}
       </Screen>
     );
   }

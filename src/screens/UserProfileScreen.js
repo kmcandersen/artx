@@ -15,20 +15,24 @@ import AuthContext from '../contexts/AuthContext';
 import ArtistsContext from '../contexts/ArtistsContext';
 import ArtworkContext from '../contexts/ArtworkContext';
 
-const UserProfileScreen = ({ navigation }) => {
+// from Bottom Tab: no route passed in. from elsewhere: route.params.artistId
+const UserProfileScreen = ({ navigation, route }) => {
   const { user, onLogout } = useContext(AuthContext);
   const { artists } = useContext(ArtistsContext);
   const { artwork } = useContext(ArtworkContext);
 
-  // will need a useEffect for artists once EditArtist func implemented?
-  // MUST acct for if loggedInUser has nothing in artwork array
-  // render thumbnails of artwork & send info if one is clicked
+  const { artistId } = route.params || '';
+  // if no artistId passed in w/route (coming from bottom tab) OR the artistId === id of logged in user, 'artist' is the logged-in user and can add artwork, edit their profile, & log out
+  const profileType =
+    artistId === undefined || artistId === user.fbId ? 'user' : 'artist';
+  const profileId = profileType === 'user' ? user.fbId : artistId;
 
-  let userArt = artwork
-    ? artwork.filter((a) => a.artistFbId === user.fbId)
+  const profileArtwork = artwork
+    ? artwork.filter((a) => a.artistFbId === profileId)
     : [];
 
-  const loggedInUser = artists ? artists.find((a) => a.fbId === user.fbId) : {};
+  const profileInfo = artists ? artists.find((a) => a.fbId === profileId) : {};
+
   const {
     name,
     email,
@@ -38,21 +42,22 @@ const UserProfileScreen = ({ navigation }) => {
     aboutMe,
     moreInfo,
     profilePhotoUrl,
-  } = loggedInUser;
+  } = profileInfo;
 
-  React.useLayoutEffect(() => {
-    navigation.setOptions({
-      headerRight: () => (
-        <TouchableOpacity
-          onPress={() => {
-            onLogout();
-          }}
-        >
-          <Text>LOG OUT</Text>
-        </TouchableOpacity>
-      ),
-    });
-  }, [navigation]);
+  profileType === 'user' &&
+    React.useLayoutEffect(() => {
+      navigation.setOptions({
+        headerRight: () => (
+          <TouchableOpacity
+            onPress={() => {
+              onLogout();
+            }}
+          >
+            <Text>LOG OUT</Text>
+          </TouchableOpacity>
+        ),
+      });
+    }, [navigation]);
 
   return (
     <Screen>
@@ -71,10 +76,10 @@ const UserProfileScreen = ({ navigation }) => {
       </View>
 
       <Text>Artwork</Text>
-      {userArt.length ? (
+      {profileArtwork.length ? (
         <View style={styles.artPhotoContainer}>
           <FlatList
-            data={userArt}
+            data={profileArtwork}
             keyExtractor={(item) => item._id}
             numColumns={4}
             renderItem={({ item }) => {
@@ -97,16 +102,17 @@ const UserProfileScreen = ({ navigation }) => {
           />
         </View>
       ) : (
-        <Text>NO artwork for this user</Text>
+        <Text>You haven't added any artwork</Text>
+      )}
+      {profileType === 'user' && (
+        <AppButton
+          title='Add New Artwork'
+          onPress={() => navigation.navigate('CreateArtwork')}
+        />
       )}
 
-      <AppButton
-        title='Add New Artwork'
-        onPress={() => navigation.navigate('CreateArtwork')}
-      />
-
       <View style={styles.mapContainer}>
-        <PointsMap navigation={navigation} data={userArt} />
+        <PointsMap navigation={navigation} data={profileArtwork} />
       </View>
     </Screen>
   );
