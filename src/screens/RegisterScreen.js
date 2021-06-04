@@ -12,10 +12,14 @@ import AppButton from '../components/AppButton';
 import AuthContext from '../contexts/AuthContext';
 
 const validationSchema = Yup.object().shape({
-  name: Yup.string().required().min(3).label('Name'),
-  email: Yup.string().required().email().label('Email'),
-  password: Yup.string().required().min(4).label('Password'),
-  repeatedPassword: Yup.string().required().min(4).label('Repeated Password'),
+  name: Yup.string().required().min(3).max(40).label('Name'),
+  email: Yup.string().required().email().max(40).label('Email'),
+  password: Yup.string().required().min(4).max(40).label('Password'),
+  repeatedPassword: Yup.string()
+    .required()
+    .min(4)
+    .max(40)
+    .label('Repeated Password'),
 });
 
 const RegisterScreen = ({ navigation }) => {
