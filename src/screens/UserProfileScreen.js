@@ -92,16 +92,13 @@ const UserProfileScreen = ({ navigation, route }) => {
 
         <Text>Based in: {basedIn()}</Text>
         <Text>About Me: {aboutMe}</Text>
-        <View style={styles.testBorder}>
-          <Text>
-            More info:{' '}
-            <TouchableOpacity
-              style={styles.testBorder}
-              onPress={() => Linking.openURL(`https://www.${moreInfo}`)}
-            >
-              <Text>{moreInfo}</Text>
-            </TouchableOpacity>
-          </Text>
+        <View style={[styles.textLinkRow]}>
+          <Text>More info: </Text>
+          <TouchableOpacity
+            onPress={() => Linking.openURL(`https://www.${moreInfo}`)}
+          >
+            <Text>{moreInfo}</Text>
+          </TouchableOpacity>
         </View>
       </View>
       <Text>Artwork</Text>
@@ -175,11 +172,10 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'red',
   },
-  // textLink: {
-  //   flex: 1,
-  //   flexDirection: 'row',
-  //   alignItems: 'center',
-  // },
+  textLinkRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
 });
 
 export default UserProfileScreen;
