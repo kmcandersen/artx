@@ -25,7 +25,6 @@ const listHeight = height * 0.3;
 const BrowseScreen = ({ navigation }) => {
   const { artwork, getArtwork, error } = useContext(ArtworkContext);
   const { artists, getArtists } = useContext(ArtistsContext);
-
   const [isDataLoading, setIsDataLoading] = useState(true);
 
   useEffect(() => {

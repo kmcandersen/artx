@@ -36,20 +36,21 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const addArtist = async (fbId, email) => {
+  const addArtist = async (fbId, email, name) => {
     try {
       setError(null);
-      const newArtist = await axios.post(`${BASE_URL}/artists`, {
+      const { data } = await axios.post(`${BASE_URL}/artists`, {
         fbId,
         email,
+        name,
       });
-      setArtists({ ...artists, newArtist });
+      setArtists([...artists, data]);
     } catch (error) {
       setError(error.toString());
     }
   };
 
-  const onRegister = async ({ email, password, repeatedPassword }) => {
+  const onRegister = async ({ name, email, password, repeatedPassword }) => {
     setIsLoading(true);
     if (password !== repeatedPassword) {
       setError('Error: Passwords do not match');
@@ -60,9 +61,8 @@ export const AuthProvider = ({ children }) => {
         .auth()
         .createUserWithEmailAndPassword(email, password);
       const fbId = response.user.uid;
-      const userEmail = response.user.email;
-      setUser({ fbId, email: userEmail });
-      addArtist(fbId, userEmail);
+      setUser({ fbId, email, name });
+      addArtist(fbId, email, name);
       setIsLoading(false);
     } catch (error) {
       setIsLoading(false);

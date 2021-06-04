@@ -12,6 +12,7 @@ import AppButton from '../components/AppButton';
 import AuthContext from '../contexts/AuthContext';
 
 const validationSchema = Yup.object().shape({
+  name: Yup.string().required().min(3).label('Name'),
   email: Yup.string().required().email().label('Email'),
   password: Yup.string().required().min(4).label('Password'),
   repeatedPassword: Yup.string().required().min(4).label('Repeated Password'),
@@ -24,10 +25,23 @@ const RegisterScreen = ({ navigation }) => {
     <Screen>
       <Text>REGISTER SCREEN error is: {error}</Text>
       <AppForm
-        initialValues={{ email: '', password: '', repeatedPassword: '' }}
+        initialValues={{
+          name: '',
+          email: '',
+          password: '',
+          repeatedPassword: '',
+        }}
         onSubmit={onRegister}
         validationSchema={validationSchema}
       >
+        <AppFormField
+          autoCapitalize='words'
+          autoCorrect={false}
+          icon='account'
+          name='name'
+          placeholder='Full Name'
+          textContentType='name'
+        />
         <ErrorMessage error='Invalid email and/or password' visible={error} />
         <AppFormField
           autoCapitalize='none'
