@@ -10,7 +10,7 @@ import {
   View,
 } from 'react-native';
 import { ActivityIndicator } from 'react-native-paper';
-import { CLOUD_URL } from '../config/vars';
+import { Avatar } from 'react-native-paper';
 
 import ArtworkContext from '../contexts/ArtworkContext';
 import ArtistsContext from '../contexts/ArtistsContext';
@@ -46,6 +46,7 @@ const BrowseScreen = ({ navigation }) => {
       if (artwork.find((work) => work.artistFbId === a.fbId)) {
         result.push({
           artistId: a.fbId,
+          initials: a.initials,
           profilePhotoUrl: a.profilePhotoUrl,
         });
       }
@@ -84,6 +85,7 @@ const BrowseScreen = ({ navigation }) => {
               showsHorizontalScrollIndicator={false}
               keyExtractor={(item) => item.artistId}
               style={styles.artistPhotosContainer}
+              contentContainerStyle={styles.alignRowItems}
               renderItem={({ item }) => {
                 return (
                   <>
@@ -94,14 +96,21 @@ const BrowseScreen = ({ navigation }) => {
                         })
                       }
                     >
-                      <Image
-                        style={styles.profilePhoto}
-                        source={{
-                          uri:
-                            item.profilePhotoUrl ||
-                            `${CLOUD_URL}/v1622603616/profile/bjgtveubu467wotsu3jc.jpg`,
-                        }}
-                      />
+                      {item.profilePhotoUrl ? (
+                        <Image
+                          source={{ uri: item.profilePhotoUrl }}
+                          style={styles.profilePhoto}
+                        />
+                      ) : (
+                        <Avatar.Text
+                          size={90}
+                          label={item.initials}
+                          color='white'
+                          style={{
+                            backgroundColor: '#0336FF',
+                          }}
+                        />
+                      )}
                     </TouchableOpacity>
                   </>
                 );
@@ -140,7 +149,13 @@ const BrowseScreen = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  artistPhotosContainer: { paddingHorizontal: 10 },
+  artistPhotosContainer: {
+    paddingHorizontal: 10,
+  },
+  alignRowItems: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
   profilePhoto: {
     width: 90,
     height: 90,

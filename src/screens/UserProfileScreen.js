@@ -8,6 +8,8 @@ import {
   View,
 } from 'react-native';
 import * as Linking from 'expo-linking';
+import { Avatar } from 'react-native-paper';
+
 import Screen from '../components/Screen';
 import AppButton from '../components/AppButton';
 import PointsMap from '../components/PointsMap';
@@ -36,6 +38,7 @@ const UserProfileScreen = ({ navigation, route }) => {
 
   const {
     name,
+    initials,
     email,
     displayEmail,
     city,
@@ -73,7 +76,21 @@ const UserProfileScreen = ({ navigation, route }) => {
   return (
     <Screen>
       <View style={styles.profilePhotoContainer}>
-        <Image source={{ uri: profilePhotoUrl }} style={styles.profilePhoto} />
+        {profilePhotoUrl ? (
+          <Image
+            source={{ uri: profilePhotoUrl }}
+            style={styles.profilePhoto}
+          />
+        ) : (
+          <Avatar.Text
+            size={90}
+            label={initials}
+            color='white'
+            style={{
+              backgroundColor: '#0336FF',
+            }}
+          />
+        )}
       </View>
 
       <View>
