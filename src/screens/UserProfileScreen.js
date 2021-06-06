@@ -78,7 +78,7 @@ const UserProfileScreen = ({ navigation, route }) => {
       <View style={styles.profilePhotoContainer}>
         {profilePhotoUrl ? (
           <Image
-            source={{ uri: profilePhotoUrl }}
+            source={{ uri: profilePhotoUrl[0] }}
             style={styles.profilePhoto}
           />
         ) : (
@@ -92,7 +92,6 @@ const UserProfileScreen = ({ navigation, route }) => {
           />
         )}
       </View>
-
       <View>
         <Text>{name}</Text>
         {profileType === 'user' || displayEmail ? (
@@ -152,6 +151,14 @@ const UserProfileScreen = ({ navigation, route }) => {
           title='Add New Artwork'
           onPress={() => navigation.navigate('CreateArtwork')}
         />
+      )}
+      {profileType === 'user' && (
+        <AppButton
+          title='Edit My Profile'
+          onPress={() =>
+            navigation.navigate('EditUser', { profile: profileInfo })
+          }
+        ></AppButton>
       )}
 
       <View style={styles.mapContainer}>

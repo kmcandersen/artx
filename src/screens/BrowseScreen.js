@@ -98,7 +98,7 @@ const BrowseScreen = ({ navigation }) => {
                     >
                       {item.profilePhotoUrl ? (
                         <Image
-                          source={{ uri: item.profilePhotoUrl }}
+                          source={{ uri: item.profilePhotoUrl[0] }}
                           style={styles.profilePhoto}
                         />
                       ) : (

@@ -52,13 +52,12 @@ export const ArtistsProvider = ({ children }) => {
         `${BASE_URL}/artists/${id}`,
         otherProps
       );
-      const editedList = artists.map((work) =>
-        work.id === id
+      const editedList = artists.map((user) =>
+        user.fbId === id
           ? {
-              ...work,
-              data,
+              ...data,
             }
-          : work
+          : user
       );
       setArtists(editedList);
 

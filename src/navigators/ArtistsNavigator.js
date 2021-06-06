@@ -2,7 +2,7 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import UserProfileScreen from '../screens/UserProfileScreen';
-// import EditArtistScreen from '../screens/EditArtistScreen';
+import EditUserScreen from '../screens/EditUserScreen';
 import CreateArtworkScreen from '../screens/CreateArtworkScreen';
 // import EditArtworkScreen from '../screens/EditArtworkScreen';
 // import ArtworkDetailScreen from '../screens/ArtworkDetailScreen';
@@ -21,12 +21,12 @@ const ArtistsNavigator = () => (
       component={CreateArtworkScreen}
       options={{ headerTitle: 'Add Artwork' }}
     />
-    {/* <Stack.Screen
-      name='EditArtist'
-      component={EditArtistScreen}
+    <Stack.Screen
+      name='EditUser'
+      component={EditUserScreen}
       options={{ headerTitle: 'Edit Profile' }}
     />
-    <Stack.Screen
+    {/* <Stack.Screen
       name='ArtworkDetail'
       component={ArtworkDetailScreen}
       options={{ headerTitle: 'Art Deets' }}

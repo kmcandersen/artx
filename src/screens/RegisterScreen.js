@@ -12,7 +12,7 @@ import AppButton from '../components/AppButton';
 import AuthContext from '../contexts/AuthContext';
 
 const validationSchema = Yup.object().shape({
-  name: Yup.string().required().min(3).max(40).label('Name'),
+  name: Yup.string().required().min(1).max(40).label('Name'),
   email: Yup.string().required().email().max(40).label('Email'),
   password: Yup.string().required().min(4).max(40).label('Password'),
   repeatedPassword: Yup.string()
