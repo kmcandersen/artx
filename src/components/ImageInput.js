@@ -21,7 +21,7 @@ import {
 import ArtworkContext from '../contexts/ArtworkContext';
 
 // imageType = 'artwork' or 'profile'
-// for 'profile': no coords or imgCount (to get coords of 1st photo in arr & deletes coords if all photos removed) needed
+// for 'profile': no coords or imgCount (to get coords of 1st photo in arr with coords, & deletes coords if all photos removed) needed
 // 'artwork' and 'profile' images uploaded to diff folders
 function ImageInput({ imageUri, onChangeImage, imageType }) {
   const {
@@ -35,7 +35,6 @@ function ImageInput({ imageUri, onChangeImage, imageType }) {
 
   useEffect(() => {
     requestPermission();
-    setImgCount(0);
   }, []);
 
   const requestPermission = async () => {

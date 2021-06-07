@@ -47,6 +47,7 @@ export const ArtworkProvider = ({ children }) => {
       });
       setArtwork([...artwork, data]);
       setCoords([]);
+      setImgCount(0);
       setDeleteTokens([]);
       if (callback) {
         callback();
