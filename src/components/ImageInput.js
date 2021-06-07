@@ -81,7 +81,8 @@ function ImageInput({ imageUri, onChangeImage, imageType }) {
       const result = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
         quality: 0.5,
-        aspect: [4, 3],
+        allowsEditing: true,
+        aspect: imageType === 'artwork' ? [4, 3] : [3, 3],
         exif: true,
       });
 
