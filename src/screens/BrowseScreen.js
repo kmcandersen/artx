@@ -47,7 +47,7 @@ const BrowseScreen = ({ navigation }) => {
         result.push({
           artistId: a.fbId,
           initials: a.initials,
-          profilePhotoUrl: a.profilePhotoUrl,
+          profilePhotoUrl: a.profilePhotoUrl || [],
         });
       }
     });
@@ -96,7 +96,7 @@ const BrowseScreen = ({ navigation }) => {
                         })
                       }
                     >
-                      {item.profilePhotoUrl ? (
+                      {item.profilePhotoUrl.length ? (
                         <Image
                           source={{ uri: item.profilePhotoUrl[0] }}
                           style={styles.profilePhoto}
