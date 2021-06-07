@@ -20,6 +20,9 @@ import {
 } from '../config/vars';
 import ArtworkContext from '../contexts/ArtworkContext';
 
+// imageType = 'artwork' or 'profile'
+// for 'profile': no coords or imgCount (to get coords of 1st photo in arr & deletes coords if all photos removed) needed
+// 'artwork' and 'profile' images uploaded to diff folders
 function ImageInput({ imageUri, onChangeImage, imageType }) {
   const {
     coords,
@@ -57,10 +60,12 @@ function ImageInput({ imageUri, onChangeImage, imageType }) {
             await axios.post(`${CLOUD_UPLOAD_URL}/delete_by_token`, {
               token: matchingToken,
             });
-            setImgCount(imgCount - 1);
             // null bc image not physically deleted from the library, just the container
             onChangeImage(null);
-            if (imgCount === 1) {
+            if (imageType === 'artwork') {
+              setImgCount(imgCount - 1);
+            }
+            if (imgCount === 1 && imageType === 'artwork') {
               setCoords([]);
             }
           },
@@ -82,7 +87,6 @@ function ImageInput({ imageUri, onChangeImage, imageType }) {
       });
 
       if (!result.cancelled) {
-        // no coords needed for profile images:
         if (imageType === 'artwork') {
           if (result.exif.GPSLatitude && coords.length === 0) {
             setCoords([result.exif.GPSLongitude, result.exif.GPSLatitude]);
@@ -124,7 +128,9 @@ function ImageInput({ imageUri, onChangeImage, imageType }) {
         { uri: imageUriKey, token: response.data.delete_token },
       ]);
       onChangeImage(response.data.url);
-      setImgCount(imgCount + 1);
+      if (imageType === 'artwork') {
+        setImgCount(imgCount + 1);
+      }
     } catch (error) {
       Alert.alert('error while uploading');
     }
