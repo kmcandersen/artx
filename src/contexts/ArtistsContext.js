@@ -1,12 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import { BASE_URL } from '../config/vars';
+
+import ArtworkContext from '../contexts/ArtworkContext';
 
 const ArtistsContext = React.createContext();
 
 export const ArtistsProvider = ({ children }) => {
   const [artists, setArtists] = useState();
   const [artistError, setError] = useState(null);
+
+  const { setDeleteTokens } = useContext(ArtworkContext);
 
   const getArtists = async () => {
     try {
@@ -60,7 +64,7 @@ export const ArtistsProvider = ({ children }) => {
           : user
       );
       setArtists(editedList);
-
+      setDeleteTokens([]);
       if (callback) callback();
     } catch (error) {
       setError(error.toString());
