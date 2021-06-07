@@ -50,7 +50,8 @@ const ArtworkDetailScreen = ({ route, navigation }) => {
         {profileType === 'user' && (
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate('Browse');
+              // navigation.navigate('Browse');
+              navigation.goBack();
               removeArtwork(work._id);
             }}
           >
