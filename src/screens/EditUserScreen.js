@@ -1,11 +1,12 @@
 import React, { useContext } from 'react';
-import { StyleSheet } from 'react-native';
+import { ScrollView, StyleSheet } from 'react-native';
 import * as Yup from 'yup';
 import {
   ErrorMessage,
   AppForm,
   AppFormSwitch,
   AppFormField,
+  FormImagePicker,
   SubmitButton,
 } from '../components/forms';
 
@@ -45,69 +46,74 @@ const EditUserScreen = ({ route, navigation }) => {
 
   return (
     <Screen>
-      <AppForm
-        initialValues={initialValues}
-        onSubmit={editArtist}
-        validationSchema={validationSchema}
-      >
-        <ErrorMessage error={artistError} visible={artistError} />
-        <AppFormField
-          autoCapitalize='words'
-          autoCorrect={false}
-          name='name'
-          placeholder='Full Name'
-          textContentType='name'
-        />
-        <AppFormSwitch
-          name='displayEmail'
-          label='Show my email address in my public profile'
-        />
-        <AppFormField
-          name='city'
-          placeholder='City'
-          textContentType='addressCity'
-          autoCapitalize='words'
-          autoCompleteType='off'
-          autoCorrect={false}
-        />
-        <AppFormField
-          name='state'
-          placeholder='State/Province, e.g. TX'
-          textContentType='addressState'
-          autoCapitalize='characters'
-          autoCompleteType='off'
-          autoCorrect={false}
-        />
-        <AppFormField
-          name='country'
-          placeholder='State/Province'
-          textContentType='countryName'
-          autoCapitalize='words'
-          autoCompleteType='off'
-        />
-        <AppFormField
-          name='aboutMe'
-          placeholder='About Me'
-          textContentType='none'
-          maxLength={450}
-          multiline
-          autoCapitalize='sentences'
-          autoCompleteType='off'
-          autoCorrect={false}
-        />
-        <AppFormField
-          name='moreInfo'
-          placeholder='Where to find more info (website, social, etc.)'
-          textContentType='none'
-          maxLength={40}
-          multiline
-          autoCapitalize='none'
-          autoCompleteType='off'
-          autoCorrect={false}
-        />
-        <SubmitButton title='Update Profile' />
-        <AppButton title='Back' onPress={() => navigation.goBack()} />
-      </AppForm>
+      <ScrollView>
+        <AppForm
+          initialValues={initialValues}
+          onSubmit={editArtist}
+          validationSchema={validationSchema}
+        >
+          <ErrorMessage error={artistError} visible={artistError} />
+          {!profile.profilePhotoUrl[0] && (
+            <FormImagePicker name='profilePhotoUrl' imageType='profile' />
+          )}
+          <AppFormField
+            autoCapitalize='words'
+            autoCorrect={false}
+            name='name'
+            placeholder='Full Name'
+            textContentType='name'
+          />
+          <AppFormSwitch
+            name='displayEmail'
+            label='Show my email address in my public profile'
+          />
+          <AppFormField
+            name='city'
+            placeholder='City'
+            textContentType='addressCity'
+            autoCapitalize='words'
+            autoCompleteType='off'
+            autoCorrect={false}
+          />
+          <AppFormField
+            name='state'
+            placeholder='State/Province, e.g. TX'
+            textContentType='addressState'
+            autoCapitalize='characters'
+            autoCompleteType='off'
+            autoCorrect={false}
+          />
+          <AppFormField
+            name='country'
+            placeholder='State/Province'
+            textContentType='countryName'
+            autoCapitalize='words'
+            autoCompleteType='off'
+          />
+          <AppFormField
+            name='aboutMe'
+            placeholder='About Me'
+            textContentType='none'
+            maxLength={450}
+            multiline
+            autoCapitalize='sentences'
+            autoCompleteType='off'
+            autoCorrect={false}
+          />
+          <AppFormField
+            name='moreInfo'
+            placeholder='Where to find more info (website, social, etc.)'
+            textContentType='none'
+            maxLength={40}
+            multiline
+            autoCapitalize='none'
+            autoCompleteType='off'
+            autoCorrect={false}
+          />
+          <SubmitButton title='Update Profile' />
+          <AppButton title='Back' onPress={() => navigation.goBack()} />
+        </AppForm>
+      </ScrollView>
     </Screen>
   );
 };

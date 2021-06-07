@@ -14,11 +14,13 @@ import {
   CLOUD_NAME,
   CLOUD_FOLDER_A,
   CLOUD_PRESET_A,
+  CLOUD_FOLDER_B,
+  CLOUD_PRESET_B,
   CLOUD_UPLOAD_URL,
 } from '../config/vars';
 import ArtworkContext from '../contexts/ArtworkContext';
 
-function ImageInput({ imageUri, onChangeImage }) {
+function ImageInput({ imageUri, onChangeImage, imageType }) {
   const {
     coords,
     setCoords,
@@ -78,9 +80,13 @@ function ImageInput({ imageUri, onChangeImage }) {
         aspect: [4, 3],
         exif: true,
       });
+
       if (!result.cancelled) {
-        if (result.exif.GPSLatitude && coords.length === 0) {
-          setCoords([result.exif.GPSLongitude, result.exif.GPSLatitude]);
+        // no coords needed for profile images:
+        if (imageType === 'artwork') {
+          if (result.exif.GPSLatitude && coords.length === 0) {
+            setCoords([result.exif.GPSLongitude, result.exif.GPSLatitude]);
+          }
         }
 
         let newImage = {
@@ -99,8 +105,14 @@ function ImageInput({ imageUri, onChangeImage }) {
     try {
       const data = new FormData();
       data.append('file', image);
-      data.append('upload_preset', CLOUD_PRESET_A);
-      data.append('folder', CLOUD_FOLDER_A);
+      data.append(
+        'upload_preset',
+        imageType === 'artwork' ? CLOUD_PRESET_A : CLOUD_PRESET_B
+      );
+      data.append(
+        'folder',
+        imageType === 'artwork' ? CLOUD_FOLDER_A : CLOUD_FOLDER_B
+      );
       data.append('cloud_name', CLOUD_NAME);
       const response = await axios.post(
         `${CLOUD_UPLOAD_URL}/image/upload`,
@@ -125,7 +137,15 @@ function ImageInput({ imageUri, onChangeImage }) {
 
   return (
     <TouchableWithoutFeedback onPress={handlePress}>
-      <View style={styles.container}>{imageUri ? photo : cameraIcon}</View>
+      <View
+        style={
+          imageType === 'artwork'
+            ? [styles.container, styles.containerArtwork]
+            : [styles.container, styles.containerProfile]
+        }
+      >
+        {imageUri ? photo : cameraIcon}
+      </View>
     </TouchableWithoutFeedback>
   );
 }
@@ -134,11 +154,16 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     backgroundColor: colors.light,
-    borderRadius: 10,
     justifyContent: 'center',
     overflow: 'hidden',
     height: 100,
     width: 100,
+  },
+  containerArtwork: {
+    borderRadius: 10,
+  },
+  containerProfile: {
+    borderRadius: 50,
   },
   image: {
     width: '100%',

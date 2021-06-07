@@ -79,7 +79,7 @@ const CreateArtworkScreen = ({ navigation }) => {
           autoCompleteType='off'
           autoCorrect={false}
         />
-        <FormImagePicker name='photoUrls' />
+        <FormImagePicker name='photoUrls' imageType='artwork' />
         <AppFormPicker
           items={tags}
           name='tags'

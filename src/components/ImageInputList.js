@@ -2,7 +2,12 @@ import React, { useRef } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import ImageInput from './ImageInput';
 
-function ImageInputList({ imageUris = [], onRemoveImage, onAddImage }) {
+function ImageInputList({
+  imageUris = [],
+  onRemoveImage,
+  onAddImage,
+  imageType,
+}) {
   const scrollView = useRef();
 
   return (
@@ -18,10 +23,17 @@ function ImageInputList({ imageUris = [], onRemoveImage, onAddImage }) {
               <ImageInput
                 imageUri={uri}
                 onChangeImage={() => onRemoveImage(uri)}
+                imageType={imageType}
               />
             </View>
           ))}
-          <ImageInput onChangeImage={(uri) => onAddImage(uri)} />
+          {/* Users can only add 1 profile pic, but multiple artwork images. Option to add a profile pic only available if they haven't selected/submitted one yet. Users can delete selected photo before submission. */}
+          {!imageUris.length || imageType === 'artwork' ? (
+            <ImageInput
+              onChangeImage={(uri) => onAddImage(uri)}
+              imageType={imageType}
+            />
+          ) : null}
         </View>
       </ScrollView>
     </View>

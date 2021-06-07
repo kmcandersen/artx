@@ -4,7 +4,7 @@ import { useFormikContext } from 'formik';
 import ErrorMessage from './ErrorMessage';
 import ImageInputList from '../ImageInputList';
 
-function FormImagePicker({ name }) {
+function FormImagePicker({ name, imageType }) {
   const { errors, setFieldValue, touched, values } = useFormikContext();
   const imageUris = values[name];
 
@@ -25,6 +25,7 @@ function FormImagePicker({ name }) {
         imageUris={imageUris}
         onAddImage={handleAdd}
         onRemoveImage={handleRemove}
+        imageType={imageType}
       />
 
       <ErrorMessage error={errors[name]} visible={touched[name]} />

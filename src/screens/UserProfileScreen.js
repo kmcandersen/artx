@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import {
   FlatList,
   Image,
+  ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -75,95 +76,97 @@ const UserProfileScreen = ({ navigation, route }) => {
 
   return (
     <Screen>
-      <View style={styles.profilePhotoContainer}>
-        {profilePhotoUrl ? (
-          <Image
-            source={{ uri: profilePhotoUrl[0] }}
-            style={styles.profilePhoto}
-          />
+      <ScrollView>
+        <View style={styles.profilePhotoContainer}>
+          {profilePhotoUrl[0] ? (
+            <Image
+              source={{ uri: profilePhotoUrl[0] }}
+              style={styles.profilePhoto}
+            />
+          ) : (
+            <Avatar.Text
+              size={90}
+              label={initials}
+              color='white'
+              style={{
+                backgroundColor: '#0336FF',
+              }}
+            />
+          )}
+        </View>
+        <View>
+          <Text>{name}</Text>
+          {profileType === 'user' || displayEmail ? (
+            <TouchableOpacity
+              onPress={() =>
+                Linking.openURL(`mailto:${email}`).catch((error) =>
+                  console.log(error)
+                )
+              }
+            >
+              <Text>{email}</Text>
+            </TouchableOpacity>
+          ) : null}
+
+          <Text>Based in: {basedIn()}</Text>
+          <Text>About Me: {aboutMe}</Text>
+          <View style={[styles.textLinkRow]}>
+            <Text>More info: </Text>
+            <TouchableOpacity
+              onPress={() => Linking.openURL(`https://www.${moreInfo}`)}
+            >
+              <Text>{moreInfo}</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+        <Text>Artwork</Text>
+        {profileArtwork.length ? (
+          <View style={styles.artPhotoContainer}>
+            <FlatList
+              data={profileArtwork}
+              keyExtractor={(item) => item._id}
+              numColumns={4}
+              renderItem={({ item }) => {
+                return (
+                  <TouchableOpacity
+                    onPress={() =>
+                      navigation.navigate('ArtworkDetail', {
+                        id: item._id,
+                        artistId: item.artistFbId,
+                      })
+                    }
+                  >
+                    <Image
+                      style={styles.artPhoto}
+                      source={{ uri: item.photoUrls[0] }}
+                    />
+                  </TouchableOpacity>
+                );
+              }}
+            />
+          </View>
         ) : (
-          <Avatar.Text
-            size={90}
-            label={initials}
-            color='white'
-            style={{
-              backgroundColor: '#0336FF',
-            }}
+          <Text>You haven't added any artwork</Text>
+        )}
+        {profileType === 'user' && (
+          <AppButton
+            title='Add New Artwork'
+            onPress={() => navigation.navigate('CreateArtwork')}
           />
         )}
-      </View>
-      <View>
-        <Text>{name}</Text>
-        {profileType === 'user' || displayEmail ? (
-          <TouchableOpacity
+        {profileType === 'user' && (
+          <AppButton
+            title='Edit My Profile'
             onPress={() =>
-              Linking.openURL(`mailto:${email}`).catch((error) =>
-                console.log(error)
-              )
+              navigation.navigate('EditUser', { profile: profileInfo })
             }
-          >
-            <Text>{email}</Text>
-          </TouchableOpacity>
-        ) : null}
+          ></AppButton>
+        )}
 
-        <Text>Based in: {basedIn()}</Text>
-        <Text>About Me: {aboutMe}</Text>
-        <View style={[styles.textLinkRow]}>
-          <Text>More info: </Text>
-          <TouchableOpacity
-            onPress={() => Linking.openURL(`https://www.${moreInfo}`)}
-          >
-            <Text>{moreInfo}</Text>
-          </TouchableOpacity>
+        <View style={styles.mapContainer}>
+          <PointsMap navigation={navigation} data={profileArtwork} />
         </View>
-      </View>
-      <Text>Artwork</Text>
-      {profileArtwork.length ? (
-        <View style={styles.artPhotoContainer}>
-          <FlatList
-            data={profileArtwork}
-            keyExtractor={(item) => item._id}
-            numColumns={4}
-            renderItem={({ item }) => {
-              return (
-                <TouchableOpacity
-                  onPress={() =>
-                    navigation.navigate('ArtworkDetail', {
-                      id: item._id,
-                      artistId: item.artistFbId,
-                    })
-                  }
-                >
-                  <Image
-                    style={styles.artPhoto}
-                    source={{ uri: item.photoUrls[0] }}
-                  />
-                </TouchableOpacity>
-              );
-            }}
-          />
-        </View>
-      ) : (
-        <Text>You haven't added any artwork</Text>
-      )}
-      {profileType === 'user' && (
-        <AppButton
-          title='Add New Artwork'
-          onPress={() => navigation.navigate('CreateArtwork')}
-        />
-      )}
-      {profileType === 'user' && (
-        <AppButton
-          title='Edit My Profile'
-          onPress={() =>
-            navigation.navigate('EditUser', { profile: profileInfo })
-          }
-        ></AppButton>
-      )}
-
-      <View style={styles.mapContainer}>
-        <PointsMap navigation={navigation} data={profileArtwork} />
-      </View>
+      </ScrollView>
     </Screen>
   );
 };
