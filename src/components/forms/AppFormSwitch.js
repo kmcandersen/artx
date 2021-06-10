@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Switch, Text, View } from 'react-native';
 import { useFormikContext } from 'formik';
 
-function AppFormSwitch({ name, label }) {
+function AppFormSwitch({ name, label1, label2 }) {
   const { setFieldValue, values } = useFormikContext();
   const isSwitchOn = values[name];
   const toggleSwitch = () => setFieldValue(name, !values[name]);
@@ -16,7 +16,7 @@ function AppFormSwitch({ name, label }) {
         onValueChange={toggleSwitch}
         value={isSwitchOn}
       />
-      <Text>{label}</Text>
+      <Text>{isSwitchOn ? label1 : label2}</Text>
     </View>
   );
 }

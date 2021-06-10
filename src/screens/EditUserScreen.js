@@ -74,7 +74,8 @@ const EditUserScreen = ({ route, navigation }) => {
         />
         <AppFormSwitch
           name='displayEmail'
-          label='Show my email address in my public profile'
+          label1='Show my email address in public profile'
+          label2='Hide my email address in public profile'
         />
         <AppFormField
           name='city'
