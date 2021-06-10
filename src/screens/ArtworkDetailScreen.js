@@ -31,7 +31,7 @@ const ArtworkDetailScreen = ({ route, navigation }) => {
     return (
       <Screen style={{ backgroundColor: '#fff' }}>
         <View>{work.photoUrls && <PhotoSlider photos={work.photoUrls} />}</View>
-        <View>
+        <View style={styles.detailsContainer}>
           <Text>{work.title}</Text>
           <TouchableOpacity
             onPress={() => {
@@ -77,6 +77,10 @@ const ArtworkDetailScreen = ({ route, navigation }) => {
   return null;
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  detailsContainer: {
+    flex: 1,
+  },
+});
 
 export default ArtworkDetailScreen;
