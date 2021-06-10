@@ -45,7 +45,7 @@ const ArtworkDetailScreen = ({ route, navigation }) => {
 
           <Text>{work.address}</Text>
           <Text>Year: {work.year ? work.year : 'NA'}</Text>
-          <Text>About: {work.aboutText}</Text>
+          <Text>About: {work.aboutText ? work.aboutText : 'NA'}</Text>
         </View>
         {profileType === 'user' && (
           <TouchableOpacity

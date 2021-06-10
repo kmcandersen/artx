@@ -32,7 +32,7 @@ const CreateArtworkScreen = ({ navigation }) => {
     title: '',
     address: '',
     year: '',
-    aboutText: 'NA',
+    aboutText: '',
     tags: [],
     photoUrls: [],
     callback: () => {
@@ -64,7 +64,7 @@ const CreateArtworkScreen = ({ navigation }) => {
           autoCorrect={false}
         />
         <AppFormField
-          keyboardType='numeric'
+          keyboardType='number-pad'
           name='year'
           placeholder='Year completed'
           maxLength={4}
@@ -75,6 +75,7 @@ const CreateArtworkScreen = ({ navigation }) => {
           textContentType='none'
           maxLength={450}
           multiline
+          textAlignVertical='top'
           autoCapitalize='sentences'
           autoCompleteType='off'
           autoCorrect={false}

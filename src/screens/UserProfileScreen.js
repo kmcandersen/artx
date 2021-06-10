@@ -68,7 +68,7 @@ const UserProfileScreen = ({ navigation, route }) => {
   const basedIn = () => {
     let result = '';
     result = city ? (result += city) : '';
-    state ? (result += `, ${state}`) : '';
+    state && state !== 'Other' ? (result += `, ${state}`) : '';
     country ? (result += `, ${country}`) : '';
     if (result === '') result = 'NA';
     return result;

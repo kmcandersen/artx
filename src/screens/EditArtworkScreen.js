@@ -24,7 +24,7 @@ const EditArtworkScreen = ({ route, navigation }) => {
   const validationSchema = Yup.object().shape({
     title: Yup.string().required().label('Title'),
     address: Yup.string().required().min(4).label('Address'),
-    year: Yup.number().min(1950).max(currYear).label('Year'),
+    year: Yup.number().min(1950).max(currYear).nullable().label('Year'),
     aboutText: Yup.string().max(450).label('About'),
   });
 
@@ -69,7 +69,7 @@ const EditArtworkScreen = ({ route, navigation }) => {
           autoCorrect={false}
         />
         <AppFormField
-          keyboardType='numeric'
+          keyboardType='number-pad'
           name='year'
           placeholder='Year completed'
           maxLength={4}
@@ -80,6 +80,7 @@ const EditArtworkScreen = ({ route, navigation }) => {
           textContentType='none'
           maxLength={450}
           multiline
+          textAlignVertical='top'
           autoCapitalize='sentences'
           autoCompleteType='off'
           autoCorrect={false}
