@@ -20,7 +20,7 @@ import colors from '../config/colors';
 import PointsMap from '../components/PointsMap';
 
 const { height } = Dimensions.get('window');
-const listHeight = height * 0.3;
+const listHeight = height * 0.7;
 
 const BrowseScreen = ({ navigation }) => {
   const { artwork, getArtwork, error } = useContext(ArtworkContext);
@@ -73,7 +73,7 @@ const BrowseScreen = ({ navigation }) => {
           <Text>{error}</Text>
         </View>
       ) : (
-        <>
+        <ScrollView>
           <View style={styles.mapContainer}>
             <PointsMap navigation={navigation} data={artwork} />
           </View>
@@ -142,7 +142,7 @@ const BrowseScreen = ({ navigation }) => {
               ))}
             </ScrollView>
           </View>
-        </>
+        </ScrollView>
       )}
     </Screen>
   );

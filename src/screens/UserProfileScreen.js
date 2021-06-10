@@ -120,15 +120,14 @@ const UserProfileScreen = ({ navigation, route }) => {
           </View>
         </View>
         <Text>Artwork</Text>
-        {profileArtwork.length ? (
-          <View style={styles.artPhotoContainer}>
-            <FlatList
-              data={profileArtwork}
-              keyExtractor={(item) => item._id}
-              numColumns={4}
-              renderItem={({ item }) => {
+
+        <View style={styles.artPhotoContainer}>
+          {profileArtwork.length ? (
+            <ScrollView horizontal={true}>
+              {profileArtwork.map((item) => {
                 return (
                   <TouchableOpacity
+                    key={item._id}
                     onPress={() =>
                       navigation.navigate('ArtworkDetail', {
                         id: item._id,
@@ -142,12 +141,13 @@ const UserProfileScreen = ({ navigation, route }) => {
                     />
                   </TouchableOpacity>
                 );
-              }}
-            />
-          </View>
-        ) : (
-          <Text>You haven't added any artwork</Text>
-        )}
+              })}
+            </ScrollView>
+          ) : (
+            <Text>You haven't added any artwork</Text>
+          )}
+        </View>
+
         {profileType === 'user' && (
           <AppButton
             title='Add New Artwork'
