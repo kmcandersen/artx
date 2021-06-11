@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import {
   Dimensions,
   FlatList,
@@ -14,6 +14,7 @@ import { Avatar } from 'react-native-paper';
 
 import ArtworkContext from '../contexts/ArtworkContext';
 import ArtistsContext from '../contexts/ArtistsContext';
+import AuthContext from '../contexts/AuthContext';
 
 import Screen from '../components/Screen';
 import colors from '../config/colors';
@@ -23,19 +24,10 @@ const { height } = Dimensions.get('window');
 const listHeight = height * 0.7;
 
 const BrowseScreen = ({ navigation }) => {
-  const { artwork, getArtwork, error } = useContext(ArtworkContext);
-  const { artists, getArtists } = useContext(ArtistsContext);
-  const [isDataLoading, setIsDataLoading] = useState(true);
+  const { artwork } = useContext(ArtworkContext);
+  const { artists } = useContext(ArtistsContext);
 
-  useEffect(() => {
-    let data = getArtwork();
-    getArtists();
-    if (data) {
-      setIsDataLoading(false);
-    } else {
-      setIsDataLoading(true);
-    }
-  }, []);
+  const { isLoading, error } = useContext(AuthContext);
 
   // need list of artists with artwork (not all registered users); a unique list of artistFbId's & their profilePhotoUrl's
   // loop thru artists, if found (once) in artwork (work.artistFbId), save artist.fbId and artist.profilePhotoUrl to artistList
@@ -56,18 +48,25 @@ const BrowseScreen = ({ navigation }) => {
 
   const artistList = artists && artwork ? getArtistList() : [];
 
+  {
+    if (isLoading && !error) {
+      return (
+        <Screen style={{ backgroundColor: 'white' }}>
+          <View style={styles.loadingContainer}>
+            <ActivityIndicator
+              style={styles.loading}
+              size={50}
+              animating={true}
+              color={colors.secondary}
+            />
+          </View>
+        </Screen>
+      );
+    }
+  }
+
   return (
     <Screen>
-      {isDataLoading && !error ? (
-        <View style={styles.loadingContainer}>
-          <ActivityIndicator
-            style={styles.loading}
-            size={50}
-            animating={true}
-            color={colors.secondary}
-          />
-        </View>
-      ) : null}
       {error ? (
         <View>
           <Text>{error}</Text>
@@ -162,13 +161,10 @@ const styles = StyleSheet.create({
     borderRadius: 90,
     margin: 5,
   },
-  loading: {
-    marginLeft: -25,
-  },
   loadingContainer: {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   row: {
     flexDirection: 'row',

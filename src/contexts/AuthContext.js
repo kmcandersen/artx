@@ -27,8 +27,8 @@ export const AuthProvider = ({ children }) => {
       const response = await loginRequest(email, password);
       // setUser(response);
       setUser({ fbId: response.user.uid, email: response.user.email });
-      // getArtwork();
-      // getArtists();
+      getArtwork();
+      getArtists();
       setIsLoading(false);
     } catch (error) {
       setIsLoading(false);
