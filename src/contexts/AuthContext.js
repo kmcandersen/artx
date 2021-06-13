@@ -44,7 +44,10 @@ export const AuthProvider = ({ children }) => {
         email,
         name,
       });
-      setArtists([...artists, data]);
+      if (artists) {
+        setArtists([...artists, data]);
+      }
+      setIsLoading(false);
     } catch (error) {
       setError(error.toString());
     }
@@ -63,7 +66,8 @@ export const AuthProvider = ({ children }) => {
       const fbId = response.user.uid;
       setUser({ fbId, email, name });
       addArtist(fbId, email, name);
-      setIsLoading(false);
+      getArtwork();
+      getArtists();
     } catch (error) {
       setIsLoading(false);
       setError(error.toString());
