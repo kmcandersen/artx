@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { EvilIcons } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 import Screen from '../components/Screen';
@@ -25,6 +25,21 @@ const ArtworkDetailScreen = ({ route, navigation }) => {
   // can't destructure 'work' or app fails after removeArtwork
   const { name } = artist;
 
+  const createDeleteAlert = () =>
+    Alert.alert('Delete', 'Are you sure you want to delete this artwork?', [
+      {
+        text: 'Cancel',
+        style: 'cancel',
+      },
+      {
+        text: 'Delete',
+        onPress: () => {
+          navigation.goBack();
+          removeArtwork(work._id);
+        },
+      },
+    ]);
+
   // if an indiv artwork is deleted, doesn't try to render DetailScreen; callback redirects to ArtworkList
   // if there's only 1 photo, slider is still needed, for tap to enlarge
   if (work) {
@@ -48,13 +63,7 @@ const ArtworkDetailScreen = ({ route, navigation }) => {
           <Text>About: {work.aboutText ? work.aboutText : 'NA'}</Text>
         </View>
         {profileType === 'user' && (
-          <TouchableOpacity
-            onPress={() => {
-              // navigation.navigate('Browse');
-              navigation.goBack();
-              removeArtwork(work._id);
-            }}
-          >
+          <TouchableOpacity onPress={createDeleteAlert}>
             <Feather style={styles.icon} name='trash' />
           </TouchableOpacity>
         )}

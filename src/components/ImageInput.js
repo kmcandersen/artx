@@ -54,7 +54,10 @@ function ImageInput({ imageUri, onChangeImage, imageType }) {
 
       Alert.alert('Delete', 'Are you sure you want to delete this image?', [
         {
-          text: 'Yes',
+          text: 'Cancel',
+        },
+        {
+          text: 'Delete',
           onPress: async () => {
             await axios.post(`${CLOUD_UPLOAD_URL}/delete_by_token`, {
               token: matchingToken,
@@ -68,9 +71,6 @@ function ImageInput({ imageUri, onChangeImage, imageType }) {
               setCoords([]);
             }
           },
-        },
-        {
-          text: 'No',
         },
       ]);
     }
