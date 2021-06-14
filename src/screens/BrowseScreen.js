@@ -1,5 +1,6 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import {
+  Alert,
   Dimensions,
   FlatList,
   Image,
@@ -28,6 +29,18 @@ const BrowseScreen = ({ navigation }) => {
   const { artists } = useContext(ArtistsContext);
 
   const { isLoading, error } = useContext(AuthContext);
+
+  useEffect(() => {
+    if (error) {
+      Alert.alert('Error', 'An error has occurred.', [
+        {
+          text: 'Try Again',
+          style: 'cancel',
+          onPress: () => navigation.navigate('Welcome'),
+        },
+      ]);
+    }
+  }, [error]);
 
   // need list of artists with artwork (not all registered users); a unique list of artistFbId's & their profilePhotoUrl's
   // loop thru artists, if found (once) in artwork (work.artistFbId), save artist.fbId and artist.profilePhotoUrl to artistList
@@ -62,89 +75,85 @@ const BrowseScreen = ({ navigation }) => {
           </View>
         </Screen>
       );
+    } else if (!isLoading && !error) {
+      return (
+        <Screen>
+          <ScrollView>
+            <View style={styles.mapContainer}>
+              <PointsMap navigation={navigation} data={artwork} />
+            </View>
+            <View>
+              <Text>All Artists</Text>
+              <FlatList
+                data={artistList}
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                keyExtractor={(item) => item.artistId}
+                style={styles.artistPhotosContainer}
+                contentContainerStyle={styles.alignRowItems}
+                renderItem={({ item }) => {
+                  return (
+                    <>
+                      <TouchableOpacity
+                        onPress={() =>
+                          navigation.navigate('UserProfile', {
+                            artistId: item.artistId,
+                          })
+                        }
+                      >
+                        {item.profilePhotoUrl.length ? (
+                          <Image
+                            source={{ uri: item.profilePhotoUrl[0] }}
+                            style={styles.profilePhoto}
+                          />
+                        ) : (
+                          <Avatar.Text
+                            size={90}
+                            label={item.initials}
+                            color='white'
+                            style={{
+                              backgroundColor: '#0336FF',
+                            }}
+                          />
+                        )}
+                      </TouchableOpacity>
+                    </>
+                  );
+                }}
+              />
+            </View>
+
+            <View>
+              <Text>All Artwork</Text>
+              <ScrollView style={styles.list}>
+                {artwork.map((item) => (
+                  <TouchableOpacity
+                    key={item._id}
+                    onPress={() => {
+                      navigation.navigate('ArtworkDetail', {
+                        id: item._id,
+                        artistId: item.artistFbId,
+                      });
+                    }}
+                  >
+                    {item._id && (
+                      <View style={styles.row}>
+                        {item.title && (
+                          <Text style={styles.title}>{item.title}</Text>
+                        )}
+                      </View>
+                    )}
+                  </TouchableOpacity>
+                ))}
+              </ScrollView>
+            </View>
+          </ScrollView>
+        </Screen>
+      );
+    } else if (error) {
+      return null;
     }
   }
-
-  return (
-    <Screen>
-      {error ? (
-        <View>
-          <Text>{error}</Text>
-        </View>
-      ) : (
-        <ScrollView>
-          <View style={styles.mapContainer}>
-            <PointsMap navigation={navigation} data={artwork} />
-          </View>
-          <View>
-            <Text>All Artists</Text>
-            <FlatList
-              data={artistList}
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              keyExtractor={(item) => item.artistId}
-              style={styles.artistPhotosContainer}
-              contentContainerStyle={styles.alignRowItems}
-              renderItem={({ item }) => {
-                return (
-                  <>
-                    <TouchableOpacity
-                      onPress={() =>
-                        navigation.navigate('UserProfile', {
-                          artistId: item.artistId,
-                        })
-                      }
-                    >
-                      {item.profilePhotoUrl.length ? (
-                        <Image
-                          source={{ uri: item.profilePhotoUrl[0] }}
-                          style={styles.profilePhoto}
-                        />
-                      ) : (
-                        <Avatar.Text
-                          size={90}
-                          label={item.initials}
-                          color='white'
-                          style={{
-                            backgroundColor: '#0336FF',
-                          }}
-                        />
-                      )}
-                    </TouchableOpacity>
-                  </>
-                );
-              }}
-            />
-          </View>
-
-          <View>
-            <Text>All Artwork</Text>
-            <ScrollView style={styles.list}>
-              {artwork.map((item) => (
-                <TouchableOpacity
-                  key={item._id}
-                  onPress={() => {
-                    navigation.navigate('ArtworkDetail', {
-                      id: item._id,
-                      artistId: item.artistFbId,
-                    });
-                  }}
-                >
-                  {item._id && (
-                    <View style={styles.row}>
-                      {item.title && (
-                        <Text style={styles.title}>{item.title}</Text>
-                      )}
-                    </View>
-                  )}
-                </TouchableOpacity>
-              ))}
-            </ScrollView>
-          </View>
-        </ScrollView>
-      )}
-    </Screen>
-  );
 };
 
 const styles = StyleSheet.create({

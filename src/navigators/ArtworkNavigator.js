@@ -7,6 +7,7 @@ import EditArtworkScreen from '../screens/EditArtworkScreen';
 import ArtworkDetailScreen from '../screens/ArtworkDetailScreen';
 import UserProfileScreen from '../screens/UserProfileScreen';
 import EditUserScreen from '../screens/EditUserScreen';
+import WelcomeScreen from '../screens/WelcomeScreen';
 
 const Stack = createStackNavigator();
 
@@ -41,6 +42,11 @@ const ArtworkNavigator = () => (
       name='EditUser'
       component={EditUserScreen}
       options={{ headerTitle: 'Edit Profile' }}
+    />
+    <Stack.Screen
+      name='Welcome'
+      component={WelcomeScreen}
+      options={{ headerShown: false }}
     />
   </Stack.Navigator>
 );
