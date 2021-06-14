@@ -8,6 +8,7 @@ import ArtworkDetailScreen from '../screens/ArtworkDetailScreen';
 import UserProfileScreen from '../screens/UserProfileScreen';
 import EditUserScreen from '../screens/EditUserScreen';
 import WelcomeScreen from '../screens/WelcomeScreen';
+import RegisterScreen from '../screens/RegisterScreen';
 
 const Stack = createStackNavigator();
 
@@ -48,6 +49,7 @@ const ArtworkNavigator = () => (
       component={WelcomeScreen}
       options={{ headerShown: false }}
     />
+    <Stack.Screen name='Register' component={RegisterScreen} />
   </Stack.Navigator>
 );
 

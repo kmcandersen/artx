@@ -28,14 +28,16 @@ const BrowseScreen = ({ navigation }) => {
   const { artwork } = useContext(ArtworkContext);
   const { artists } = useContext(ArtistsContext);
 
-  const { isLoading, error } = useContext(AuthContext);
+  const { isLoading, error, setError } = useContext(AuthContext);
 
   useEffect(() => {
     if (error) {
       Alert.alert('Error', 'An error has occurred.', [
         {
           text: 'Try Again',
-          onPress: () => navigation.navigate('Welcome'),
+          onPress: () => {
+            navigation.navigate('Welcome'), setError(null);
+          },
         },
       ]);
     }
