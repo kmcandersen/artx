@@ -15,7 +15,7 @@ const AppNavigator = () => (
     }}
   >
     <Tab.Screen
-      name='Artwork'
+      name='Browse'
       component={ArtworkNavigator}
       options={{
         tabBarIcon: () => (
