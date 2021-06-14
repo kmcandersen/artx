@@ -29,7 +29,6 @@ const ArtworkDetailScreen = ({ route, navigation }) => {
     Alert.alert('Delete', 'Are you sure you want to delete this artwork?', [
       {
         text: 'Cancel',
-        style: 'cancel',
       },
       {
         text: 'Delete',
@@ -37,6 +36,7 @@ const ArtworkDetailScreen = ({ route, navigation }) => {
           navigation.goBack();
           removeArtwork(work._id);
         },
+        style: 'destructive',
       },
     ]);
 

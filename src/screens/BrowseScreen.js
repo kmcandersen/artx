@@ -35,7 +35,6 @@ const BrowseScreen = ({ navigation }) => {
       Alert.alert('Error', 'An error has occurred.', [
         {
           text: 'Try Again',
-          style: 'cancel',
           onPress: () => navigation.navigate('Welcome'),
         },
       ]);

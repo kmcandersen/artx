@@ -71,6 +71,7 @@ function ImageInput({ imageUri, onChangeImage, imageType }) {
               setCoords([]);
             }
           },
+          style: 'destructive',
         },
       ]);
     }
