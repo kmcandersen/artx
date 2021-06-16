@@ -59,7 +59,11 @@ const EditUserScreen = ({ route, navigation }) => {
     displayEmail: profile.displayEmail,
     profilePhotoUrl: profile.profilePhotoUrl,
     callback: () => {
-      navigation.pop();
+      // navigation.pop();
+      navigation.navigate('UserProfile', {
+        showSnackbar: true,
+        snackbarMessage: 'Updated your profile!',
+      });
     },
   };
   return (

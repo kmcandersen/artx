@@ -1,6 +1,5 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {
-  FlatList,
   Image,
   ScrollView,
   StyleSheet,
@@ -14,16 +13,34 @@ import { Avatar } from 'react-native-paper';
 import Screen from '../components/Screen';
 import AppButton from '../components/AppButton';
 import PointsMap from '../components/PointsMap';
+import ConfSnackbar from '../components/ConfSnackbar';
 
 import AuthContext from '../contexts/AuthContext';
 import ArtistsContext from '../contexts/ArtistsContext';
 import ArtworkContext from '../contexts/ArtworkContext';
 
 // from Bottom Tab: no route passed in. from elsewhere: route.params.artistId
+// route.params.showSnackbar default from Navigators; route.params.showSnackbar & message set by callback when artwork added or artist edited
 const UserProfileScreen = ({ navigation, route }) => {
   const { user, onLogout } = useContext(AuthContext);
   const { artists } = useContext(ArtistsContext);
   const { artwork } = useContext(ArtworkContext);
+
+  const [snackbarVisible, setSnackbarVisible] = useState(false);
+
+  const toggleSnackBar = () => {
+    setSnackbarVisible(true);
+    setTimeout(() => {
+      setSnackbarVisible(false);
+      route.params.showSnackbar = false;
+    }, 2000);
+  };
+
+  useEffect(() => {
+    if (route.params.showSnackbar && route.params.snackbarMessage) {
+      toggleSnackBar();
+    }
+  }, [route.params.showSnackbar]);
 
   const { artistId } = route.params || '';
   // if no artistId passed in w/route (coming from bottom tab) OR the artistId === id of logged in user, 'artist' is the logged-in user and can add artwork, edit their profile, & log out
@@ -166,22 +183,24 @@ const UserProfileScreen = ({ navigation, route }) => {
         <View style={styles.mapContainer}>
           <PointsMap navigation={navigation} data={profileArtwork} />
         </View>
+        {snackbarVisible && (
+          <ConfSnackbar message={route.params.snackbarMessage} />
+        )}
       </ScrollView>
     </Screen>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'column',
-  },
   artPhoto: {
     width: 90,
     height: 90,
     borderRadius: 10,
     margin: 5,
   },
-  artPhotoContainer: { alignItems: 'flex-start' },
+  artPhotoContainer: {
+    alignItems: 'flex-start',
+  },
   mapContainer: {
     height: 300,
   },
@@ -194,10 +213,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     height: 120,
-  },
-  testBorder: {
-    borderWidth: 1,
-    borderColor: 'red',
   },
   textLinkRow: {
     flexDirection: 'row',

@@ -23,6 +23,7 @@ const ArtworkNavigator = () => (
       name='ArtworkDetail'
       component={ArtworkDetailScreen}
       options={{ headerTitle: 'Art Deets' }}
+      initialParams={{ showSnackbar: false }}
     />
     <Stack.Screen
       name='CreateArtwork'
@@ -38,6 +39,7 @@ const ArtworkNavigator = () => (
       name='UserProfile'
       component={UserProfileScreen}
       options={{ headerTitle: 'User Profile' }}
+      initialParams={{ showSnackbar: false }}
     />
     <Stack.Screen
       name='EditUser'

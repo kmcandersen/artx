@@ -14,12 +14,9 @@ import Screen from '../components/Screen';
 import AppButton from '../components/AppButton';
 
 const EditArtworkScreen = ({ route, navigation }) => {
-  //const artworkId = route.params.id;
   const item = route.params.work;
 
-  const { artwork, error, editArtwork, currYear } = useContext(ArtworkContext);
-
-  //const work = artwork ? artwork.find((work) => work._id === artworkId) : [];
+  const { error, editArtwork, currYear } = useContext(ArtworkContext);
 
   const validationSchema = Yup.object().shape({
     title: Yup.string().required().label('Title'),
@@ -41,7 +38,11 @@ const EditArtworkScreen = ({ route, navigation }) => {
     year: initialYear,
     aboutText: item.aboutText,
     callback: () => {
-      navigation.pop();
+      // navigation.pop();
+      navigation.navigate('ArtworkDetail', {
+        showSnackbar: true,
+        snackbarMessage: 'Updated artwork details!',
+      });
     },
   };
 

@@ -1,21 +1,39 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { EvilIcons } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 import Screen from '../components/Screen';
 import ArtworkDetailMap from '../components/ArtworkDetailMap';
 import PhotoSlider from '../components/PhotoSlider';
+import ConfSnackbar from '../components/ConfSnackbar';
 
 import AuthContext from '../contexts/AuthContext';
 import ArtworkContext from '../contexts/ArtworkContext';
 import ArtistsContext from '../contexts/ArtistsContext';
 
+// route.params.showSnackbar default from Navigator; route.params.showSnackbar & message set by callback when artwork edited
 const ArtworkDetailScreen = ({ route, navigation }) => {
   const { id, artistId } = route.params;
 
   const { user } = useContext(AuthContext);
   const { artwork, removeArtwork } = useContext(ArtworkContext);
   const { artists } = useContext(ArtistsContext);
+
+  const [snackbarVisible, setSnackbarVisible] = useState(false);
+
+  const toggleSnackBar = () => {
+    setSnackbarVisible(true);
+    setTimeout(() => {
+      setSnackbarVisible(false);
+      route.params.showSnackbar = false;
+    }, 2000);
+  };
+
+  useEffect(() => {
+    if (route.params.showSnackbar && route.params.snackbarMessage) {
+      toggleSnackBar();
+    }
+  }, [route.params.showSnackbar]);
 
   const profileType = artistId === user.fbId ? 'user' : 'artist';
 
@@ -79,6 +97,9 @@ const ArtworkDetailScreen = ({ route, navigation }) => {
           <ArtworkDetailMap coords={work.coords} title={work.title} />
         ) : (
           <Text>Map not available</Text>
+        )}
+        {snackbarVisible && (
+          <ConfSnackbar message={route.params.snackbarMessage} />
         )}
       </Screen>
     );

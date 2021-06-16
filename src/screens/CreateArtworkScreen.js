@@ -1,5 +1,5 @@
-import React, { useContext, useState } from 'react';
-import { StyleSheet, Text, TextInput, View } from 'react-native';
+import React, { useContext } from 'react';
+import { StyleSheet } from 'react-native';
 import * as Yup from 'yup';
 import {
   ErrorMessage,
@@ -36,7 +36,10 @@ const CreateArtworkScreen = ({ navigation }) => {
     tags: [],
     photoUrls: [],
     callback: () => {
-      navigation.navigate('UserProfile');
+      navigation.navigate('UserProfile', {
+        showSnackbar: true,
+        snackbarMessage: 'Added artwork!',
+      });
     },
   };
 
