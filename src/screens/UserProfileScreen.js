@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import {
+  Dimensions,
   Image,
   ScrollView,
   StyleSheet,
@@ -18,6 +19,9 @@ import ConfSnackbar from '../components/ConfSnackbar';
 import AuthContext from '../contexts/AuthContext';
 import ArtistsContext from '../contexts/ArtistsContext';
 import ArtworkContext from '../contexts/ArtworkContext';
+
+const { width } = Dimensions.get('window');
+// const artPhotoWidth = width / 4;
 
 // from Bottom Tab: no route passed in. from elsewhere: route.params.artistId
 // route.params.showSnackbar default from Navigators; route.params.showSnackbar & message set by callback when artwork added or artist edited
@@ -138,9 +142,9 @@ const UserProfileScreen = ({ navigation, route }) => {
         </View>
         <Text>Artwork</Text>
 
-        <View style={styles.artPhotoContainer}>
+        <View>
           {profileArtwork.length ? (
-            <ScrollView horizontal={true}>
+            <View style={styles.artPhotoContainer}>
               {profileArtwork.map((item) => {
                 return (
                   <TouchableOpacity
@@ -159,7 +163,7 @@ const UserProfileScreen = ({ navigation, route }) => {
                   </TouchableOpacity>
                 );
               })}
-            </ScrollView>
+            </View>
           ) : (
             <Text>You haven't added any artwork</Text>
           )}
@@ -193,13 +197,17 @@ const UserProfileScreen = ({ navigation, route }) => {
 
 const styles = StyleSheet.create({
   artPhoto: {
-    width: 90,
-    height: 90,
+    width: width / 4,
+    height: width / 4,
     borderRadius: 10,
-    margin: 5,
+    borderWidth: 2,
+    borderColor: '#fff',
   },
+
   artPhotoContainer: {
-    alignItems: 'flex-start',
+    flex: 1,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
   },
   mapContainer: {
     height: 300,
