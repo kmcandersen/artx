@@ -1,58 +1,99 @@
 import React from 'react';
 import {
+  Dimensions,
   Image,
   ImageBackground,
   StyleSheet,
-  SafeAreaView,
-  Text,
+  View,
 } from 'react-native';
-import Screen from '../components/Screen';
+import { Button } from 'react-native-paper';
 import AppButton from '../components/AppButton';
 import colors from '../config/colors';
 
+const { width } = Dimensions.get('window');
+
 const WelcomeScreen = ({ navigation }) => {
   return (
-    <Screen style={styles.buttonsContainer}>
-      <Text>WELCOME SCREEN</Text>
-      <AppButton
-        buttonStyle={{ backgroundColor: colors.primary }}
-        title='Log In'
-        onPress={() => navigation.navigate('Login')}
-      />
-      <AppButton
-        buttonStyle={{ backgroundColor: colors.secondary }}
-        title='Register'
-        onPress={() => navigation.navigate('Register')}
-      />
-    </Screen>
+    <ImageBackground
+      source={require('../../assets/background.jpg')}
+      style={styles.background}
+    >
+      <View style={{ paddingVertical: 80 }}>
+        <View style={styles.identityContainer}>
+          <Image
+            source={require('../../assets/logo-white.png')}
+            style={styles.logo}
+          />
+          <Image
+            source={require('../../assets/banner.png')}
+            style={styles.banner}
+          />
+        </View>
+        <View style={styles.buttonsContainer}>
+          <Button
+            style={[styles.button, { marginBottom: 15 }]}
+            labelStyle={{ color: 'black' }}
+            // if contained, color = bg color
+            color='white'
+            mode='contained'
+            onPress={() => navigation.navigate('Login')}
+          >
+            Log In
+          </Button>
+          <Button
+            style={[styles.button, { borderColor: 'white', borderWidth: 2 }]}
+            labelStyle={{ color: 'black' }}
+            mode='outlined'
+            onPress={() => navigation.navigate('Register')}
+          >
+            Register
+          </Button>
+          {/* <AppButton
+          title='Log In'
+          onPress={() => navigation.navigate('Login')}
+        />
+        <AppButton
+          color='secondary'
+          title='Register'
+          onPress={() => navigation.navigate('Register')}
+        /> */}
+        </View>
+      </View>
+    </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
   background: {
     flex: 1,
-    justifyContent: 'flex-end',
+    justifyContent: 'space-between',
     alignItems: 'center',
+    height: '100%',
+  },
+  button: {
+    justifyContent: 'center',
+    width: width * 0.75,
+    height: 50,
   },
   buttonsContainer: {
-    padding: 20,
-    width: '100%',
+    alignItems: 'center',
+    width,
+  },
+  identityContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   logo: {
-    height: 100,
-    width: 100,
-    marginBottom: 10,
+    width: width * 0.4,
+    height: (width * 0.4) / 1.9,
+    resizeMode: 'contain',
+    marginBottom: 30,
   },
-  logoGroup: {
-    alignItems: 'center',
-    position: 'absolute',
-    top: 70,
-  },
-  tagline: {
-    color: colors.black,
-    fontSize: 25,
-    fontWeight: '600',
-    paddingVertical: 20,
+  banner: {
+    width: width * 0.95,
+    height: (width * 0.95) / 1.696,
+    resizeMode: 'contain',
   },
 });
 
