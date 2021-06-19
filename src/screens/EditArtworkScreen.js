@@ -11,7 +11,7 @@ import {
 import ArtworkContext from '../contexts/ArtworkContext';
 
 import Screen from '../components/Screen';
-import AppButton from '../components/AppButton';
+import { AppButtonOutlined } from '../components/AppButtons';
 
 const EditArtworkScreen = ({ route, navigation }) => {
   const item = route.params.work;
@@ -86,8 +86,15 @@ const EditArtworkScreen = ({ route, navigation }) => {
           autoCompleteType='off'
           autoCorrect={false}
         />
-        <SubmitButton title='Update Artwork' />
-        <AppButton title='Back' onPress={() => navigation.goBack()} />
+        <SubmitButton label='Update Artwork' />
+        <AppButtonOutlined
+          label='Back'
+          onPress={() => navigation.goBack()}
+          width='wide'
+          outlineColor='secondary'
+          textColor='black'
+          icon='chevron-left'
+        />
       </AppForm>
     </Screen>
   );

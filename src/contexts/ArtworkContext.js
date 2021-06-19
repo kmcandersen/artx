@@ -11,6 +11,7 @@ export const ArtworkProvider = ({ children }) => {
   const [imgCount, setImgCount] = useState(0);
   const [deleteTokens, setDeleteTokens] = useState([]);
   const [currYear, setCurrYear] = useState(0);
+  const [screenWidth, setScreenWidth] = useState(0);
 
   const getArtwork = async () => {
     try {
@@ -106,6 +107,8 @@ export const ArtworkProvider = ({ children }) => {
         setDeleteTokens,
         currYear,
         setCurrYear,
+        screenWidth,
+        setScreenWidth,
         getArtwork,
         addArtwork,
         removeArtwork,

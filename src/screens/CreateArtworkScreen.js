@@ -14,7 +14,7 @@ import tags from '../config/tags';
 import ArtworkContext from '../contexts/ArtworkContext';
 import AuthContext from '../contexts/AuthContext';
 import Screen from '../components/Screen';
-import AppButton from '../components/AppButton';
+import { AppButtonOutlined } from '../components/AppButtons';
 
 const CreateArtworkScreen = ({ navigation }) => {
   const { error, addArtwork, currYear } = useContext(ArtworkContext);
@@ -92,8 +92,15 @@ const CreateArtworkScreen = ({ navigation }) => {
           placeholder='Select Tag'
           width='50%'
         />
-        <SubmitButton title='Add Artwork' />
-        <AppButton title='Back' onPress={() => navigation.goBack()} />
+        <SubmitButton label='Add Artwork' />
+        <AppButtonOutlined
+          label='Back'
+          onPress={() => navigation.goBack()}
+          width='wide'
+          outlineColor='secondary'
+          textColor='black'
+          icon='chevron-left'
+        />
       </AppForm>
     </Screen>
   );

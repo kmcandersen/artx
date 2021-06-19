@@ -1,10 +1,20 @@
 import React from 'react';
 import { useFormikContext } from 'formik';
-import AppButton from '../AppButton';
+import { AppButtonFilled } from '../AppButtons';
 
-function SubmitButton({ title }) {
+function SubmitButton({ label, icon = 'check-bold' }) {
   const { handleSubmit } = useFormikContext();
-  return <AppButton title={title} onPress={handleSubmit} />;
+  return (
+    <AppButtonFilled
+      label={label}
+      onPress={handleSubmit}
+      width='wide'
+      bgColor='primary'
+      textColor='white'
+      icon={icon}
+      addlStyle={{ marginBottom: 15 }}
+    />
+  );
 }
 
 export default SubmitButton;

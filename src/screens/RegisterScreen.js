@@ -8,7 +8,7 @@ import {
   SubmitButton,
 } from '../components/forms';
 import Screen from '../components/Screen';
-import AppButton from '../components/AppButton';
+import { AppButtonOutlined } from '../components/AppButtons';
 import AuthContext from '../contexts/AuthContext';
 
 const validationSchema = Yup.object().shape({
@@ -79,8 +79,15 @@ const RegisterScreen = ({ navigation }) => {
           secureTextEntry
           textContentType='password'
         />
-        <SubmitButton title='Register' />
-        <AppButton title='Back' onPress={() => navigation.goBack()} />
+        <SubmitButton label='Register' />
+        <AppButtonOutlined
+          label='Back'
+          onPress={() => navigation.goBack()}
+          width='wide'
+          outlineColor='secondary'
+          textColor='black'
+          icon='chevron-left'
+        />
       </AppForm>
     </Screen>
   );

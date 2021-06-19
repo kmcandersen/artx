@@ -1,11 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { EvilIcons } from '@expo/vector-icons';
-import { Feather } from '@expo/vector-icons';
 import Screen from '../components/Screen';
 import ArtworkDetailMap from '../components/ArtworkDetailMap';
 import PhotoSlider from '../components/PhotoSlider';
 import ConfSnackbar from '../components/ConfSnackbar';
+import { AppButtonOutlined } from '../components/AppButtons';
 
 import AuthContext from '../contexts/AuthContext';
 import ArtworkContext from '../contexts/ArtworkContext';
@@ -81,17 +80,25 @@ const ArtworkDetailScreen = ({ route, navigation }) => {
           <Text>About: {work.aboutText ? work.aboutText : 'NA'}</Text>
         </View>
         {profileType === 'user' && (
-          <TouchableOpacity onPress={createDeleteAlert}>
-            <Feather style={styles.icon} name='trash' />
-          </TouchableOpacity>
+          <AppButtonOutlined
+            label='Delete Artwork'
+            onPress={createDeleteAlert}
+            width='regular'
+            outlineColor='secondary'
+            textColor='black'
+            icon='trash-can'
+          />
         )}
         {/* formerly: id sent, used by .find in EditArtwork */}
         {profileType === 'user' && (
-          <TouchableOpacity
+          <AppButtonOutlined
+            label='Edit Artwork'
             onPress={() => navigation.navigate('EditArtwork', { work })}
-          >
-            <EvilIcons name='pencil' size={35} />
-          </TouchableOpacity>
+            width='regular'
+            outlineColor='primary'
+            textColor='primary'
+            icon='pencil'
+          />
         )}
         {work.coords.length ? (
           <ArtworkDetailMap coords={work.coords} title={work.title} />

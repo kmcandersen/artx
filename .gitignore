@@ -18,6 +18,6 @@ src/contexts/ArtistsContext_v1.js
 src/contexts/AuthContext_v2.js
 src/contexts/AuthContext_v3_works.js
 src/screens/ArtworkDetailScreen_removeBroken.js
-
+src/components/AppButton_orig.js
 # macOS
 .DS_Store

@@ -23,7 +23,7 @@ import states from '../config/states';
 import ArtistsContext from '../contexts/ArtistsContext';
 
 import Screen from '../components/Screen';
-import AppButton from '../components/AppButton';
+import { AppButtonOutlined } from '../components/AppButtons';
 import AppDropdownPicker from '../components/AppDropdownPicker';
 
 const height = Dimensions.get('window').height;
@@ -149,8 +149,15 @@ const EditUserScreen = ({ route, navigation }) => {
                 />
               </>
             </TouchableWithoutFeedback>
-            <SubmitButton title='Update Profile' />
-            <AppButton title='Back' onPress={() => navigation.goBack()} />
+            <SubmitButton label='Update Profile' />
+            <AppButtonOutlined
+              label='Back'
+              onPress={() => navigation.goBack()}
+              width='wide'
+              outlineColor='secondary'
+              textColor='black'
+              icon='chevron-left'
+            />
           </AppForm>
         </Screen>
       </KeyboardAvoidingView>

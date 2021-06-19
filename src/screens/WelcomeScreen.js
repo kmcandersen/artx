@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
   Dimensions,
   Image,
@@ -6,13 +6,16 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
-import { Button } from 'react-native-paper';
-import AppButton from '../components/AppButton';
-import colors from '../config/colors';
+import ArtworkContext from '../contexts/ArtworkContext';
 
-const { width } = Dimensions.get('window');
+import { AppButtonFilled, AppButtonOutlined } from '../components/AppButtons';
+
+const width = Dimensions.get('window').width;
 
 const WelcomeScreen = ({ navigation }) => {
+  const { setScreenWidth } = useContext(ArtworkContext);
+  setScreenWidth(width);
+
   return (
     <ImageBackground
       source={require('../../assets/background.jpg')}
@@ -30,33 +33,21 @@ const WelcomeScreen = ({ navigation }) => {
           />
         </View>
         <View style={styles.buttonsContainer}>
-          <Button
-            style={[styles.button, { marginBottom: 15 }]}
-            labelStyle={{ color: 'black' }}
-            // if contained, color = bg color
-            color='white'
-            mode='contained'
+          <AppButtonFilled
+            label='Log In'
             onPress={() => navigation.navigate('Login')}
-          >
-            Log In
-          </Button>
-          <Button
-            style={[styles.button, { borderColor: 'white', borderWidth: 2 }]}
-            labelStyle={{ color: 'black' }}
-            mode='outlined'
+            width='wide'
+            bgColor='white'
+            textColor='black'
+            addlStyle={{ marginBottom: 15 }}
+          />
+          <AppButtonOutlined
+            label='Register'
             onPress={() => navigation.navigate('Register')}
-          >
-            Register
-          </Button>
-          {/* <AppButton
-          title='Log In'
-          onPress={() => navigation.navigate('Login')}
-        />
-        <AppButton
-          color='secondary'
-          title='Register'
-          onPress={() => navigation.navigate('Register')}
-        /> */}
+            width='wide'
+            outlineColor='white'
+            textColor='black'
+          />
         </View>
       </View>
     </ImageBackground>
@@ -69,11 +60,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     height: '100%',
-  },
-  button: {
-    justifyContent: 'center',
-    width: width * 0.75,
-    height: 50,
   },
   buttonsContainer: {
     alignItems: 'center',

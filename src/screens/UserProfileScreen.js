@@ -11,8 +11,8 @@ import {
 import * as Linking from 'expo-linking';
 import { Avatar } from 'react-native-paper';
 
+import { AppButtonOutlined } from '../components/AppButtons';
 import Screen from '../components/Screen';
-import AppButton from '../components/AppButton';
 import PointsMap from '../components/PointsMap';
 import ConfSnackbar from '../components/ConfSnackbar';
 
@@ -21,8 +21,6 @@ import ArtistsContext from '../contexts/ArtistsContext';
 import ArtworkContext from '../contexts/ArtworkContext';
 
 const { width } = Dimensions.get('window');
-// const artPhotoWidth = width / 4;
-
 // from Bottom Tab: no route passed in. from elsewhere: route.params.artistId
 // route.params.showSnackbar default from Navigators; route.params.showSnackbar & message set by callback when artwork added or artist edited
 const UserProfileScreen = ({ navigation, route }) => {
@@ -170,18 +168,26 @@ const UserProfileScreen = ({ navigation, route }) => {
         </View>
 
         {profileType === 'user' && (
-          <AppButton
-            title='Add New Artwork'
+          <AppButtonOutlined
+            label='Add Artwork'
             onPress={() => navigation.navigate('CreateArtwork')}
+            width='regular'
+            outlineColor='primary'
+            textColor='primary'
+            icon='plus'
           />
         )}
         {profileType === 'user' && (
-          <AppButton
-            title='Edit My Profile'
+          <AppButtonOutlined
+            label='Edit Profile'
             onPress={() =>
               navigation.navigate('EditUser', { profile: profileInfo })
             }
-          ></AppButton>
+            width='regular'
+            outlineColor='secondary'
+            textColor='black'
+            icon='pencil'
+          ></AppButtonOutlined>
         )}
 
         <View style={styles.mapContainer}>
