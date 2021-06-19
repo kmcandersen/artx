@@ -18,7 +18,7 @@ const WelcomeScreen = ({ navigation }) => {
 
   return (
     <ImageBackground
-      source={require('../../assets/background.jpg')}
+      source={require('../../assets/background.png')}
       style={styles.background}
     >
       <View style={{ paddingVertical: 80 }}>
@@ -46,7 +46,7 @@ const WelcomeScreen = ({ navigation }) => {
             onPress={() => navigation.navigate('Register')}
             width='wide'
             outlineColor='white'
-            textColor='black'
+            textColor='white'
           />
         </View>
       </View>
@@ -63,7 +63,6 @@ const styles = StyleSheet.create({
   },
   buttonsContainer: {
     alignItems: 'center',
-    width,
   },
   identityContainer: {
     flex: 1,
@@ -71,14 +70,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   logo: {
-    width: width * 0.4,
-    height: (width * 0.4) / 1.9,
+    width: width * 0.45,
+    height: (width * 0.45) / 1.9,
     resizeMode: 'contain',
-    marginBottom: 30,
+    marginBottom: 15,
   },
   banner: {
-    width: width * 0.95,
-    height: (width * 0.95) / 1.696,
+    width: width * 1.15,
+    height: (width * 1.15) / 1.696,
     resizeMode: 'contain',
   },
 });
