@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import {
   Dimensions,
   Image,
@@ -14,7 +14,10 @@ const width = Dimensions.get('window').width;
 
 const WelcomeScreen = ({ navigation }) => {
   const { setScreenWidth } = useContext(ArtworkContext);
-  setScreenWidth(width);
+
+  useEffect(() => {
+    setScreenWidth(width);
+  }, []);
 
   return (
     <ImageBackground
