@@ -28,6 +28,7 @@ const BrowseScreen = ({ navigation }) => {
   const { artwork, artworkError, setArtworkError, isLoading } =
     useContext(ArtworkContext);
   const { artists } = useContext(ArtistsContext);
+  const { setUser } = useContext(AuthContext);
 
   useEffect(() => {
     // data loading, not auth, error
@@ -36,7 +37,9 @@ const BrowseScreen = ({ navigation }) => {
         {
           text: 'Try Again',
           onPress: () => {
-            navigation.navigate('Welcome'), setArtworkError(null);
+            // wo user, !isAuthenticated & app redirects to WelcomeScreen
+            setUser(null);
+            setArtworkError(null);
           },
         },
       ]);
