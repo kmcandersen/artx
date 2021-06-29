@@ -6,7 +6,7 @@ const ArtworkContext = React.createContext();
 
 export const ArtworkProvider = ({ children }) => {
   const [artwork, setArtwork] = useState([]);
-  const [error, setError] = useState(null);
+  const [artworkError, setArtworkError] = useState(null);
   const [coords, setCoords] = useState([]);
   const [imgCount, setImgCount] = useState(0);
   const [deleteTokens, setDeleteTokens] = useState([]);
@@ -16,11 +16,11 @@ export const ArtworkProvider = ({ children }) => {
   const getArtwork = async () => {
     try {
       setCurrYear(new Date().getFullYear());
-      setError(null);
+      setArtworkError(null);
       const response = await axios.get(`${BASE_URL}/artwork`);
       setArtwork(response.data);
     } catch (error) {
-      setError(error.toString());
+      setArtworkError(error.toString());
     }
   };
 
@@ -35,7 +35,7 @@ export const ArtworkProvider = ({ children }) => {
     callback,
   }) => {
     try {
-      setError(null);
+      setArtworkError(null);
       const { data } = await axios.post(`${BASE_URL}/artwork`, {
         artistFbId,
         title,
@@ -54,13 +54,13 @@ export const ArtworkProvider = ({ children }) => {
         callback();
       }
     } catch (error) {
-      setError(error.toString());
+      setArtworkError(error.toString());
     }
   };
 
   const removeArtwork = async (id, callback) => {
     try {
-      setError(null);
+      setArtworkError(null);
       await axios.delete(`${BASE_URL}/artwork/${id}`);
       const updatedList = artwork.filter((work) => work._id !== id);
       setArtwork(updatedList);
@@ -69,13 +69,13 @@ export const ArtworkProvider = ({ children }) => {
         callback();
       }
     } catch (error) {
-      setError(error.toString());
+      setArtworkError(error.toString());
     }
   };
 
   const editArtwork = async ({ id, callback, ...otherProps }) => {
     try {
-      setError(null);
+      setArtworkError(null);
       const { data } = await axios.patch(
         `${BASE_URL}/artwork/${id}`,
         otherProps
@@ -90,7 +90,7 @@ export const ArtworkProvider = ({ children }) => {
       setArtwork(editedList);
       if (callback) callback();
     } catch (error) {
-      setError(error.toString());
+      setArtworkError(error.toString());
     }
   };
 
@@ -98,7 +98,8 @@ export const ArtworkProvider = ({ children }) => {
     <ArtworkContext.Provider
       value={{
         artwork,
-        error,
+        artworkError,
+        setArtworkError,
         coords,
         imgCount,
         setImgCount,

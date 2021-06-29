@@ -25,23 +25,24 @@ const { height } = Dimensions.get('window');
 const listHeight = height * 0.7;
 
 const BrowseScreen = ({ navigation }) => {
-  const { artwork } = useContext(ArtworkContext);
+  const { artwork, artworkError, setArtworkError } = useContext(ArtworkContext);
   const { artists } = useContext(ArtistsContext);
 
-  const { isLoading, error, setError } = useContext(AuthContext);
+  const { isLoading } = useContext(AuthContext);
 
   useEffect(() => {
-    if (error) {
+    // data loading, not auth, error
+    if (artworkError) {
       Alert.alert('Error', 'An error has occurred.', [
         {
           text: 'Try Again',
           onPress: () => {
-            navigation.navigate('Welcome'), setError(null);
+            navigation.navigate('Welcome'), setArtworkError(null);
           },
         },
       ]);
     }
-  }, [error]);
+  }, [artworkError]);
 
   // need list of artists with artwork (not all registered users); a unique list of artistFbId's & their profilePhotoUrl's
   // loop thru artists, if found (once) in artwork (work.artistFbId), save artist.fbId and artist.profilePhotoUrl to artistList
@@ -63,7 +64,7 @@ const BrowseScreen = ({ navigation }) => {
   const artistList = artists && artwork ? getArtistList() : [];
 
   {
-    if (isLoading && !error) {
+    if (isLoading && !artworkError) {
       return (
         <Screen style={{ backgroundColor: 'white' }}>
           <View style={styles.loadingContainer}>
@@ -76,7 +77,7 @@ const BrowseScreen = ({ navigation }) => {
           </View>
         </Screen>
       );
-    } else if (!isLoading && !error) {
+    } else if (!isLoading && !artworkError) {
       return (
         <Screen>
           <ScrollView>
@@ -151,7 +152,7 @@ const BrowseScreen = ({ navigation }) => {
           </ScrollView>
         </Screen>
       );
-    } else if (error) {
+    } else if (artworkError) {
       return null;
     }
   }
