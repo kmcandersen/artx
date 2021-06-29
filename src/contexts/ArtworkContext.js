@@ -13,12 +13,18 @@ export const ArtworkProvider = ({ children }) => {
   const [currYear, setCurrYear] = useState(0);
   const [screenWidth, setScreenWidth] = useState(0);
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const getArtwork = async () => {
     try {
       setCurrYear(new Date().getFullYear());
+      setIsLoading(true);
       setArtworkError(null);
       const response = await axios.get(`${BASE_URL}/artwork`);
       setArtwork(response.data);
+      if (artwork) {
+        setIsLoading(false);
+      }
     } catch (error) {
       setArtworkError(error.toString());
     }
@@ -114,6 +120,7 @@ export const ArtworkProvider = ({ children }) => {
         addArtwork,
         removeArtwork,
         editArtwork,
+        isLoading,
       }}
     >
       {children}

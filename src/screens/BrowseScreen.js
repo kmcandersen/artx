@@ -25,10 +25,9 @@ const { height } = Dimensions.get('window');
 const listHeight = height * 0.7;
 
 const BrowseScreen = ({ navigation }) => {
-  const { artwork, artworkError, setArtworkError } = useContext(ArtworkContext);
+  const { artwork, artworkError, setArtworkError, isLoading } =
+    useContext(ArtworkContext);
   const { artists } = useContext(ArtistsContext);
-
-  const { isLoading } = useContext(AuthContext);
 
   useEffect(() => {
     // data loading, not auth, error
