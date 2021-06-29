@@ -17,7 +17,7 @@ import Screen from '../components/Screen';
 import { AppButtonOutlined } from '../components/AppButtons';
 
 const CreateArtworkScreen = ({ navigation }) => {
-  const { error, addArtwork, currYear } = useContext(ArtworkContext);
+  const { artworkError, addArtwork, currYear } = useContext(ArtworkContext);
   const { user } = useContext(AuthContext);
 
   const validationSchema = Yup.object().shape({
@@ -50,7 +50,7 @@ const CreateArtworkScreen = ({ navigation }) => {
         onSubmit={addArtwork}
         validationSchema={validationSchema}
       >
-        <ErrorMessage error={error} visible={error} />
+        <ErrorMessage error={artworkError} visible={artworkError} />
         <AppFormField
           name='title'
           placeholder='Title'
