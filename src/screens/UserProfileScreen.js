@@ -95,7 +95,7 @@ const UserProfileScreen = ({ navigation, route }) => {
 
   return (
     <Screen>
-      <ScrollView>
+      <ScrollView bounces={false}>
         <View style={styles.profilePhotoContainer}>
           {profilePhotoUrl[0] ? (
             <Image
@@ -193,10 +193,12 @@ const UserProfileScreen = ({ navigation, route }) => {
         <View style={styles.mapContainer}>
           <PointsMap navigation={navigation} data={profileArtwork} />
         </View>
+      </ScrollView>
+      <View>
         {snackbarVisible && (
           <ConfSnackbar message={route.params.snackbarMessage} />
         )}
-      </ScrollView>
+      </View>
     </Screen>
   );
 };

@@ -14,10 +14,7 @@ const ConfSnackbar = ({ message }) => {
 
 const styles = StyleSheet.create({
   container: {
-    bottom: 20,
-    position: 'absolute',
-    height: '100%',
-    width: '100%',
+    flex: 1,
   },
 });
 
