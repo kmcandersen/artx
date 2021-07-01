@@ -15,6 +15,8 @@ import { AppButtonOutlined } from '../components/AppButtons';
 import Screen from '../components/Screen';
 import PointsMap from '../components/PointsMap';
 import ConfSnackbar from '../components/ConfSnackbar';
+import { AppText, AppContentWrapper } from '../components/AppTexts';
+import { colors } from '../config/theme';
 
 import AuthContext from '../contexts/AuthContext';
 import ArtistsContext from '../contexts/ArtistsContext';
@@ -113,86 +115,96 @@ const UserProfileScreen = ({ navigation, route }) => {
             />
           )}
         </View>
-        <View>
-          <Text>{name}</Text>
-          {profileType === 'user' || displayEmail ? (
-            <TouchableOpacity
-              onPress={() =>
-                Linking.openURL(`mailto:${email}`).catch((error) =>
-                  console.log(error)
-                )
-              }
-            >
-              <Text>{email}</Text>
-            </TouchableOpacity>
-          ) : null}
+        <AppContentWrapper>
+          <View>
+            <AppText variant='header' addlStyle={{ color: colors.primary }}>
+              {name}
+            </AppText>
+            {profileType === 'user' || displayEmail ? (
+              <TouchableOpacity
+                activeOpacity={0.6}
+                onPress={() =>
+                  Linking.openURL(`mailto:${email}`).catch((error) =>
+                    console.log(error)
+                  )
+                }
+              >
+                <AppText variant='item'>{email}</AppText>
+              </TouchableOpacity>
+            ) : null}
 
-          <Text>Based in: {basedIn()}</Text>
-          <Text>About Me: {aboutMe}</Text>
-          <View style={[styles.textLinkRow]}>
-            <Text>More info: </Text>
-            <TouchableOpacity
-              onPress={() => Linking.openURL(`https://www.${moreInfo}`)}
-            >
-              <Text>{moreInfo}</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-        <Text>Artwork</Text>
-
-        <View>
-          {profileArtwork.length ? (
-            <View style={styles.artPhotoContainer}>
-              {profileArtwork.map((item) => {
-                return (
-                  <TouchableOpacity
-                    key={item._id}
-                    onPress={() =>
-                      navigation.navigate('ArtworkDetail', {
-                        id: item._id,
-                        artistId: item.artistFbId,
-                      })
-                    }
-                  >
-                    <Image
-                      style={styles.artPhoto}
-                      source={{ uri: item.photoUrls[0] }}
-                    />
-                  </TouchableOpacity>
-                );
-              })}
+            <AppText variant='item'>Based in: {basedIn()}</AppText>
+            <AppText variant='copy'>About Me: {aboutMe}</AppText>
+            <View style={[styles.textLinkRow]}>
+              <AppText variant='item'>More info: </AppText>
+              {moreInfo ? (
+                <TouchableOpacity
+                  activeOpacity={0.6}
+                  onPress={() => Linking.openURL(`https://www.${moreInfo}`)}
+                >
+                  <AppText variant='item'>{moreInfo}</AppText>
+                </TouchableOpacity>
+              ) : (
+                <AppText variant='item'>NA</AppText>
+              )}
             </View>
-          ) : (
-            <Text>You haven't added any artwork</Text>
+          </View>
+          <AppText variant='category'>Artwork</AppText>
+
+          <View>
+            {profileArtwork.length ? (
+              <View style={styles.artPhotoContainer}>
+                {profileArtwork.map((item) => {
+                  return (
+                    <TouchableOpacity
+                      key={item._id}
+                      onPress={() =>
+                        navigation.navigate('ArtworkDetail', {
+                          id: item._id,
+                          artistId: item.artistFbId,
+                        })
+                      }
+                    >
+                      <Image
+                        style={styles.artPhoto}
+                        source={{ uri: item.photoUrls[0] }}
+                      />
+                    </TouchableOpacity>
+                  );
+                })}
+              </View>
+            ) : (
+              <Text>You haven't added any artwork</Text>
+            )}
+          </View>
+
+          {profileType === 'user' && (
+            <AppButtonOutlined
+              label='Add Artwork'
+              onPress={() => navigation.navigate('CreateArtwork')}
+              width='regular'
+              outlineColor='primary'
+              textColor='primary'
+              icon='plus'
+            />
           )}
-        </View>
+          {profileType === 'user' && (
+            <AppButtonOutlined
+              label='Edit Profile'
+              onPress={() =>
+                navigation.navigate('EditUser', { profile: profileInfo })
+              }
+              width='regular'
+              outlineColor='secondary'
+              textColor='black'
+              icon='pencil'
+            ></AppButtonOutlined>
+          )}
 
-        {profileType === 'user' && (
-          <AppButtonOutlined
-            label='Add Artwork'
-            onPress={() => navigation.navigate('CreateArtwork')}
-            width='regular'
-            outlineColor='primary'
-            textColor='primary'
-            icon='plus'
-          />
-        )}
-        {profileType === 'user' && (
-          <AppButtonOutlined
-            label='Edit Profile'
-            onPress={() =>
-              navigation.navigate('EditUser', { profile: profileInfo })
-            }
-            width='regular'
-            outlineColor='secondary'
-            textColor='black'
-            icon='pencil'
-          ></AppButtonOutlined>
-        )}
-
-        <View style={styles.mapContainer}>
-          <PointsMap navigation={navigation} data={profileArtwork} />
-        </View>
+          <View style={styles.mapContainer}>
+            <PointsMap navigation={navigation} data={profileArtwork} />
+          </View>
+        </AppContentWrapper>
       </ScrollView>
       <View>
         {snackbarVisible && (

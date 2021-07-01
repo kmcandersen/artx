@@ -1,6 +1,14 @@
 import React from 'react';
 import * as firebase from 'firebase';
 import {
+  Inter_700Bold,
+  Inter_500Medium,
+  Inter_400Regular,
+  Inter_300Light,
+} from '@expo-google-fonts/inter';
+import { useFonts } from 'expo-font';
+import AppLoading from 'expo-app-loading';
+import {
   API_KEY,
   AUTH_DOMAIN,
   PROJECT_ID,
@@ -27,6 +35,16 @@ if (!firebase.apps.length) {
 }
 
 const App = () => {
+  let [fontsLoaded] = useFonts({
+    Inter_700Bold,
+    Inter_500Medium,
+    Inter_400Regular,
+    Inter_300Light,
+  });
+
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  }
   return (
     <ArtworkProvider>
       <ArtistsProvider>

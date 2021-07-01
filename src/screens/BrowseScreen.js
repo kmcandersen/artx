@@ -17,7 +17,10 @@ import ArtworkContext from '../contexts/ArtworkContext';
 import ArtistsContext from '../contexts/ArtistsContext';
 import AuthContext from '../contexts/AuthContext';
 
+import { AppText } from '../components/AppTexts';
 import Screen from '../components/Screen';
+import { spacing } from '../config/theme';
+//
 import colors from '../config/colors';
 import PointsMap from '../components/PointsMap';
 
@@ -87,7 +90,12 @@ const BrowseScreen = ({ navigation }) => {
               <PointsMap navigation={navigation} data={artwork} />
             </View>
             <View>
-              <Text>All Artists</Text>
+              <AppText
+                variant='category'
+                addlStyle={{ paddingLeft: spacing.contentWrapper }}
+              >
+                All Artists
+              </AppText>
               <FlatList
                 data={artistList}
                 horizontal
@@ -128,7 +136,12 @@ const BrowseScreen = ({ navigation }) => {
             </View>
 
             <View>
-              <Text>All Artwork</Text>
+              <AppText
+                variant='category'
+                addlStyle={{ paddingLeft: spacing.contentWrapper }}
+              >
+                All Artwork
+              </AppText>
               <ScrollView style={styles.list}>
                 {artwork.map((item) => (
                   <TouchableOpacity
