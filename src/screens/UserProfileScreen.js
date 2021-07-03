@@ -15,7 +15,8 @@ import { AppButtonOutlined } from '../components/AppButtons';
 import Screen from '../components/Screen';
 import PointsMap from '../components/PointsMap';
 import ConfSnackbar from '../components/ConfSnackbar';
-import { AppText, AppContentWrapper } from '../components/AppTexts';
+import { AppText } from '../components/AppText';
+import { Content } from '../components/wrappers/Content';
 import { colors } from '../config/theme';
 
 import AuthContext from '../contexts/AuthContext';
@@ -115,7 +116,7 @@ const UserProfileScreen = ({ navigation, route }) => {
             />
           )}
         </View>
-        <AppContentWrapper>
+        <Content>
           <View>
             <AppText variant='header' addlStyle={{ color: colors.primary }}>
               {name}
@@ -204,7 +205,7 @@ const UserProfileScreen = ({ navigation, route }) => {
           <View style={styles.mapContainer}>
             <PointsMap navigation={navigation} data={profileArtwork} />
           </View>
-        </AppContentWrapper>
+        </Content>
       </ScrollView>
       <View>
         {snackbarVisible && (

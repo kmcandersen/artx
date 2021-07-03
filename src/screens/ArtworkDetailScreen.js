@@ -5,7 +5,8 @@ import ArtworkDetailMap from '../components/ArtworkDetailMap';
 import PhotoSlider from '../components/PhotoSlider';
 import ConfSnackbar from '../components/ConfSnackbar';
 import { AppButtonOutlined } from '../components/AppButtons';
-import { AppText, AppContentWrapper } from '../components/AppTexts';
+import { AppText } from '../components/AppText';
+import { Content } from '../components/wrappers/Content';
 import { colors } from '../config/theme';
 
 import AuthContext from '../contexts/AuthContext';
@@ -66,7 +67,7 @@ const ArtworkDetailScreen = ({ route, navigation }) => {
       <Screen style={{ backgroundColor: '#fff' }}>
         <View>{work.photoUrls && <PhotoSlider photos={work.photoUrls} />}</View>
 
-        <AppContentWrapper>
+        <Content>
           <AppText variant='header' addlStyle={{ color: colors.secondary }}>
             {work.title}
           </AppText>
@@ -113,7 +114,7 @@ const ArtworkDetailScreen = ({ route, navigation }) => {
           ) : (
             <Text>Map not available</Text>
           )}
-        </AppContentWrapper>
+        </Content>
         <View>
           {snackbarVisible && (
             <ConfSnackbar message={route.params.snackbarMessage} />

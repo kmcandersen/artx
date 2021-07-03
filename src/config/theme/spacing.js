@@ -1,6 +1,6 @@
 //export const space = [0, 4, 8, 16, 32, 64];
 
-// content wrapper (curr in AppTexts) & Category headings in BrowseScreen (bc doesn't have a contentWrapper)
+// for wrappers/Content & Category headings in BrowseScreen (bc doesn't have a Content wrapper)
 export const spacing = {
-  contentWrapper: 20,
+  content: 20,
 };

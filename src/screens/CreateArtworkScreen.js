@@ -5,12 +5,9 @@ import {
   ErrorMessage,
   AppForm,
   AppFormField,
-  AppFormPicker,
   FormImagePicker,
   SubmitButton,
 } from '../components/forms';
-import TagPickerItem from '../components/TagPickerItem';
-import tags from '../config/tags';
 import ArtworkContext from '../contexts/ArtworkContext';
 import AuthContext from '../contexts/AuthContext';
 import Screen from '../components/Screen';
@@ -84,14 +81,6 @@ const CreateArtworkScreen = ({ navigation }) => {
           autoCorrect={false}
         />
         <FormImagePicker name='photoUrls' imageType='artwork' />
-        <AppFormPicker
-          items={tags}
-          name='tags'
-          numberOfColumns={3}
-          PickerItemComponent={TagPickerItem}
-          placeholder='Select Tag'
-          width='50%'
-        />
         <SubmitButton label='Add Artwork' />
         <AppButtonOutlined
           label='Back'
