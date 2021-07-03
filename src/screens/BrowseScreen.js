@@ -92,7 +92,7 @@ const BrowseScreen = ({ navigation }) => {
             <View>
               <AppText
                 variant='category'
-                addlStyle={{ paddingLeft: spacing.contentWrapper }}
+                addlStyle={{ paddingLeft: spacing.content }}
               >
                 All Artists
               </AppText>
@@ -138,7 +138,7 @@ const BrowseScreen = ({ navigation }) => {
             <View>
               <AppText
                 variant='category'
-                addlStyle={{ paddingLeft: spacing.contentWrapper }}
+                addlStyle={{ paddingLeft: spacing.content }}
               >
                 All Artwork
               </AppText>
@@ -196,6 +196,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingVertical: 20,
+    paddingLeft: spacing.content,
     borderTopWidth: 1,
     borderBottomWidth: 1,
   },
