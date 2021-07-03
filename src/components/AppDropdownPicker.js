@@ -10,8 +10,8 @@ import {
 import { Picker } from '@react-native-picker/picker';
 import { useFormikContext } from 'formik';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-
-import defaultStyles from '../config/styles';
+import { AppText } from './AppText';
+import colors from '../config/theme/colors';
 import Screen from './Screen';
 
 function AppDropdownPicker({ items, name, prompt, icon, height, itemHeight }) {
@@ -24,14 +24,14 @@ function AppDropdownPicker({ items, name, prompt, icon, height, itemHeight }) {
     <>
       <TouchableWithoutFeedback onPress={() => setModalVisible(true)}>
         <View style={styles.container}>
-          <Text style={defaultStyles.text}>
+          <AppText variant='label'>
             {selectedItem ? selectedItem : prompt}
-          </Text>
+          </AppText>
           {icon && (
             <MaterialCommunityIcons
               name={icon}
               size={20}
-              color={defaultStyles.colors.medium}
+              color={colors.medium}
               style={styles.icon}
             />
           )}
@@ -64,22 +64,22 @@ function AppDropdownPicker({ items, name, prompt, icon, height, itemHeight }) {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: defaultStyles.colors.light,
+    backgroundColor: colors.light,
     borderRadius: 25,
     flexDirection: 'row',
     padding: 15,
     marginVertical: 10,
-    color: defaultStyles.colors.medium,
+    color: colors.medium,
     justifyContent: 'space-between',
   },
   icon: {
     marginRight: 10,
   },
   prompt: {
-    color: defaultStyles.colors.medium,
+    color: colors.medium,
     flex: 1,
   },
-  text: { flex: 1 },
+
   picker: {
     flex: 1,
     justifyContent: 'center',

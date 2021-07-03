@@ -41,6 +41,11 @@ const styles = StyleSheet.create({
   error: {
     color: 'red',
   },
+  // from defaultStyles.text
+  label: {
+    fontSize: fontSizes.label,
+    flex: 1,
+  },
   // finish this:
   default: {
     fontSize: fontSizes.item,

@@ -9,7 +9,7 @@ import {
   StyleSheet,
   TouchableWithoutFeedback,
 } from 'react-native';
-import colors from '../config/styles';
+import { colors } from '../config/theme';
 import {
   CLOUD_NAME,
   CLOUD_FOLDER_A,

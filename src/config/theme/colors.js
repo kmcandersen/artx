@@ -12,14 +12,6 @@ export default {
   danger: '#fc1c1c',
 };
 
-export const defaultStyles = {
-  text: {
-    color: '#0c0c0c', //colors.dark
-    fontSize: 18,
-    fontFamily: Platform.OS === 'android' ? 'Roboto' : 'Avenir',
-  },
-};
-
 // export const colors = {
 //   brand: {
 //     primary: "#696AC3",

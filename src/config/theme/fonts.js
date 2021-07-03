@@ -4,6 +4,8 @@ export const fontSizes = {
   header: 28,
   subhead: 22,
   category: 18,
+  // defaultStyles.text
+  label: 18,
   item: 16,
   copy: 12,
 };
