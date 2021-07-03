@@ -5,7 +5,7 @@ import ArtworkDetailMap from '../components/ArtworkDetailMap';
 import PhotoSlider from '../components/PhotoSlider';
 import ConfSnackbar from '../components/ConfSnackbar';
 import { AppButtonOutlined } from '../components/AppButtons';
-import { AppText } from '../components/AppText';
+import AppText from '../components/AppText';
 import { Content } from '../components/wrappers/Content';
 import { colors } from '../config/theme';
 

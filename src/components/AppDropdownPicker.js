@@ -10,7 +10,7 @@ import {
 import { Picker } from '@react-native-picker/picker';
 import { useFormikContext } from 'formik';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { AppText } from './AppText';
+import AppText from './AppText';
 import { colors } from '../config/theme';
 import Screen from './wrappers/Screen';
 

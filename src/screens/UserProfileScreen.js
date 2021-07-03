@@ -11,12 +11,12 @@ import {
 import * as Linking from 'expo-linking';
 import { Avatar } from 'react-native-paper';
 
-import { AppButtonOutlined } from '../components/AppButtons';
 import Screen from '../components/wrappers/Screen';
+import { Content } from '../components/wrappers/Content';
+import { AppButtonOutlined } from '../components/AppButtons';
 import PointsMap from '../components/PointsMap';
 import ConfSnackbar from '../components/ConfSnackbar';
-import { AppText } from '../components/AppText';
-import { Content } from '../components/wrappers/Content';
+import AppText from '../components/AppText';
 import { colors } from '../config/theme';
 
 import AuthContext from '../contexts/AuthContext';

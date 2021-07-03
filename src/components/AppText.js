@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Text } from 'react-native';
 import { colors, fontSizes, fontWeights } from '../config/theme';
 
-export function AppText({ children, addlStyle, variant = 'default' }) {
+function AppText({ children, addlStyle, variant = 'default' }) {
   return <Text style={[styles[variant], addlStyle]}>{children}</Text>;
 }
 
@@ -52,3 +52,5 @@ const styles = StyleSheet.create({
     fontWeight: fontWeights.regular,
   },
 });
+
+export default AppText;
