@@ -13,7 +13,7 @@ import {
   View,
 } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
-import Screen from './Screen';
+import Screen from './wrappers/Screen';
 
 const { width } = Dimensions.get('window');
 const thumbHeight = width * 0.7;

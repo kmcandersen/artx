@@ -10,7 +10,7 @@ import {
 } from '../components/forms';
 import ArtworkContext from '../contexts/ArtworkContext';
 import AuthContext from '../contexts/AuthContext';
-import Screen from '../components/Screen';
+import Screen from '../components/wrappers/Screen';
 import { AppButtonOutlined } from '../components/AppButtons';
 
 const CreateArtworkScreen = ({ navigation }) => {

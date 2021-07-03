@@ -10,7 +10,7 @@ import {
 
 import ArtworkContext from '../contexts/ArtworkContext';
 
-import Screen from '../components/Screen';
+import Screen from '../components/wrappers/Screen';
 import { AppButtonOutlined } from '../components/AppButtons';
 
 const EditArtworkScreen = ({ route, navigation }) => {

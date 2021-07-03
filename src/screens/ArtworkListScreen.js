@@ -11,7 +11,7 @@ import { ActivityIndicator } from 'react-native-paper';
 import ArtworkContext from '../contexts/ArtworkContext';
 import ArtistsContext from '../contexts/ArtistsContext';
 
-import Screen from '../components/Screen';
+import Screen from '../components/wrappers/Screen';
 import colors from '../config/colors';
 
 const ArtworkListScreen = ({ navigation }) => {

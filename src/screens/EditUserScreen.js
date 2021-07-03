@@ -22,7 +22,7 @@ import states from '../config/states';
 
 import ArtistsContext from '../contexts/ArtistsContext';
 
-import Screen from '../components/Screen';
+import Screen from '../components/wrappers/Screen';
 import { AppButtonOutlined } from '../components/AppButtons';
 import AppDropdownPicker from '../components/AppDropdownPicker';
 

@@ -12,7 +12,7 @@ import * as Linking from 'expo-linking';
 import { Avatar } from 'react-native-paper';
 
 import { AppButtonOutlined } from '../components/AppButtons';
-import Screen from '../components/Screen';
+import Screen from '../components/wrappers/Screen';
 import PointsMap from '../components/PointsMap';
 import ConfSnackbar from '../components/ConfSnackbar';
 import { AppText } from '../components/AppText';

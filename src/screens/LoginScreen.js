@@ -7,7 +7,7 @@ import {
   AppFormField,
   SubmitButton,
 } from '../components/forms';
-import Screen from '../components/Screen';
+import Screen from '../components/wrappers/Screen';
 import { AppButtonOutlined } from '../components/AppButtons';
 import AuthContext from '../contexts/AuthContext';
 

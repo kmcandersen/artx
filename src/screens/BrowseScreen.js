@@ -18,7 +18,7 @@ import ArtistsContext from '../contexts/ArtistsContext';
 import AuthContext from '../contexts/AuthContext';
 
 import { AppText } from '../components/AppText';
-import Screen from '../components/Screen';
+import Screen from '../components/wrappers/Screen';
 import { spacing } from '../config/theme';
 //
 import colors from '../config/colors';

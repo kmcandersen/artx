@@ -12,7 +12,7 @@ import { useFormikContext } from 'formik';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { AppText } from './AppText';
 import colors from '../config/theme/colors';
-import Screen from './Screen';
+import Screen from './wrappers/Screen';
 
 function AppDropdownPicker({ items, name, prompt, icon, height, itemHeight }) {
   const [modalVisible, setModalVisible] = useState(false);

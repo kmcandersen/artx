@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import Screen from '../components/Screen';
+import Screen from '../components/wrappers/Screen';
 import ArtworkDetailMap from '../components/ArtworkDetailMap';
 import PhotoSlider from '../components/PhotoSlider';
 import ConfSnackbar from '../components/ConfSnackbar';
