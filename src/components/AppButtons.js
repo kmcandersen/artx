@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { StyleSheet, View } from 'react-native';
 // icons from RN Paper: callstack.github.io/react-native-paper/icons.html
 import { Button } from 'react-native-paper';
-import colors from '../config/colors';
+import { colors } from '../config/theme';
 import ArtworkContext from '../contexts/ArtworkContext';
 
 // Outlined props incl borderColor, Filled props incl bgColor; others identical

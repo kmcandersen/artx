@@ -12,7 +12,7 @@ import ArtworkContext from '../contexts/ArtworkContext';
 import ArtistsContext from '../contexts/ArtistsContext';
 
 import Screen from '../components/wrappers/Screen';
-import colors from '../config/colors';
+import colors from '../config/theme/colors';
 
 const ArtworkListScreen = ({ navigation }) => {
   const { artwork, getArtwork, error } = useContext(ArtworkContext);

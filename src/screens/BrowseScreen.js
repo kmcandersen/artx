@@ -19,9 +19,7 @@ import AuthContext from '../contexts/AuthContext';
 
 import { AppText } from '../components/AppText';
 import Screen from '../components/wrappers/Screen';
-import { spacing } from '../config/theme';
-//
-import colors from '../config/colors';
+import { colors, spacing } from '../config/theme';
 import PointsMap from '../components/PointsMap';
 
 const { height } = Dimensions.get('window');
