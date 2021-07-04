@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import {
-  Button,
   Dimensions,
   Image,
   ImageBackground,
@@ -13,6 +12,7 @@ import {
   View,
 } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
+import { colors } from '../config/theme';
 import Screen from './wrappers/Screen';
 
 const { width } = Dimensions.get('window');
@@ -86,12 +86,12 @@ const PhotoSlider = ({ photos }) => {
 const styles = StyleSheet.create({
   dot: {
     fontSize: width / 10,
-    color: '#888',
+    color: colors.mediumLight,
     margin: 3,
   },
   dotActive: {
     fontSize: width / 10,
-    color: '#fff',
+    color: colors.white,
     margin: 3,
   },
   dotContainer: {

@@ -120,9 +120,9 @@ const BrowseScreen = ({ navigation }) => {
                           <Avatar.Text
                             size={90}
                             label={item.initials}
-                            color='white'
+                            color={colors.white}
                             style={{
-                              backgroundColor: '#0336FF',
+                              backgroundColor: colors.primary,
                             }}
                           />
                         )}

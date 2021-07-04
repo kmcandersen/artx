@@ -109,9 +109,9 @@ const UserProfileScreen = ({ navigation, route }) => {
             <Avatar.Text
               size={90}
               label={initials}
-              color='white'
+              color={colors.white}
               style={{
-                backgroundColor: '#0336FF',
+                backgroundColor: colors.primary,
               }}
             />
           )}
@@ -232,7 +232,7 @@ const styles = StyleSheet.create({
     height: (width - spacing.content * 2) / 4,
     borderRadius: 10,
     borderWidth: 2,
-    borderColor: '#fff',
+    borderColor: colors.background,
   },
 
   artPhotoContainer: {
