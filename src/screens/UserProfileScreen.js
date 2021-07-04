@@ -17,7 +17,7 @@ import { AppButtonOutlined } from '../components/AppButtons';
 import PointsMap from '../components/PointsMap';
 import ConfSnackbar from '../components/ConfSnackbar';
 import AppText from '../components/AppText';
-import { colors } from '../config/theme';
+import { colors, spacing } from '../config/theme';
 
 import AuthContext from '../contexts/AuthContext';
 import ArtistsContext from '../contexts/ArtistsContext';
@@ -150,8 +150,33 @@ const UserProfileScreen = ({ navigation, route }) => {
               )}
             </View>
           </View>
-          <AppText variant='category'>Artwork</AppText>
-
+          <View style={styles.buttonRow}>
+            {profileType === 'user' && (
+              <AppButtonOutlined
+                label='Add Artwork'
+                onPress={() => navigation.navigate('CreateArtwork')}
+                width='regular'
+                outlineColor='primary'
+                textColor='primary'
+                icon='plus'
+              />
+            )}
+            {profileType === 'user' && (
+              <AppButtonOutlined
+                label='Edit Profile'
+                onPress={() =>
+                  navigation.navigate('EditUser', { profile: profileInfo })
+                }
+                width='regular'
+                outlineColor='secondary'
+                textColor='black'
+                icon='pencil'
+              ></AppButtonOutlined>
+            )}
+          </View>
+          <View>
+            <AppText variant='category'>Artwork</AppText>
+          </View>
           <View>
             {profileArtwork.length ? (
               <View style={styles.artPhotoContainer}>
@@ -175,36 +200,20 @@ const UserProfileScreen = ({ navigation, route }) => {
                 })}
               </View>
             ) : (
-              <Text>You haven't added any artwork</Text>
+              <AppText variant='itemEmpty'>
+                You haven't added any artwork
+              </AppText>
             )}
           </View>
-
-          {profileType === 'user' && (
-            <AppButtonOutlined
-              label='Add Artwork'
-              onPress={() => navigation.navigate('CreateArtwork')}
-              width='regular'
-              outlineColor='primary'
-              textColor='primary'
-              icon='plus'
-            />
-          )}
-          {profileType === 'user' && (
-            <AppButtonOutlined
-              label='Edit Profile'
-              onPress={() =>
-                navigation.navigate('EditUser', { profile: profileInfo })
-              }
-              width='regular'
-              outlineColor='secondary'
-              textColor='black'
-              icon='pencil'
-            ></AppButtonOutlined>
-          )}
-
-          <View style={styles.mapContainer}>
-            <PointsMap navigation={navigation} data={profileArtwork} />
-          </View>
+          {profileArtwork.length ? (
+            <View style={styles.mapContainer}>
+              <PointsMap
+                navigation={navigation}
+                data={profileArtwork}
+                width='content'
+              />
+            </View>
+          ) : null}
         </Content>
       </ScrollView>
       <View>
@@ -218,8 +227,9 @@ const UserProfileScreen = ({ navigation, route }) => {
 
 const styles = StyleSheet.create({
   artPhoto: {
-    width: width / 4,
-    height: width / 4,
+    // represents horiz padding from Content wrapper
+    width: (width - spacing.content * 2) / 4,
+    height: (width - spacing.content * 2) / 4,
     borderRadius: 10,
     borderWidth: 2,
     borderColor: '#fff',
@@ -229,9 +239,16 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     flexWrap: 'wrap',
+    paddingBottom: spacing.section1,
+  },
+  buttonRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginVertical: spacing.section1,
   },
   mapContainer: {
     height: 300,
+    marginTop: spacing.section1,
   },
   profilePhoto: {
     width: 90,

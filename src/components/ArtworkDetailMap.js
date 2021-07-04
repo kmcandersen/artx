@@ -1,6 +1,7 @@
 import React from 'react';
 import { Dimensions, StyleSheet, View } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
+import { spacing } from '../config/theme';
 
 const ArtworkDetailMap = ({ coords, title }) => {
   const artworkLong = coords[0] > 0 ? -coords[0] : coords[0];
@@ -31,8 +32,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   map: {
-    width: Dimensions.get('window').width,
+    width: Dimensions.get('window').width - spacing.content * 2,
     height: 200,
+    marginTop: spacing.section1,
   },
 });
 

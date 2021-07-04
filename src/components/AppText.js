@@ -22,8 +22,8 @@ const styles = StyleSheet.create({
   category: {
     fontSize: fontSizes.category,
     fontWeight: fontWeights.bold,
-    paddingVertical: 12,
-    paddingTop: 20,
+    paddingBottom: 20,
+    paddingTop: 10,
     textTransform: 'uppercase',
     color: colors.medium,
   },
@@ -31,6 +31,13 @@ const styles = StyleSheet.create({
     fontSize: fontSizes.item,
     fontWeight: fontWeights.regular,
     paddingVertical: 6,
+  },
+  itemEmpty: {
+    fontSize: fontSizes.item,
+    fontWeight: fontWeights.regular,
+    color: colors.medium,
+    fontStyle: 'italic',
+    paddingTop: 10,
   },
   copy: {
     fontSize: fontSizes.item,

@@ -69,7 +69,7 @@ const BrowseScreen = ({ navigation }) => {
   {
     if (isLoading && !artworkError) {
       return (
-        <Screen style={{ backgroundColor: 'white' }}>
+        <Screen>
           <View style={styles.loadingContainer}>
             <ActivityIndicator
               style={styles.loading}
@@ -85,7 +85,7 @@ const BrowseScreen = ({ navigation }) => {
         <Screen>
           <ScrollView>
             <View style={styles.mapContainer}>
-              <PointsMap navigation={navigation} data={artwork} />
+              <PointsMap navigation={navigation} data={artwork} width='full' />
             </View>
             <View>
               <AppText

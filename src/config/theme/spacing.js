@@ -1,6 +1,8 @@
 //export const space = [0, 4, 8, 16, 32, 64];
 
-// for wrappers/Content & text in BrowseScreen (bc doesn't have a Content wrapper)
+// 'content' = Content wrapper & where alignment must match, wo the actual component
 export const spacing = {
   content: 20,
+  section1: 24,
+  section2: 36,
 };

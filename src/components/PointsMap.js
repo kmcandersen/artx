@@ -2,9 +2,11 @@ import React from 'react';
 import { Dimensions, StyleSheet, Text, View } from 'react-native';
 import MapView, { Callout, Marker } from 'react-native-maps';
 import { Ionicons } from '@expo/vector-icons';
+import { spacing } from '../config/theme';
 
+//const width = Dimensions.get('window').width;
 // data = all artwork (from BrowseScreen) or 1 artist's artwork (from UserProfileScreen)
-const PointsMap = ({ navigation, data }) => {
+const PointsMap = ({ navigation, data, width }) => {
   const artMapInfo = [];
   data.forEach((work) => {
     let itemInfo = {
@@ -17,10 +19,16 @@ const PointsMap = ({ navigation, data }) => {
     artMapInfo.push(itemInfo);
   });
 
+  // full width (BrowseScreen) or width matches padding of Content component (UserProfile)
+  const mapWidth =
+    width === 'content'
+      ? Dimensions.get('window').width - spacing.content * 2
+      : Dimensions.get('window').width;
+
   return (
     <View style={styles.container}>
       <MapView
-        style={styles.map}
+        style={[styles.map, { width: mapWidth }]}
         initialRegion={{
           latitude: 30.267222,
           longitude: -97.743056,
@@ -69,7 +77,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   map: {
-    width: Dimensions.get('window').width,
     height: 300,
   },
 });

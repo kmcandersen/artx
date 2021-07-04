@@ -1,5 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import {
+  Alert,
+  ScrollView,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import Screen from '../components/wrappers/Screen';
 import ArtworkDetailMap from '../components/ArtworkDetailMap';
 import PhotoSlider from '../components/PhotoSlider';
@@ -7,7 +13,7 @@ import ConfSnackbar from '../components/ConfSnackbar';
 import { AppButtonOutlined } from '../components/AppButtons';
 import AppText from '../components/AppText';
 import { Content } from '../components/wrappers/Content';
-import { colors } from '../config/theme';
+import { colors, spacing } from '../config/theme';
 
 import AuthContext from '../contexts/AuthContext';
 import ArtworkContext from '../contexts/ArtworkContext';
@@ -64,68 +70,79 @@ const ArtworkDetailScreen = ({ route, navigation }) => {
   // if there's only 1 photo, slider is still needed, for tap to enlarge
   if (work) {
     return (
-      <Screen style={{ backgroundColor: '#fff' }}>
-        <View>{work.photoUrls && <PhotoSlider photos={work.photoUrls} />}</View>
+      <Screen>
+        <ScrollView bounces={false}>
+          <View>
+            {work.photoUrls && <PhotoSlider photos={work.photoUrls} />}
+          </View>
 
-        <Content>
-          <AppText variant='header' addlStyle={{ color: colors.secondary }}>
-            {work.title}
-          </AppText>
-          <TouchableOpacity
-            activeOpacity={0.6}
-            onPress={() => {
-              navigation.navigate('UserProfile', {
-                artistId,
-              });
-            }}
-          >
-            <AppText variant='subhead'>{name}</AppText>
-          </TouchableOpacity>
+          <Content>
+            <AppText variant='header' addlStyle={{ color: colors.secondary }}>
+              {work.title}
+            </AppText>
+            <TouchableOpacity
+              activeOpacity={0.6}
+              onPress={() => {
+                navigation.navigate('UserProfile', {
+                  artistId,
+                });
+              }}
+            >
+              <AppText variant='subhead'>{name}</AppText>
+            </TouchableOpacity>
 
-          <AppText variant='item'>{work.address}</AppText>
-          <AppText variant='item'>Year: {work.year ? work.year : 'NA'}</AppText>
-          <AppText variant='copy'>
-            About: {work.aboutText ? work.aboutText : 'NA'}
-          </AppText>
-
-          {profileType === 'user' && (
-            <AppButtonOutlined
-              label='Delete Artwork'
-              onPress={createDeleteAlert}
-              width='regular'
-              outlineColor='secondary'
-              textColor='black'
-              icon='trash-can'
-            />
-          )}
-          {/* formerly: id sent, used by .find in EditArtwork */}
-          {profileType === 'user' && (
-            <AppButtonOutlined
-              label='Edit Artwork'
-              onPress={() => navigation.navigate('EditArtwork', { work })}
-              width='regular'
-              outlineColor='primary'
-              textColor='primary'
-              icon='pencil'
-            />
-          )}
-          {work.coords.length ? (
-            <ArtworkDetailMap coords={work.coords} title={work.title} />
-          ) : (
-            <Text>Map not available</Text>
-          )}
-        </Content>
-        <View>
-          {snackbarVisible && (
-            <ConfSnackbar message={route.params.snackbarMessage} />
-          )}
-        </View>
+            <AppText variant='item'>{work.address}</AppText>
+            <AppText variant='item'>
+              Year: {work.year ? work.year : 'NA'}
+            </AppText>
+            <AppText variant='copy'>
+              About: {work.aboutText ? work.aboutText : 'NA'}
+            </AppText>
+            {profileType === 'user' && (
+              <View style={styles.buttonRow}>
+                <AppButtonOutlined
+                  label='Delete Artwork'
+                  onPress={createDeleteAlert}
+                  width='regular'
+                  outlineColor='secondary'
+                  textColor='black'
+                  icon='trash-can'
+                />
+                {/* formerly: id sent, used by .find in EditArtwork */}
+                <AppButtonOutlined
+                  label='Edit Artwork'
+                  onPress={() => navigation.navigate('EditArtwork', { work })}
+                  width='regular'
+                  outlineColor='primary'
+                  textColor='primary'
+                  icon='pencil'
+                />
+              </View>
+            )}
+            {work.coords.length ? (
+              <ArtworkDetailMap coords={work.coords} title={work.title} />
+            ) : (
+              <AppText variant='itemEmpty'>Location map not available</AppText>
+            )}
+          </Content>
+          <View>
+            {snackbarVisible && (
+              <ConfSnackbar message={route.params.snackbarMessage} />
+            )}
+          </View>
+        </ScrollView>
       </Screen>
     );
   }
   return null;
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  buttonRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginVertical: spacing.section1,
+  },
+});
 
 export default ArtworkDetailScreen;
