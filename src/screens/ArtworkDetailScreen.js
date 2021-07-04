@@ -125,12 +125,12 @@ const ArtworkDetailScreen = ({ route, navigation }) => {
               <AppText variant='itemEmpty'>Location map not available</AppText>
             )}
           </Content>
-          <View>
-            {snackbarVisible && (
-              <ConfSnackbar message={route.params.snackbarMessage} />
-            )}
-          </View>
         </ScrollView>
+        <View>
+          {snackbarVisible && (
+            <ConfSnackbar message={route.params.snackbarMessage} />
+          )}
+        </View>
       </Screen>
     );
   }
