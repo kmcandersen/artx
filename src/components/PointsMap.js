@@ -4,9 +4,8 @@ import MapView, { Callout, Marker } from 'react-native-maps';
 import { Ionicons } from '@expo/vector-icons';
 import { spacing } from '../config/theme';
 
-//const width = Dimensions.get('window').width;
 // data = all artwork (from BrowseScreen) or 1 artist's artwork (from UserProfileScreen)
-const PointsMap = ({ navigation, data, width }) => {
+const PointsMap = ({ navigation, data, width, height }) => {
   const artMapInfo = [];
   data.forEach((work) => {
     let itemInfo = {
@@ -28,7 +27,7 @@ const PointsMap = ({ navigation, data, width }) => {
   return (
     <View style={styles.container}>
       <MapView
-        style={[styles.map, { width: mapWidth }]}
+        style={{ width: mapWidth, height: height }}
         initialRegion={{
           latitude: 30.267222,
           longitude: -97.743056,
@@ -74,9 +73,6 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-  },
-  map: {
-    height: 300,
   },
 });
 

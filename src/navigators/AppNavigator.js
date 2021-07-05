@@ -10,7 +10,7 @@ const Tab = createMaterialBottomTabNavigator();
 
 const AppNavigator = () => (
   <Tab.Navigator
-    initialRouteName='Browse'
+    initialRouteName='Discover'
     barStyle={{ backgroundColor: colors.primary }}
     shifting
     backBehavior='initialRoute'

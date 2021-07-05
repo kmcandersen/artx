@@ -246,6 +246,7 @@ const UserProfileScreen = ({ navigation, route }) => {
                 navigation={navigation}
                 data={profileArtwork}
                 width='content'
+                height={300}
               />
             </View>
           ) : null}

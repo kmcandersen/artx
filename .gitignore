@@ -14,6 +14,7 @@ src/screens/LoginScreen_woFormik.js
 src/screens/RegisterScreen_woFormik.js
 src/screens/CreateArtworkScreen_woFormik.js
 src/screens/EditArtworkScreen_woFormik.js
+src/screens/BrowseScreen_wMap.js
 src/contexts/ArtistsContext_v1.js
 src/contexts/AuthContext_v2.js
 src/contexts/AuthContext_v3_works.js

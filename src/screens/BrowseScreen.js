@@ -20,7 +20,6 @@ import AuthContext from '../contexts/AuthContext';
 import AppText from '../components/AppText';
 import Screen from '../components/wrappers/Screen';
 import { colors, spacing } from '../config/theme';
-import PointsMap from '../components/PointsMap';
 
 const { height } = Dimensions.get('window');
 const listHeight = height * 0.7;
@@ -84,9 +83,6 @@ const BrowseScreen = ({ navigation }) => {
       return (
         <Screen>
           <ScrollView>
-            <View style={styles.mapContainer}>
-              <PointsMap navigation={navigation} data={artwork} width='full' />
-            </View>
             <View>
               <AppText
                 variant='category'
@@ -197,9 +193,6 @@ const styles = StyleSheet.create({
     paddingLeft: spacing.content,
     borderTopWidth: 1,
     borderBottomWidth: 1,
-  },
-  mapContainer: {
-    height: 300,
   },
   list: {
     height: listHeight,

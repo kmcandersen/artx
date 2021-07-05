@@ -1,6 +1,8 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
+import BrowseNavigator from './BrowseNavigator';
+
 import BrowseScreen from '../screens/BrowseScreen';
 import CreateArtworkScreen from '../screens/CreateArtworkScreen';
 import EditArtworkScreen from '../screens/EditArtworkScreen';
@@ -15,9 +17,9 @@ const Stack = createStackNavigator();
 const ArtworkNavigator = () => (
   <Stack.Navigator>
     <Stack.Screen
-      name='Browse'
-      component={BrowseScreen}
-      options={{ headerTitle: 'Browse Art & Artists' }}
+      name='Discover'
+      component={BrowseNavigator}
+      options={{ headerTitle: 'Discover Art & Artists' }}
     />
     <Stack.Screen
       name='ArtworkDetail'
