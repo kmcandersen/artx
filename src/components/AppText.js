@@ -23,7 +23,6 @@ const styles = StyleSheet.create({
     fontSize: fontSizes.category,
     fontWeight: fontWeights.bold,
     paddingBottom: 20,
-    paddingTop: 10,
     textTransform: 'uppercase',
     color: colors.medium,
   },

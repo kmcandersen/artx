@@ -1,15 +1,16 @@
 import React, { useContext, useEffect, useState } from 'react';
 import {
+  Alert,
   Dimensions,
   Image,
   ScrollView,
   StyleSheet,
-  Text,
   TouchableOpacity,
   View,
 } from 'react-native';
 import * as Linking from 'expo-linking';
 import { Avatar } from 'react-native-paper';
+import { MaterialIcons } from '@expo/vector-icons';
 
 import Screen from '../components/wrappers/Screen';
 import { Content } from '../components/wrappers/Content';
@@ -72,20 +73,17 @@ const UserProfileScreen = ({ navigation, route }) => {
     profilePhotoUrl,
   } = profileInfo;
 
-  profileType === 'user' &&
-    React.useLayoutEffect(() => {
-      navigation.setOptions({
-        headerRight: () => (
-          <TouchableOpacity
-            onPress={() => {
-              onLogout();
-            }}
-          >
-            <Text>LOG OUT</Text>
-          </TouchableOpacity>
-        ),
-      });
-    }, [navigation]);
+  const createLogoutAlert = () =>
+    Alert.alert('Log Out', 'Are you sure you want to log out?', [
+      {
+        text: 'Cancel',
+      },
+      {
+        text: 'Yes',
+        onPress: () => onLogout(),
+        style: 'destructive',
+      },
+    ]);
 
   const basedIn = () => {
     let result = '';
@@ -99,6 +97,21 @@ const UserProfileScreen = ({ navigation, route }) => {
   return (
     <Screen>
       <ScrollView bounces={false}>
+        {/* Back button only visible if screen not accessed from bottom Tab */}
+        {artistId !== undefined && (
+          <TouchableOpacity
+            style={styles.backIcon}
+            activeOpacity={1}
+            onPress={() => navigation.goBack()}
+          >
+            <MaterialIcons
+              name='arrow-back-ios'
+              size={30}
+              color={colors.dark}
+              style={{ opacity: 0.7 }}
+            />
+          </TouchableOpacity>
+        )}
         <View style={styles.profilePhotoContainer}>
           {profilePhotoUrl[0] ? (
             <Image
@@ -116,8 +129,23 @@ const UserProfileScreen = ({ navigation, route }) => {
             />
           )}
         </View>
+        {profileType === 'user' && (
+          <TouchableOpacity
+            style={styles.logoutIcon}
+            activeOpacity={1}
+            onPress={createLogoutAlert}
+          >
+            <MaterialIcons
+              name='logout'
+              size={30}
+              color={colors.dark}
+              style={{ opacity: 0.7 }}
+            />
+          </TouchableOpacity>
+        )}
+
         <Content>
-          <View>
+          <>
             <AppText variant='header' addlStyle={{ color: colors.primary }}>
               {name}
             </AppText>
@@ -149,9 +177,9 @@ const UserProfileScreen = ({ navigation, route }) => {
                 <AppText variant='item'>NA</AppText>
               )}
             </View>
-          </View>
-          <View style={styles.buttonRow}>
-            {profileType === 'user' && (
+          </>
+          {profileType === 'user' && (
+            <View style={styles.buttonRow}>
               <AppButtonOutlined
                 label='Add Artwork'
                 onPress={() => navigation.navigate('CreateArtwork')}
@@ -160,8 +188,6 @@ const UserProfileScreen = ({ navigation, route }) => {
                 textColor='primary'
                 icon='plus'
               />
-            )}
-            {profileType === 'user' && (
               <AppButtonOutlined
                 label='Edit Profile'
                 onPress={() =>
@@ -172,11 +198,20 @@ const UserProfileScreen = ({ navigation, route }) => {
                 textColor='black'
                 icon='pencil'
               ></AppButtonOutlined>
-            )}
-          </View>
-          <View>
-            <AppText variant='category'>Artwork</AppText>
-          </View>
+            </View>
+          )}
+          {/* profileType === 'user': button row adds vertical spacing */}
+          <AppText
+            variant='category'
+            addlStyle={{
+              paddingTop: Number(
+                `${profileType === 'artist' ? spacing.section1 : 0}`
+              ),
+            }}
+          >
+            My Artwork
+          </AppText>
+
           <View>
             {profileArtwork.length ? (
               <View style={styles.artPhotoContainer}>
@@ -239,12 +274,13 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     flexWrap: 'wrap',
-    paddingBottom: spacing.section1,
+    paddingBottom: spacing.section1a,
   },
   buttonRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginVertical: spacing.section1,
+    marginBottom: spacing.section2,
   },
   mapContainer: {
     height: 300,
@@ -257,8 +293,20 @@ const styles = StyleSheet.create({
   },
   profilePhotoContainer: {
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
+    marginTop: 36,
     height: 120,
+  },
+  backIcon: {
+    position: 'absolute',
+    top: 36,
+    left: spacing.content,
+    zIndex: 1,
+  },
+  logoutIcon: {
+    position: 'absolute',
+    top: 36,
+    right: spacing.content,
   },
   textLinkRow: {
     flexDirection: 'row',

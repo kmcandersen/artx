@@ -38,7 +38,7 @@ const ArtworkNavigator = () => (
     <Stack.Screen
       name='UserProfile'
       component={UserProfileScreen}
-      options={{ headerTitle: 'User Profile' }}
+      options={{ headerShown: false }}
       initialParams={{ showSnackbar: false }}
     />
     <Stack.Screen

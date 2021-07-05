@@ -5,4 +5,5 @@ export const spacing = {
   content: 20,
   section1: 24,
   section2: 36,
+  section1a: 16,
 };
