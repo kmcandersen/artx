@@ -1,33 +1,44 @@
 import React from 'react';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { AntDesign } from '@expo/vector-icons';
+
+import { colors } from '../config/theme';
 import ArtworkNavigator from './ArtworkNavigator';
 import ArtistsNavigator from './ArtistsNavigator';
 
-const Tab = createBottomTabNavigator();
+const Tab = createMaterialBottomTabNavigator();
 
 const AppNavigator = () => (
   <Tab.Navigator
-    tabBarOptions={{
-      activeTintColor: 'tomato',
-      inactiveTintColor: 'gray',
-    }}
+    initialRouteName='Browse'
+    barStyle={{ backgroundColor: colors.primary }}
+    shifting
+    backBehavior='initialRoute'
   >
     <Tab.Screen
-      name='Browse'
+      name='Discover'
       component={ArtworkNavigator}
       options={{
         tabBarIcon: () => (
-          <MaterialCommunityIcons name='image-frame' color='black' size={24} />
+          <MaterialCommunityIcons
+            name='magnify'
+            color={colors.white}
+            size={24}
+          />
         ),
       }}
     />
     <Tab.Screen
-      name='Account Profile'
+      name='Account'
       component={ArtistsNavigator}
       options={{
-        tabBarIcon: () => <AntDesign name='profile' size={24} color='black' />,
+        tabBarIcon: () => (
+          <MaterialCommunityIcons
+            name='account'
+            size={24}
+            color={colors.white}
+          />
+        ),
       }}
     />
   </Tab.Navigator>
