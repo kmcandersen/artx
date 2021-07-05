@@ -4,9 +4,9 @@ import {
   Dimensions,
   FlatList,
   Image,
+  ImageBackground,
   ScrollView,
   StyleSheet,
-  Text,
   TouchableOpacity,
   View,
 } from 'react-native';
@@ -18,11 +18,13 @@ import ArtistsContext from '../contexts/ArtistsContext';
 import AuthContext from '../contexts/AuthContext';
 
 import AppText from '../components/AppText';
+import { Content } from '../components/wrappers/Content';
 import Screen from '../components/wrappers/Screen';
 import { colors, spacing } from '../config/theme';
 
-const { height } = Dimensions.get('window');
+const { height, width } = Dimensions.get('window');
 const listHeight = height * 0.7;
+const listWidth = width - spacing.content * 2;
 
 const BrowseScreen = ({ navigation }) => {
   const { artwork, artworkError, setArtworkError, isLoading } =
@@ -86,7 +88,10 @@ const BrowseScreen = ({ navigation }) => {
             <View>
               <AppText
                 variant='category'
-                addlStyle={{ paddingLeft: spacing.content }}
+                addlStyle={{
+                  paddingLeft: spacing.content,
+                  paddingTop: spacing.section2,
+                }}
               >
                 All Artists
               </AppText>
@@ -106,6 +111,7 @@ const BrowseScreen = ({ navigation }) => {
                             artistId: item.artistId,
                           })
                         }
+                        activeOpacity={0.6}
                       >
                         {item.profilePhotoUrl.length ? (
                           <Image
@@ -126,13 +132,17 @@ const BrowseScreen = ({ navigation }) => {
                     </>
                   );
                 }}
+                // adds padding to right of last item
+                ListFooterComponent={<View style={{ width: 44 }}></View>}
               />
             </View>
 
-            <View>
+            <Content>
               <AppText
                 variant='category'
-                addlStyle={{ paddingLeft: spacing.content }}
+                addlStyle={{
+                  paddingTop: spacing.section2,
+                }}
               >
                 All Artwork
               </AppText>
@@ -146,18 +156,28 @@ const BrowseScreen = ({ navigation }) => {
                         artistId: item.artistFbId,
                       });
                     }}
+                    activeOpacity={0.6}
                   >
                     {item._id && (
-                      <View style={styles.row}>
+                      <ImageBackground
+                        source={{ uri: item.photoUrls[0] }}
+                        style={styles.listRow}
+                        imageStyle={{ borderRadius: 5 }}
+                      >
                         {item.title && (
-                          <Text style={styles.title}>{item.title}</Text>
+                          <AppText
+                            variant='subheadTitle'
+                            addlStyle={styles.title}
+                          >
+                            {item.title}
+                          </AppText>
                         )}
-                      </View>
+                      </ImageBackground>
                     )}
                   </TouchableOpacity>
                 ))}
               </ScrollView>
-            </View>
+            </Content>
           </ScrollView>
         </Screen>
       );
@@ -169,7 +189,7 @@ const BrowseScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   artistPhotosContainer: {
-    paddingHorizontal: 10,
+    paddingLeft: spacing.content,
   },
   alignRowItems: {
     flexDirection: 'row',
@@ -186,22 +206,20 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  row: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+  listRow: {
     paddingVertical: 20,
-    paddingLeft: spacing.content,
-    borderTopWidth: 1,
-    borderBottomWidth: 1,
+    marginVertical: 7,
+    width: listWidth,
+    justifyContent: 'center',
   },
   list: {
     height: listHeight,
+    width: width,
   },
   title: {
-    fontSize: 18,
-  },
-  icon: {
-    fontSize: 24,
+    paddingHorizontal: spacing.content,
+    textShadowColor: 'rgba(0, 0, 0, 0.8)',
+    textShadowRadius: 7,
   },
 });
 

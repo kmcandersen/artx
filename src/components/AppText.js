@@ -19,9 +19,14 @@ const styles = StyleSheet.create({
     fontWeight: fontWeights.bold,
     paddingBottom: 10,
   },
+  subheadTitle: {
+    color: colors.white,
+    fontSize: fontSizes.subhead,
+    fontWeight: fontWeights.bold,
+  },
   category: {
     fontSize: fontSizes.category,
-    fontWeight: fontWeights.bold,
+    fontWeight: fontWeights.medium,
     paddingBottom: 20,
     textTransform: 'uppercase',
     color: colors.medium,
