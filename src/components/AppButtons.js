@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { StyleSheet, View } from 'react-native';
 // icons from RN Paper: callstack.github.io/react-native-paper/icons.html
 import { Button } from 'react-native-paper';
-import { colors } from '../config/theme';
+import { colors, spacing } from '../config/theme';
 import ArtworkContext from '../contexts/ArtworkContext';
 
 // Outlined props incl borderColor, Filled props incl bgColor; others identical
@@ -18,7 +18,10 @@ export function AppButtonOutlined({
 }) {
   const { screenWidth } = useContext(ArtworkContext);
   const buttonWidth =
-    width === 'wide' ? screenWidth * 0.75 : screenWidth * 0.435;
+    width === 'wide'
+      ? screenWidth - spacing.content * 2
+      : (screenWidth - spacing.content * 2) * 0.48;
+
   return (
     <View style={{ justifyContent: 'center' }}>
       <Button
@@ -50,7 +53,9 @@ export function AppButtonFilled({
 }) {
   const { screenWidth } = useContext(ArtworkContext);
   const buttonWidth =
-    width === 'wide' ? screenWidth * 0.75 : screenWidth * 0.435;
+    width === 'wide'
+      ? screenWidth - spacing.content * 2
+      : (screenWidth - spacing.content * 2) * 0.48;
   return (
     <View style={{ justifyContent: 'center' }}>
       <Button

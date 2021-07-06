@@ -16,7 +16,7 @@ const BackIcon = ({ color, onPress }) => {
 };
 
 const styles = StyleSheet.create({
-  // coordinated with position of UserProfile elements:
+  // coordinated with position of UserProfile elements & style of AuthNav:
   backIcon: {
     position: 'absolute',
     top: 64,

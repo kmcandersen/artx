@@ -43,6 +43,12 @@ const styles = StyleSheet.create({
     fontStyle: 'italic',
     paddingTop: 10,
   },
+  itemMessage: {
+    fontSize: fontSizes.item,
+    fontWeight: fontWeights.regular,
+    color: colors.medium,
+    marginTop: 20,
+  },
   copy: {
     fontSize: fontSizes.item,
     fontWeight: fontWeights.regular,
@@ -50,12 +56,9 @@ const styles = StyleSheet.create({
     paddingVertical: 6,
   },
   error: {
-    color: 'red',
-  },
-  // from defaultStyles.text
-  label: {
-    fontSize: fontSizes.label,
-    flex: 1,
+    fontSize: fontSizes.item,
+    color: colors.danger,
+    paddingLeft: 5,
   },
   // finish this:
   default: {

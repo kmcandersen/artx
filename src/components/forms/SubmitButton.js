@@ -12,7 +12,7 @@ function SubmitButton({ label, icon = 'check-bold' }) {
       bgColor='primary'
       textColor='white'
       icon={icon}
-      addlStyle={{ marginBottom: 15 }}
+      addlStyle={{ marginTop: 20, marginBottom: 25 }}
     />
   );
 }

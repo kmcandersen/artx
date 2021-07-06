@@ -153,7 +153,7 @@ const UserProfileScreen = ({ navigation, route }) => {
 
             <AppText variant='item'>Based in: {basedIn()}</AppText>
             <AppText variant='copy'>About Me: {aboutMe}</AppText>
-            <View style={[styles.textLinkRow]}>
+            <View style={styles.textLinkRow}>
               <AppText variant='item'>More info: </AppText>
               {moreInfo ? (
                 <TouchableOpacity
