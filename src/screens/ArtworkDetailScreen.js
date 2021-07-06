@@ -1,14 +1,16 @@
 import React, { useContext, useEffect, useState } from 'react';
 import {
   Alert,
+  Dimensions,
   ScrollView,
   StyleSheet,
   TouchableOpacity,
   View,
 } from 'react-native';
-import Screen from '../components/wrappers/Screen';
+
 import ArtworkDetailMap from '../components/ArtworkDetailMap';
 import PhotoSlider from '../components/PhotoSlider';
+import BackIcon from '../components/BackIcon';
 import ConfSnackbar from '../components/ConfSnackbar';
 import { AppButtonOutlined } from '../components/AppButtons';
 import AppText from '../components/AppText';
@@ -18,6 +20,8 @@ import { colors, spacing } from '../config/theme';
 import AuthContext from '../contexts/AuthContext';
 import ArtworkContext from '../contexts/ArtworkContext';
 import ArtistsContext from '../contexts/ArtistsContext';
+
+const height = Dimensions.get('window').height;
 
 // route.params.showSnackbar default from Navigator; route.params.showSnackbar & message set by callback when artwork edited
 const ArtworkDetailScreen = ({ route, navigation }) => {
@@ -70,13 +74,15 @@ const ArtworkDetailScreen = ({ route, navigation }) => {
   // if there's only 1 photo, slider is still needed, for tap to enlarge
   if (work) {
     return (
-      <Screen>
+      <View>
         <ScrollView bounces={false}>
+          <BackIcon color='white' onPress={() => navigation.goBack()} />
+
           <View>
             {work.photoUrls && <PhotoSlider photos={work.photoUrls} />}
           </View>
 
-          <Content>
+          <Content height={height}>
             <AppText variant='header' addlStyle={{ color: colors.secondary }}>
               {work.title}
             </AppText>
@@ -131,7 +137,7 @@ const ArtworkDetailScreen = ({ route, navigation }) => {
             <ConfSnackbar message={route.params.snackbarMessage} />
           )}
         </View>
-      </Screen>
+      </View>
     );
   }
   return null;

@@ -18,7 +18,7 @@ export function AppButtonOutlined({
 }) {
   const { screenWidth } = useContext(ArtworkContext);
   const buttonWidth =
-    width === 'wide' ? screenWidth * 0.75 : screenWidth * 0.42;
+    width === 'wide' ? screenWidth * 0.75 : screenWidth * 0.435;
   return (
     <View style={{ justifyContent: 'center' }}>
       <Button
@@ -50,7 +50,7 @@ export function AppButtonFilled({
 }) {
   const { screenWidth } = useContext(ArtworkContext);
   const buttonWidth =
-    width === 'wide' ? screenWidth * 0.75 : screenWidth * 0.45;
+    width === 'wide' ? screenWidth * 0.75 : screenWidth * 0.435;
   return (
     <View style={{ justifyContent: 'center' }}>
       <Button

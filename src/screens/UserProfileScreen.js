@@ -12,12 +12,12 @@ import * as Linking from 'expo-linking';
 import { Avatar } from 'react-native-paper';
 import { MaterialIcons } from '@expo/vector-icons';
 
-import Screen from '../components/wrappers/Screen';
-import { Content } from '../components/wrappers/Content';
 import { AppButtonOutlined } from '../components/AppButtons';
-import PointsMap from '../components/PointsMap';
-import ConfSnackbar from '../components/ConfSnackbar';
 import AppText from '../components/AppText';
+import BackIcon from '../components/BackIcon';
+import ConfSnackbar from '../components/ConfSnackbar';
+import { Content } from '../components/wrappers/Content';
+import PointsMap from '../components/PointsMap';
 import { colors, spacing } from '../config/theme';
 
 import AuthContext from '../contexts/AuthContext';
@@ -95,56 +95,45 @@ const UserProfileScreen = ({ navigation, route }) => {
   };
 
   return (
-    <Screen>
+    <>
       <ScrollView bounces={false}>
-        {/* Back button only visible if screen not accessed from bottom Tab */}
-        {artistId !== undefined && (
-          <TouchableOpacity
-            style={styles.backIcon}
-            activeOpacity={1}
-            onPress={() => navigation.goBack()}
-          >
-            <MaterialIcons
-              name='arrow-back-ios'
-              size={30}
-              color={colors.dark}
-              style={{ opacity: 0.7 }}
-            />
-          </TouchableOpacity>
-        )}
-        <View style={styles.profilePhotoContainer}>
-          {profilePhotoUrl[0] ? (
-            <Image
-              source={{ uri: profilePhotoUrl[0] }}
-              style={styles.profilePhoto}
-            />
-          ) : (
-            <Avatar.Text
-              size={90}
-              label={initials}
-              color={colors.white}
-              style={{
-                backgroundColor: colors.primary,
-              }}
-            />
-          )}
-        </View>
-        {profileType === 'user' && (
-          <TouchableOpacity
-            style={styles.logoutIcon}
-            activeOpacity={1}
-            onPress={createLogoutAlert}
-          >
-            <MaterialIcons
-              name='logout'
-              size={30}
-              color={colors.dark}
-              style={{ opacity: 0.7 }}
-            />
-          </TouchableOpacity>
-        )}
-
         <Content>
+          {/* Back button only visible if screen not accessed from bottom Tab */}
+          {artistId !== undefined && (
+            <BackIcon color='black' onPress={() => navigation.goBack()} />
+          )}
+          <View style={styles.profilePhotoContainer}>
+            {profilePhotoUrl[0] ? (
+              <Image
+                source={{ uri: profilePhotoUrl[0] }}
+                style={styles.profilePhoto}
+              />
+            ) : (
+              <Avatar.Text
+                size={90}
+                label={initials}
+                color={colors.white}
+                style={{
+                  backgroundColor: colors.primary,
+                }}
+              />
+            )}
+          </View>
+          {profileType === 'user' && (
+            <TouchableOpacity
+              style={styles.logoutIcon}
+              activeOpacity={1}
+              onPress={createLogoutAlert}
+            >
+              <MaterialIcons
+                name='logout'
+                size={30}
+                color={colors.dark}
+                style={{ opacity: 0.7 }}
+              />
+            </TouchableOpacity>
+          )}
+
           <>
             <AppText variant='header' addlStyle={{ color: colors.primary }}>
               {name}
@@ -257,7 +246,7 @@ const UserProfileScreen = ({ navigation, route }) => {
           <ConfSnackbar message={route.params.snackbarMessage} />
         )}
       </View>
-    </Screen>
+    </>
   );
 };
 
@@ -270,7 +259,6 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: colors.background,
   },
-
   artPhotoContainer: {
     flex: 1,
     flexDirection: 'row',
@@ -287,31 +275,26 @@ const styles = StyleSheet.create({
     height: 300,
     marginTop: spacing.section1,
   },
+  textLinkRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
   profilePhoto: {
     width: 90,
     height: 90,
     borderRadius: 90,
   },
+  // coordinated with position of BackIcon:
   profilePhotoContainer: {
     alignItems: 'center',
     justifyContent: 'flex-start',
-    marginTop: 36,
+    marginTop: 64,
     height: 120,
-  },
-  backIcon: {
-    position: 'absolute',
-    top: 36,
-    left: spacing.content,
-    zIndex: 1,
   },
   logoutIcon: {
     position: 'absolute',
-    top: 36,
+    top: 64,
     right: spacing.content,
-  },
-  textLinkRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
   },
 });
 

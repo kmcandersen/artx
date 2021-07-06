@@ -11,12 +11,12 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
-import { AntDesign } from '@expo/vector-icons';
+import { MaterialIcons } from '@expo/vector-icons';
 import { colors } from '../config/theme';
 import Screen from './wrappers/Screen';
 
 const { width } = Dimensions.get('window');
-const thumbHeight = width * 0.7;
+const thumbHeight = width * 0.8;
 
 const PhotoSlider = ({ photos }) => {
   const [activePhoto, setActivePhoto] = useState(0);
@@ -51,8 +51,14 @@ const PhotoSlider = ({ photos }) => {
                 <TouchableOpacity
                   style={styles.iconContainer}
                   onPress={() => setModalVisible(false)}
+                  activeOpacity={1}
                 >
-                  <AntDesign name='closecircleo' size={30} color='black' />
+                  <MaterialIcons
+                    name='close'
+                    size={30}
+                    color={colors.dark}
+                    style={{ opacity: 0.7 }}
+                  />
                 </TouchableOpacity>
                 {/* <Button title='Close' onPress={() => setModalVisible(false)} /> */}
                 <View style={styles.photoEnlargedContainer}>

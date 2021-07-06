@@ -2,7 +2,7 @@ import React from 'react';
 import { Dimensions, StyleSheet, Text, View } from 'react-native';
 import MapView, { Callout, Marker } from 'react-native-maps';
 import { Ionicons } from '@expo/vector-icons';
-import { spacing } from '../config/theme';
+import { colors, spacing } from '../config/theme';
 
 // data = all artwork (from BrowseScreen) or 1 artist's artwork (from UserProfileScreen)
 const PointsMap = ({ navigation, data, width, height }) => {
@@ -53,7 +53,11 @@ const PointsMap = ({ navigation, data, width, height }) => {
             >
               <View style={styles.callout}>
                 <Text>{work.title}</Text>
-                <Ionicons name='chevron-forward' size={18} color='black' />
+                <Ionicons
+                  name='chevron-forward'
+                  size={18}
+                  color={colors.dark}
+                />
               </View>
             </Callout>
           </Marker>

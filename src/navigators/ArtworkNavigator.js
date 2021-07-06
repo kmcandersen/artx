@@ -3,7 +3,6 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import BrowseNavigator from './BrowseNavigator';
 
-import BrowseScreen from '../screens/BrowseScreen';
 import CreateArtworkScreen from '../screens/CreateArtworkScreen';
 import EditArtworkScreen from '../screens/EditArtworkScreen';
 import ArtworkDetailScreen from '../screens/ArtworkDetailScreen';
@@ -24,7 +23,7 @@ const ArtworkNavigator = () => (
     <Stack.Screen
       name='ArtworkDetail'
       component={ArtworkDetailScreen}
-      options={{ headerTitle: 'Art Deets' }}
+      options={{ headerShown: false }}
       initialParams={{ showSnackbar: false }}
     />
     <Stack.Screen
