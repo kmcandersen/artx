@@ -39,13 +39,13 @@ const EditUserScreen = ({ route, navigation }) => {
     name: Yup.string()
       .required()
       .min(1)
-      .max(40)
+      .max(50)
       .matches(/^([\w\s/-]*)$/, "Names can't include special characters")
       .label('Name'),
     city: Yup.string().min(2).max(40).label('City'),
     country: Yup.string().min(2).max(40).label('Country'),
     aboutMe: Yup.string().max(450).label('About'),
-    moreInfo: Yup.string().max(40).label('More info'),
+    moreInfo: Yup.string().max(50).label('More info'),
   });
 
   const initialValues = {

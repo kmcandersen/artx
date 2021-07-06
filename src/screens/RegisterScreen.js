@@ -15,10 +15,10 @@ const validationSchema = Yup.object().shape({
   name: Yup.string()
     .required()
     .min(1)
-    .max(40)
+    .max(50)
     .matches(/^([\w\s/-]*)$/, "Names can't include special characters")
     .label('Name'),
-  email: Yup.string().required().email().max(40).label('Email'),
+  email: Yup.string().required().email().max(50).label('Email'),
   password: Yup.string().required().min(4).max(40).label('Password'),
   repeatedPassword: Yup.string()
     .required()

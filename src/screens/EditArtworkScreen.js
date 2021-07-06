@@ -19,8 +19,8 @@ const EditArtworkScreen = ({ route, navigation }) => {
   const { error, editArtwork, currYear } = useContext(ArtworkContext);
 
   const validationSchema = Yup.object().shape({
-    title: Yup.string().required().label('Title'),
-    address: Yup.string().required().min(4).label('Address'),
+    title: Yup.string().required().max(85).label('Title'),
+    address: Yup.string().required().min(4).max(50).label('Address'),
     year: Yup.number().min(1950).max(currYear).nullable().label('Year'),
     aboutText: Yup.string().max(450).label('About'),
   });

@@ -18,8 +18,8 @@ const CreateArtworkScreen = ({ navigation }) => {
   const { user } = useContext(AuthContext);
 
   const validationSchema = Yup.object().shape({
-    title: Yup.string().required().label('Title'),
-    address: Yup.string().required().min(4).label('Address'),
+    title: Yup.string().required().max(85).label('Title'),
+    address: Yup.string().required().min(4).max(50).label('Address'),
     year: Yup.number().min(1950).max(currYear).label('Year'),
     aboutText: Yup.string().max(450).label('About'),
     //photoUrls: Yup.array().min(1, 'Please select at least 1 image'),
