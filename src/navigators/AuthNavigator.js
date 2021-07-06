@@ -36,7 +36,25 @@ const AuthNavigator = () => (
         ),
       })}
     />
-    <Stack.Screen name='Register' component={RegisterScreen} />
+    <Stack.Screen
+      name='Register'
+      component={RegisterScreen}
+      options={({ navigation }) => ({
+        headerTitle: 'Register',
+        headerLeft: () => (
+          <TouchableOpacity
+            onPress={() => navigation.goBack()}
+            activeOpacity={1}
+          >
+            <MaterialIcons
+              name='arrow-back-ios'
+              size={30}
+              style={styles.backIcon}
+            />
+          </TouchableOpacity>
+        ),
+      })}
+    />
   </Stack.Navigator>
 );
 

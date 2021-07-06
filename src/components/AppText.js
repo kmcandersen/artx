@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     fontSize: fontSizes.item,
     fontWeight: fontWeights.regular,
     color: colors.medium,
-    marginTop: 20,
+    marginTop: 10,
   },
   copy: {
     fontSize: fontSizes.item,

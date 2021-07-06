@@ -1,5 +1,15 @@
-import React, { useContext } from 'react';
-import { StyleSheet, Text } from 'react-native';
+import React, { useContext, useState } from 'react';
+import {
+  Image,
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  StyleSheet,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  View,
+} from 'react-native';
 import * as Yup from 'yup';
 import {
   ErrorMessage,
@@ -7,9 +17,11 @@ import {
   AppFormField,
   SubmitButton,
 } from '../components/forms';
+import { Content } from '../components/wrappers/Content';
 import Screen from '../components/wrappers/Screen';
-import { AppButtonOutlined } from '../components/AppButtons';
+import AppText from '../components/AppText';
 import AuthContext from '../contexts/AuthContext';
+import ArtworkContext from '../contexts/ArtworkContext';
 
 const validationSchema = Yup.object().shape({
   name: Yup.string()
@@ -29,70 +41,124 @@ const validationSchema = Yup.object().shape({
 
 const RegisterScreen = ({ navigation }) => {
   const { onRegister, error } = useContext(AuthContext);
+  const { screenWidth } = useContext(ArtworkContext);
+
+  const [keyboardShift, setKeyboardShift] = useState(true);
 
   return (
-    <Screen>
-      <Text>REGISTER SCREEN error is: {error}</Text>
-      <AppForm
-        initialValues={{
-          name: '',
-          email: '',
-          password: '',
-          repeatedPassword: '',
+    <ScrollView bounces={false}>
+      <Screen
+        style={{
+          justifyContent: 'center',
         }}
-        onSubmit={onRegister}
-        validationSchema={validationSchema}
       >
-        <AppFormField
-          autoCapitalize='words'
-          autoCorrect={false}
-          icon='account'
-          name='name'
-          placeholder='Full Name'
-          textContentType='name'
-        />
-        <ErrorMessage error='Invalid email and/or password' visible={error} />
-        <AppFormField
-          autoCapitalize='none'
-          autoCorrect={false}
-          icon='email'
-          keyboardType='email-address'
-          name='email'
-          placeholder='Email'
-          textContentType='emailAddress'
-        />
-        <AppFormField
-          autoCapitalize='none'
-          autoCorrect={false}
-          icon='lock'
-          name='password'
-          placeholder='Password'
-          secureTextEntry
-          textContentType='password'
-        />
-        <AppFormField
-          autoCapitalize='none'
-          autoCorrect={false}
-          icon='lock'
-          name='repeatedPassword'
-          placeholder='Repeated Password'
-          secureTextEntry
-          textContentType='password'
-        />
-        <SubmitButton label='Register' />
-        <AppButtonOutlined
-          label='Back'
-          onPress={() => navigation.goBack()}
-          width='wide'
-          outlineColor='secondary'
-          textColor='black'
-          icon='chevron-left'
-        />
-      </AppForm>
-    </Screen>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'position' : 'height'}
+          enabled={keyboardShift}
+        >
+          <Content>
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+              <>
+                <Image
+                  source={require('../../assets/logo.png')}
+                  style={[
+                    styles.logo,
+                    {
+                      width: screenWidth * 0.3,
+                      height: (screenWidth * 0.3) / 1.9,
+                    },
+                  ]}
+                />
+                <AppForm
+                  initialValues={{
+                    name: '',
+                    email: '',
+                    password: '',
+                    repeatedPassword: '',
+                  }}
+                  onSubmit={onRegister}
+                  validationSchema={validationSchema}
+                >
+                  <AppFormField
+                    autoCapitalize='words'
+                    autoCorrect={false}
+                    name='name'
+                    label='Full Name'
+                    placeholder='Up to 50 alphanumeric characters'
+                    textContentType='name'
+                    onFocus={() => setKeyboardShift(false)}
+                  />
+                  <ErrorMessage
+                    error='Invalid email and/or password'
+                    visible={error}
+                  />
+                  <AppFormField
+                    autoCapitalize='none'
+                    autoCorrect={false}
+                    keyboardType='email-address'
+                    name='email'
+                    label='Email'
+                    placeholder='Up to 50 characters'
+                    textContentType='emailAddress'
+                    onFocus={() => setKeyboardShift(false)}
+                  />
+                  <AppFormField
+                    autoCapitalize='none'
+                    autoCorrect={false}
+                    name='password'
+                    label='Password'
+                    placeholder='4 to 40 characters'
+                    secureTextEntry
+                    textContentType='password'
+                    onFocus={() => setKeyboardShift(true)}
+                  />
+                  <AppFormField
+                    autoCapitalize='none'
+                    autoCorrect={false}
+                    name='repeatedPassword'
+                    label='Repeated Password'
+                    placeholder='Re-enter password'
+                    secureTextEntry
+                    textContentType='password'
+                    onFocus={() => setKeyboardShift(true)}
+                  />
+                  <SubmitButton label='Register' />
+                </AppForm>
+                <View style={styles.textLinkRow}>
+                  <AppText variant='itemMessage'>
+                    Already have an account?{' '}
+                  </AppText>
+                  <TouchableOpacity
+                    activeOpacity={0.6}
+                    onPress={() => navigation.navigate('Login')}
+                  >
+                    <AppText
+                      variant='itemMessage'
+                      addlStyle={{ textDecorationLine: 'underline' }}
+                    >
+                      Log In
+                    </AppText>
+                  </TouchableOpacity>
+                </View>
+              </>
+            </TouchableWithoutFeedback>
+          </Content>
+        </KeyboardAvoidingView>
+      </Screen>
+    </ScrollView>
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  logo: {
+    resizeMode: 'contain',
+    marginBottom: 25,
+    alignSelf: 'center',
+  },
+  textLinkRow: {
+    flexDirection: 'row',
+    alignSelf: 'center',
+  },
+});
 
 export default RegisterScreen;
