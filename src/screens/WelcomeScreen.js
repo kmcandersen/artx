@@ -6,6 +6,7 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
+import { colors } from '../config/theme';
 import ArtworkContext from '../contexts/ArtworkContext';
 
 import { AppButtonFilled, AppButtonOutlined } from '../components/AppButtons';
@@ -37,16 +38,16 @@ const WelcomeScreen = ({ navigation }) => {
         </View>
         <View style={styles.buttonsContainer}>
           <AppButtonFilled
-            label='Log In'
-            onPress={() => navigation.navigate('Login')}
+            label='Register'
+            onPress={() => navigation.navigate('Register')}
             width='wide'
             bgColor='white'
             textColor='black'
             addlStyle={{ marginBottom: 15 }}
           />
           <AppButtonOutlined
-            label='Register'
-            onPress={() => navigation.navigate('Register')}
+            label='Log In'
+            onPress={() => navigation.navigate('Login')}
             width='wide'
             outlineColor='white'
             textColor='white'
