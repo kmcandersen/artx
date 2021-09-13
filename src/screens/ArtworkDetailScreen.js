@@ -76,7 +76,14 @@ const ArtworkDetailScreen = ({ route, navigation }) => {
     return (
       <View>
         <ScrollView bounces={false}>
-          <BackIcon color='white' onPress={() => navigation.goBack()} />
+          <BackIcon
+            color='white'
+            onPress={() => {
+              route.params.prevScreen === 'artist'
+                ? navigation.navigate('UserProfile')
+                : navigation.goBack();
+            }}
+          />
 
           <View>
             {work.photoUrls && <PhotoSlider photos={work.photoUrls} />}

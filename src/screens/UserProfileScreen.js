@@ -212,6 +212,7 @@ const UserProfileScreen = ({ navigation, route }) => {
                         navigation.navigate('ArtworkDetail', {
                           id: item._id,
                           artistId: item.artistFbId,
+                          prevScreen: 'artist',
                         })
                       }
                     >
