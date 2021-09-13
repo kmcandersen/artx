@@ -26,11 +26,13 @@ const styles = StyleSheet.create({
   black: {
     color: colors.dark,
     opacity: 0.7,
+    paddingLeft: 4,
   },
   white: {
     color: colors.white,
     textShadowColor: 'rgba(0, 0, 0, 0.8)',
     textShadowRadius: 7,
+    paddingLeft: 4,
   },
 });
 
