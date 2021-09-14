@@ -25,6 +25,8 @@ const styles = StyleSheet.create({
   displayEmailRow: {
     flexDirection: 'row',
     alignItems: 'center',
+    marginTop: 10,
+    marginBottom: 14,
   },
 });
 

@@ -1,22 +1,28 @@
 import React, { useState } from 'react';
 import {
-  Button,
   Modal,
   StyleSheet,
-  Text,
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
+import { AppButtonFilled } from './AppButtons';
 import { Picker } from '@react-native-picker/picker';
 import { useFormikContext } from 'formik';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import AppText from './AppText';
 import { colors } from '../config/theme';
-import Screen from './wrappers/Screen';
+import { Content } from './wrappers/Content';
 
-function AppDropdownPicker({ items, name, prompt, icon, height, itemHeight }) {
+function AppDropdownPicker({
+  items,
+  name,
+  prompt,
+  btnLabel,
+  icon,
+  itemHeight,
+}) {
   const [modalVisible, setModalVisible] = useState(false);
-  const { setFieldValue, touched, values } = useFormikContext();
+  const { setFieldValue, values } = useFormikContext();
 
   const selectedItem = values[name];
 
@@ -38,15 +44,15 @@ function AppDropdownPicker({ items, name, prompt, icon, height, itemHeight }) {
         </View>
       </TouchableWithoutFeedback>
       <Modal visible={modalVisible} animationType='slide'>
-        <Screen>
-          <Button title='Close' onPress={() => setModalVisible(false)} />
-          <Text>{prompt}</Text>
+        <Content>
+          <View
+            style={{ flex: 'display', alignItems: 'center', marginTop: 50 }}
+          >
+            <AppText variant='subhead'>{prompt}</AppText>
+          </View>
           <Picker
-            style={[styles.picker, { height: height }]}
             itemStyle={{
               height: itemHeight,
-              borderColor: 'red',
-              borderWidth: 1,
             }}
             mode='dropdown'
             selectedValue={values[name]}
@@ -56,7 +62,17 @@ function AppDropdownPicker({ items, name, prompt, icon, height, itemHeight }) {
               return <Picker.Item label={item} value={item} key={index} />;
             })}
           </Picker>
-        </Screen>
+          {/* sim to SubmitButton, wo handleSumbit function */}
+          <AppButtonFilled
+            label={btnLabel}
+            onPress={() => setModalVisible(false)}
+            width='wide'
+            bgColor='primary'
+            textColor='white'
+            icon='check-bold'
+            addlStyle={{ marginTop: 20, marginBottom: 25 }}
+          />
+        </Content>
       </Modal>
     </>
   );
@@ -75,16 +91,11 @@ const styles = StyleSheet.create({
   icon: {
     marginRight: 10,
   },
-  prompt: {
-    color: colors.medium,
-    flex: 1,
-  },
-
-  picker: {
-    flex: 1,
-    justifyContent: 'center',
-    borderColor: 'red',
-    borderWidth: 1,
+  iconContainer: {
+    position: 'absolute',
+    right: 30,
+    top: 10,
+    zIndex: 1,
   },
 });
 

@@ -27,8 +27,7 @@ import { Content } from '../components/wrappers/Content';
 import { AppButtonOutlined } from '../components/AppButtons';
 import AppDropdownPicker from '../components/AppDropdownPicker';
 
-const height = Dimensions.get('window').height;
-const itemHeight = height * 0.7;
+const itemHeight = Dimensions.get('window').height * 0.7;
 
 const EditUserScreen = ({ route, navigation }) => {
   const profile = route.params.profile;
@@ -118,8 +117,8 @@ const EditUserScreen = ({ route, navigation }) => {
                   items={states}
                   name='state'
                   prompt='Select a US State'
+                  btnLabel='Select'
                   icon='form-dropdown'
-                  height={height}
                   itemHeight={itemHeight}
                 />
                 <AppFormField
