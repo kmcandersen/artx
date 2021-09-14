@@ -18,12 +18,12 @@ const ArtistsNavigator = () => (
     <Stack.Screen
       name='CreateArtwork'
       component={CreateArtworkScreen}
-      options={{ headerTitle: 'Add Artwork' }}
+      options={{ headerTitle: 'Add Artwork', headerLeft: () => null }}
     />
     <Stack.Screen
       name='EditUser'
       component={EditUserScreen}
-      options={{ headerTitle: 'Edit Profile' }}
+      options={{ headerTitle: 'Edit Profile', headerLeft: () => null }}
     />
   </Stack.Navigator>
 );
