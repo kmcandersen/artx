@@ -10,7 +10,7 @@ import {
 
 import ArtworkContext from '../contexts/ArtworkContext';
 
-import Screen from '../components/wrappers/Screen';
+import { Content } from '../components/wrappers/Content';
 import { AppButtonOutlined } from '../components/AppButtons';
 
 const EditArtworkScreen = ({ route, navigation }) => {
@@ -19,10 +19,10 @@ const EditArtworkScreen = ({ route, navigation }) => {
   const { error, editArtwork, currYear } = useContext(ArtworkContext);
 
   const validationSchema = Yup.object().shape({
-    title: Yup.string().required().max(85).label('Title'),
-    address: Yup.string().required().min(4).max(50).label('Address'),
-    year: Yup.number().min(1950).max(currYear).nullable().label('Year'),
-    aboutText: Yup.string().max(450).label('About'),
+    title: Yup.string().required().max(85),
+    address: Yup.string().required().min(4).max(50),
+    year: Yup.number().min(1950).max(currYear).nullable(),
+    aboutText: Yup.string().max(450),
   });
 
   const initialYear = item
@@ -47,7 +47,7 @@ const EditArtworkScreen = ({ route, navigation }) => {
   };
 
   return (
-    <Screen>
+    <Content>
       <AppForm
         initialValues={initialValues}
         onSubmit={editArtwork}
@@ -56,6 +56,7 @@ const EditArtworkScreen = ({ route, navigation }) => {
         <ErrorMessage error={error} visible={error} />
         <AppFormField
           name='title'
+          label='Title'
           placeholder='Title'
           autoCapitalize='sentences'
           autoCompleteType='off'
@@ -63,6 +64,7 @@ const EditArtworkScreen = ({ route, navigation }) => {
         />
         <AppFormField
           name='address'
+          label='Address or Intersection'
           placeholder='Address or Intersection'
           textContentType='streetAddressLine1'
           autoCapitalize='words'
@@ -72,11 +74,13 @@ const EditArtworkScreen = ({ route, navigation }) => {
         <AppFormField
           keyboardType='number-pad'
           name='year'
+          label='Year'
           placeholder='Year completed'
           maxLength={4}
         />
         <AppFormField
           name='aboutText'
+          label='About this project'
           placeholder='About this project'
           textContentType='none'
           maxLength={450}
@@ -96,7 +100,7 @@ const EditArtworkScreen = ({ route, navigation }) => {
           icon='chevron-left'
         />
       </AppForm>
-    </Screen>
+    </Content>
   );
 };
 

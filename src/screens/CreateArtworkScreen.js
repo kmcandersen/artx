@@ -10,7 +10,7 @@ import {
 } from '../components/forms';
 import ArtworkContext from '../contexts/ArtworkContext';
 import AuthContext from '../contexts/AuthContext';
-import Screen from '../components/wrappers/Screen';
+import { Content } from '../components/wrappers/Content';
 import { AppButtonOutlined } from '../components/AppButtons';
 
 const CreateArtworkScreen = ({ navigation }) => {
@@ -18,10 +18,10 @@ const CreateArtworkScreen = ({ navigation }) => {
   const { user } = useContext(AuthContext);
 
   const validationSchema = Yup.object().shape({
-    title: Yup.string().required().max(85).label('Title'),
-    address: Yup.string().required().min(4).max(50).label('Address'),
-    year: Yup.number().min(1950).max(currYear).label('Year'),
-    aboutText: Yup.string().max(450).label('About'),
+    title: Yup.string().required().max(85),
+    address: Yup.string().required().min(4).max(50),
+    year: Yup.number().min(1950).max(currYear),
+    aboutText: Yup.string().max(450),
     //photoUrls: Yup.array().min(1, 'Please select at least 1 image'),
   });
   const initialValues = {
@@ -41,7 +41,7 @@ const CreateArtworkScreen = ({ navigation }) => {
   };
 
   return (
-    <Screen>
+    <Content>
       <AppForm
         initialValues={initialValues}
         onSubmit={addArtwork}
@@ -50,6 +50,7 @@ const CreateArtworkScreen = ({ navigation }) => {
         <ErrorMessage error={artworkError} visible={artworkError} />
         <AppFormField
           name='title'
+          label='Title'
           placeholder='Title'
           autoCapitalize='sentences'
           autoCompleteType='off'
@@ -57,6 +58,7 @@ const CreateArtworkScreen = ({ navigation }) => {
         />
         <AppFormField
           name='address'
+          label='Address or Intersection'
           placeholder='Address or Intersection'
           textContentType='streetAddressLine1'
           autoCapitalize='words'
@@ -66,11 +68,13 @@ const CreateArtworkScreen = ({ navigation }) => {
         <AppFormField
           keyboardType='number-pad'
           name='year'
+          label='Year'
           placeholder='Year completed'
           maxLength={4}
         />
         <AppFormField
           name='aboutText'
+          label='About this project'
           placeholder='About this project'
           textContentType='none'
           maxLength={450}
@@ -91,7 +95,7 @@ const CreateArtworkScreen = ({ navigation }) => {
           icon='chevron-left'
         />
       </AppForm>
-    </Screen>
+    </Content>
   );
 };
 

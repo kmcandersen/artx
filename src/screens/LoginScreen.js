@@ -23,8 +23,8 @@ import AuthContext from '../contexts/AuthContext';
 import ArtworkContext from '../contexts/ArtworkContext';
 
 const validationSchema = Yup.object().shape({
-  email: Yup.string().required().max(50).email().label('Email'),
-  password: Yup.string().required().min(4).max(40).label('Password'),
+  email: Yup.string().required().max(50).email(),
+  password: Yup.string().required().min(4).max(40),
 });
 
 const LoginScreen = ({ navigation }) => {

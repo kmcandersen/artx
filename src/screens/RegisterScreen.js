@@ -28,15 +28,10 @@ const validationSchema = Yup.object().shape({
     .required()
     .min(1)
     .max(50)
-    .matches(/^([\w\s/-]*)$/, "Names can't include special characters")
-    .label('Name'),
-  email: Yup.string().required().email().max(50).label('Email'),
-  password: Yup.string().required().min(4).max(40).label('Password'),
-  repeatedPassword: Yup.string()
-    .required()
-    .min(4)
-    .max(40)
-    .label('Repeated Password'),
+    .matches(/^([\w\s/-]*)$/, "Names can't include special characters"),
+  email: Yup.string().required().email().max(50),
+  password: Yup.string().required().min(4).max(40),
+  repeatedPassword: Yup.string().required().min(4).max(40),
 });
 
 const RegisterScreen = ({ navigation }) => {

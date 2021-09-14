@@ -8,7 +8,12 @@ import CreateArtworkScreen from '../screens/CreateArtworkScreen';
 const Stack = createStackNavigator();
 
 const ArtistsNavigator = () => (
-  <Stack.Navigator>
+  <Stack.Navigator
+    screenOptions={{
+      headerStyle: { elevation: 0 },
+      cardStyle: { backgroundColor: '#fff' },
+    }}
+  >
     <Stack.Screen
       name='UserProfile'
       component={UserProfileScreen}

@@ -16,7 +16,7 @@ function AppFormSwitch({ name, label1, label2 }) {
         onValueChange={toggleSwitch}
         value={isSwitchOn}
       />
-      <Text>{isSwitchOn ? label1 : label2}</Text>
+      <Text style={{ marginLeft: 7 }}>{isSwitchOn ? label1 : label2}</Text>
     </View>
   );
 }

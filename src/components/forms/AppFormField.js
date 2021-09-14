@@ -8,13 +8,12 @@ import { colors } from '../../config/theme';
 function AppFormField({ name, width, ...otherProps }) {
   const { setFieldTouched, setFieldValue, errors, touched, values } =
     useFormikContext();
-
   return (
     <View style={styles.inputContainer}>
       <TextInput
         onBlur={() => setFieldTouched(name)}
-        label={name}
         value={values[name]}
+        label
         onChangeText={(text) => setFieldValue(name, text)}
         error={errors[name] && touched[name]}
         {...otherProps}

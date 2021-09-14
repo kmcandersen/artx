@@ -22,7 +22,7 @@ import states from '../config/states';
 
 import ArtistsContext from '../contexts/ArtistsContext';
 
-import Screen from '../components/wrappers/Screen';
+import { Content } from '../components/wrappers/Content';
 import { AppButtonOutlined } from '../components/AppButtons';
 import AppDropdownPicker from '../components/AppDropdownPicker';
 
@@ -40,12 +40,11 @@ const EditUserScreen = ({ route, navigation }) => {
       .required()
       .min(1)
       .max(50)
-      .matches(/^([\w\s/-]*)$/, "Names can't include special characters")
-      .label('Name'),
-    city: Yup.string().min(2).max(40).label('City'),
-    country: Yup.string().min(2).max(40).label('Country'),
-    aboutMe: Yup.string().max(450).label('About'),
-    moreInfo: Yup.string().max(50).label('More info'),
+      .matches(/^([\w\s/-]*)$/, "Names can't include special characters"),
+    city: Yup.string().min(2).max(40),
+    country: Yup.string().min(2).max(40),
+    aboutMe: Yup.string().max(450),
+    moreInfo: Yup.string().max(50),
   });
 
   const initialValues = {
@@ -73,7 +72,7 @@ const EditUserScreen = ({ route, navigation }) => {
         style={{ flex: 1 }}
         enabled={keyboardShift}
       >
-        <Screen>
+        <Content>
           <AppForm
             initialValues={initialValues}
             onSubmit={editArtist}
@@ -89,6 +88,7 @@ const EditUserScreen = ({ route, navigation }) => {
                   autoCapitalize='words'
                   autoCorrect={false}
                   name='name'
+                  label='Full Name'
                   placeholder='Full Name'
                   textContentType='name'
                   onFocus={() => setKeyboardShift(false)}
@@ -100,6 +100,7 @@ const EditUserScreen = ({ route, navigation }) => {
                 />
                 <AppFormField
                   name='city'
+                  label='City'
                   placeholder='City'
                   textContentType='addressCity'
                   autoCapitalize='words'
@@ -117,6 +118,7 @@ const EditUserScreen = ({ route, navigation }) => {
                 />
                 <AppFormField
                   name='country'
+                  label='Country'
                   placeholder='Country'
                   textContentType='countryName'
                   autoCapitalize='words'
@@ -125,6 +127,7 @@ const EditUserScreen = ({ route, navigation }) => {
                 />
                 <AppFormField
                   name='aboutMe'
+                  label='About Me'
                   placeholder='About Me'
                   textContentType='none'
                   maxLength={450}
@@ -137,6 +140,7 @@ const EditUserScreen = ({ route, navigation }) => {
                 />
                 <AppFormField
                   name='moreInfo'
+                  label='More Info'
                   placeholder='Where to find more info (website, social, etc.)'
                   textContentType='none'
                   maxLength={40}
@@ -159,7 +163,7 @@ const EditUserScreen = ({ route, navigation }) => {
               icon='chevron-left'
             />
           </AppForm>
-        </Screen>
+        </Content>
       </KeyboardAvoidingView>
     </ScrollView>
   );
