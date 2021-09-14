@@ -138,7 +138,11 @@ function ImageInput({ imageUri, onChangeImage, imageType }) {
   };
 
   const cameraIcon = (
-    <MaterialCommunityIcons name='camera' size={40} color={colors.medium} />
+    <MaterialCommunityIcons
+      name='camera-plus'
+      size={40}
+      color={colors.medium}
+    />
   );
   const photo = <Image source={{ uri: imageUri }} style={styles.image} />;
 
