@@ -230,7 +230,8 @@ const UserProfileScreen = ({ navigation, route }) => {
               </AppText>
             )}
           </View>
-          {profileArtwork.length ? (
+          {profileArtwork.length &&
+          profileArtwork.find((el) => el.coords.length) ? (
             <View style={styles.mapContainer}>
               <PointsMap
                 navigation={navigation}
@@ -239,7 +240,9 @@ const UserProfileScreen = ({ navigation, route }) => {
                 height={300}
               />
             </View>
-          ) : null}
+          ) : (
+            <AppText variant='itemEmpty'>Location map not available</AppText>
+          )}
         </Content>
       </ScrollView>
       <View>

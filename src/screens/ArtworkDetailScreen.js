@@ -21,8 +21,6 @@ import AuthContext from '../contexts/AuthContext';
 import ArtworkContext from '../contexts/ArtworkContext';
 import ArtistsContext from '../contexts/ArtistsContext';
 
-const height = Dimensions.get('window').height;
-
 // route.params.showSnackbar default from Navigator; route.params.showSnackbar & message set by callback when artwork edited
 const ArtworkDetailScreen = ({ route, navigation }) => {
   const { id, artistId } = route.params;
@@ -89,7 +87,7 @@ const ArtworkDetailScreen = ({ route, navigation }) => {
             {work.photoUrls && <PhotoSlider photos={work.photoUrls} />}
           </View>
 
-          <Content height={height}>
+          <Content>
             <AppText variant='header' addlStyle={{ color: colors.secondary }}>
               {work.title}
             </AppText>

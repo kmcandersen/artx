@@ -14,7 +14,12 @@ import RegisterScreen from '../screens/RegisterScreen';
 const Stack = createStackNavigator();
 
 const ArtworkNavigator = () => (
-  <Stack.Navigator>
+  <Stack.Navigator
+    screenOptions={{
+      headerStyle: { elevation: 0 },
+      cardStyle: { backgroundColor: '#fff' },
+    }}
+  >
     <Stack.Screen
       name='Discover'
       component={BrowseNavigator}
