@@ -152,7 +152,9 @@ const UserProfileScreen = ({ navigation, route }) => {
             ) : null}
 
             <AppText variant='item'>Based in: {basedIn()}</AppText>
-            <AppText variant='copy'>About Me: {aboutMe}</AppText>
+            <AppText variant='copy'>
+              About Me: {aboutMe ? aboutMe : 'NA'}
+            </AppText>
             <View style={styles.textLinkRow}>
               <AppText variant='item'>More info: </AppText>
               {moreInfo ? (
@@ -240,9 +242,9 @@ const UserProfileScreen = ({ navigation, route }) => {
                 height={300}
               />
             </View>
-          ) : (
+          ) : profileArtwork.length ? (
             <AppText variant='itemEmpty'>Location map not available</AppText>
-          )}
+          ) : null}
         </Content>
       </ScrollView>
       <View>
