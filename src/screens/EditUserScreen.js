@@ -7,6 +7,7 @@ import {
   ScrollView,
   StyleSheet,
   TouchableWithoutFeedback,
+  View,
 } from 'react-native';
 import * as Yup from 'yup';
 import {
@@ -82,7 +83,12 @@ const EditUserScreen = ({ route, navigation }) => {
               <>
                 <ErrorMessage error={artistError} visible={artistError} />
                 {!profile.profilePhotoUrl[0] && (
-                  <FormImagePicker name='profilePhotoUrl' imageType='profile' />
+                  <View style={styles.profilePhotoContainer}>
+                    <FormImagePicker
+                      name='profilePhotoUrl'
+                      imageType='profile'
+                    />
+                  </View>
                 )}
                 <AppFormField
                   autoCapitalize='words'
@@ -123,7 +129,7 @@ const EditUserScreen = ({ route, navigation }) => {
                   textContentType='countryName'
                   autoCapitalize='words'
                   autoCompleteType='off'
-                  onFocus={() => setKeyboardShift(false)}
+                  onFocus={() => setKeyboardShift(true)}
                 />
                 <AppFormField
                   name='aboutMe'
@@ -169,6 +175,12 @@ const EditUserScreen = ({ route, navigation }) => {
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  profilePhotoContainer: {
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    height: 120,
+  },
+});
 
 export default EditUserScreen;

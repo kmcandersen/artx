@@ -1,5 +1,11 @@
-import React, { useContext } from 'react';
-import { StyleSheet } from 'react-native';
+import React, { useContext, useState } from 'react';
+import {
+  Keyboard,
+  KeyboardAvoidingView,
+  ScrollView,
+  StyleSheet,
+  TouchableWithoutFeedback,
+} from 'react-native';
 import * as Yup from 'yup';
 import {
   ErrorMessage,
@@ -16,6 +22,8 @@ import { AppButtonOutlined } from '../components/AppButtons';
 const CreateArtworkScreen = ({ navigation }) => {
   const { artworkError, addArtwork, currYear } = useContext(ArtworkContext);
   const { user } = useContext(AuthContext);
+
+  const [keyboardShift, setKeyboardShift] = useState(true);
 
   const validationSchema = Yup.object().shape({
     title: Yup.string().required().max(85),
@@ -41,61 +49,73 @@ const CreateArtworkScreen = ({ navigation }) => {
   };
 
   return (
-    <Content>
-      <AppForm
-        initialValues={initialValues}
-        onSubmit={addArtwork}
-        validationSchema={validationSchema}
+    <ScrollView>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'position' : 'height'}
+        style={{ flex: 1 }}
+        enabled={keyboardShift}
       >
-        <ErrorMessage error={artworkError} visible={artworkError} />
-        <AppFormField
-          name='title'
-          label='Title'
-          placeholder='Title'
-          autoCapitalize='sentences'
-          autoCompleteType='off'
-          autoCorrect={false}
-        />
-        <AppFormField
-          name='address'
-          label='Address or Intersection'
-          placeholder='Address or Intersection'
-          textContentType='streetAddressLine1'
-          autoCapitalize='words'
-          autoCompleteType='off'
-          autoCorrect={false}
-        />
-        <AppFormField
-          keyboardType='number-pad'
-          name='year'
-          label='Year'
-          placeholder='Year completed'
-          maxLength={4}
-        />
-        <AppFormField
-          name='aboutText'
-          label='About this project'
-          placeholder='About this project'
-          textContentType='none'
-          maxLength={450}
-          multiline
-          textAlignVertical='top'
-          autoCapitalize='sentences'
-          autoCompleteType='off'
-          autoCorrect={false}
-        />
-        <FormImagePicker name='photoUrls' imageType='artwork' />
-        <SubmitButton label='Add Artwork' />
-        <AppButtonOutlined
-          label='Back'
-          onPress={() => navigation.goBack()}
-          width='wide'
-          outlineColor='secondary'
-          textColor='black'
-          icon='chevron-left'
-        />
-      </AppForm>
-    </Content>
+        <Content>
+          <AppForm
+            initialValues={initialValues}
+            onSubmit={addArtwork}
+            validationSchema={validationSchema}
+          >
+            <ErrorMessage error={artworkError} visible={artworkError} />
+            <AppFormField
+              name='title'
+              label='Title'
+              placeholder='Title'
+              autoCapitalize='sentences'
+              autoCompleteType='off'
+              autoCorrect={false}
+              onFocus={() => setKeyboardShift(false)}
+            />
+            <AppFormField
+              name='address'
+              label='Address or Intersection'
+              placeholder='Address or Intersection'
+              textContentType='streetAddressLine1'
+              autoCapitalize='words'
+              autoCompleteType='off'
+              autoCorrect={false}
+              onFocus={() => setKeyboardShift(false)}
+            />
+            <AppFormField
+              keyboardType='number-pad'
+              name='year'
+              label='Year'
+              placeholder='Year completed'
+              maxLength={4}
+              onFocus={() => setKeyboardShift(false)}
+            />
+            <AppFormField
+              name='aboutText'
+              label='About this project'
+              placeholder='About this project'
+              textContentType='none'
+              maxLength={450}
+              multiline
+              textAlignVertical='top'
+              autoCapitalize='sentences'
+              autoCompleteType='off'
+              autoCorrect={false}
+              onFocus={() => setKeyboardShift(true)}
+            />
+            <FormImagePicker name='photoUrls' imageType='artwork' />
+            <SubmitButton label='Add Artwork' />
+            <AppButtonOutlined
+              label='Back'
+              onPress={() => navigation.goBack()}
+              width='wide'
+              outlineColor='secondary'
+              textColor='black'
+              icon='chevron-left'
+            />
+          </AppForm>
+        </Content>
+      </KeyboardAvoidingView>
+    </ScrollView>
   );
 };
 

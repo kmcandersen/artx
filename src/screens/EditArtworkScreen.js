@@ -1,5 +1,10 @@
 import React, { useContext } from 'react';
-import { StyleSheet } from 'react-native';
+import {
+  Keyboard,
+  ScrollView,
+  StyleSheet,
+  TouchableWithoutFeedback,
+} from 'react-native';
 import * as Yup from 'yup';
 import {
   ErrorMessage,
@@ -47,60 +52,66 @@ const EditArtworkScreen = ({ route, navigation }) => {
   };
 
   return (
-    <Content>
-      <AppForm
-        initialValues={initialValues}
-        onSubmit={editArtwork}
-        validationSchema={validationSchema}
-      >
-        <ErrorMessage error={error} visible={error} />
-        <AppFormField
-          name='title'
-          label='Title'
-          placeholder='Title'
-          autoCapitalize='sentences'
-          autoCompleteType='off'
-          autoCorrect={false}
-        />
-        <AppFormField
-          name='address'
-          label='Address or Intersection'
-          placeholder='Address or Intersection'
-          textContentType='streetAddressLine1'
-          autoCapitalize='words'
-          autoCompleteType='off'
-          autoCorrect={false}
-        />
-        <AppFormField
-          keyboardType='number-pad'
-          name='year'
-          label='Year'
-          placeholder='Year completed'
-          maxLength={4}
-        />
-        <AppFormField
-          name='aboutText'
-          label='About this project'
-          placeholder='About this project'
-          textContentType='none'
-          maxLength={450}
-          multiline
-          textAlignVertical='top'
-          autoCapitalize='sentences'
-          autoCompleteType='off'
-          autoCorrect={false}
-        />
-        <SubmitButton label='Update Artwork' />
-        <AppButtonOutlined
-          label='Back'
-          onPress={() => navigation.goBack()}
-          width='wide'
-          outlineColor='secondary'
-          textColor='black'
-          icon='chevron-left'
-        />
-      </AppForm>
-    </Content>
+    <ScrollView>
+      <Content>
+        <AppForm
+          initialValues={initialValues}
+          onSubmit={editArtwork}
+          validationSchema={validationSchema}
+        >
+          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <>
+              <ErrorMessage error={error} visible={error} />
+              <AppFormField
+                name='title'
+                label='Title'
+                placeholder='Title'
+                autoCapitalize='sentences'
+                autoCompleteType='off'
+                autoCorrect={false}
+              />
+              <AppFormField
+                name='address'
+                label='Address or Intersection'
+                placeholder='Address or Intersection'
+                textContentType='streetAddressLine1'
+                autoCapitalize='words'
+                autoCompleteType='off'
+                autoCorrect={false}
+              />
+              <AppFormField
+                keyboardType='number-pad'
+                name='year'
+                label='Year'
+                placeholder='Year completed'
+                maxLength={4}
+              />
+              <AppFormField
+                name='aboutText'
+                label='About this project'
+                placeholder='About this project'
+                textContentType='none'
+                maxLength={450}
+                multiline
+                textAlignVertical='top'
+                autoCapitalize='sentences'
+                autoCompleteType='off'
+                autoCorrect={false}
+              />
+            </>
+          </TouchableWithoutFeedback>
+          <SubmitButton label='Update Artwork' />
+          <AppButtonOutlined
+            label='Back'
+            onPress={() => navigation.goBack()}
+            width='wide'
+            outlineColor='secondary'
+            textColor='black'
+            icon='chevron-left'
+          />
+        </AppForm>
+      </Content>
+    </ScrollView>
   );
 };
 
