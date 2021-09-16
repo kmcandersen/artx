@@ -1,14 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
 import {
   Alert,
-  Dimensions,
   ScrollView,
   StyleSheet,
   TouchableOpacity,
   View,
 } from 'react-native';
 
-import ArtworkDetailMap from '../components/ArtworkDetailMap';
 import PhotoSlider from '../components/PhotoSlider';
 import BackIcon from '../components/BackIcon';
 import ConfSnackbar from '../components/ConfSnackbar';
@@ -20,6 +18,7 @@ import { colors, spacing } from '../config/theme';
 import AuthContext from '../contexts/AuthContext';
 import ArtworkContext from '../contexts/ArtworkContext';
 import ArtistsContext from '../contexts/ArtistsContext';
+import PointsMap from '../components/PointsMap';
 
 // route.params.showSnackbar default from Navigator; route.params.showSnackbar & message set by callback when artwork edited
 const ArtworkDetailScreen = ({ route, navigation }) => {
@@ -131,7 +130,14 @@ const ArtworkDetailScreen = ({ route, navigation }) => {
               </View>
             )}
             {work.coords.length ? (
-              <ArtworkDetailMap coords={work.coords} title={work.title} />
+              <View style={styles.mapContainer}>
+                <PointsMap
+                  navigation={null}
+                  data={[work]}
+                  width='content'
+                  height={200}
+                />
+              </View>
             ) : (
               <AppText variant='itemEmpty'>Location map not available</AppText>
             )}
@@ -153,6 +159,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginVertical: spacing.section1,
+  },
+  mapContainer: {
+    height: 200,
+    marginTop: spacing.section1,
   },
 });
 
