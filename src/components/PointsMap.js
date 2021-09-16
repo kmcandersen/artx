@@ -14,23 +14,30 @@ const PointsMap = ({ navigation, data, width, height }) => {
     if (data) {
       let itemInfo = [];
       data.forEach((work) => {
-        itemInfo.push({
-          artworkId: work._id,
-          artistId: work.artistFbId,
-          title: work.title,
-          long: work.coords[0] > 0 ? -work.coords[0] : work.coords[0],
-          lat: work.coords[1],
-        });
+        // for data arr with multiple items, only items with coords added to artMapInfo & used to calculate mapCenter. (PointsMap not rendered in ArtworkDetail if no coords)
+        if (work.coords.length) {
+          itemInfo.push({
+            artworkId: work._id,
+            artistId: work.artistFbId,
+            title: work.title,
+            long: work.coords[0] > 0 ? -work.coords[0] : work.coords[0],
+            lat: work.coords[1],
+          });
+        }
       });
       setArtMapInfo(itemInfo);
 
-      let longSum = 0;
-      let latSum = 0;
-      itemInfo.forEach((point) => {
-        longSum += point.long;
-        latSum += point.lat;
-      });
-      setMapCenter([longSum / itemInfo.length, latSum / itemInfo.length]);
+      if (itemInfo.length) {
+        let longSum = 0;
+        let latSum = 0;
+        itemInfo.forEach((point) => {
+          if (point.long && point.lat) {
+            longSum += point.long;
+            latSum += point.lat;
+          }
+        });
+        setMapCenter([longSum / itemInfo.length, latSum / itemInfo.length]);
+      }
     }
   }, [data]);
 
@@ -39,8 +46,7 @@ const PointsMap = ({ navigation, data, width, height }) => {
     width === 'content'
       ? Dimensions.get('window').width - spacing.content * 2
       : Dimensions.get('window').width;
-
-  if (artMapInfo && artMapInfo.length) {
+  if (artMapInfo && artMapInfo.length && mapCenter) {
     return (
       <View style={styles.container}>
         <MapView
@@ -57,31 +63,27 @@ const PointsMap = ({ navigation, data, width, height }) => {
             <Marker
               key={work.artworkId}
               coordinate={{
-                longitude: work.long || 0,
                 latitude: work.lat || 0,
+                longitude: work.long || 0,
               }}
             >
-              {navigation && (
-                <Callout
-                  onPress={() => {
-                    if (navigation) {
-                      navigation.navigate('ArtworkDetail', {
-                        id: work.artworkId,
-                        artistId: work.artistId,
-                      });
-                    }
-                  }}
-                >
-                  <View style={styles.callout}>
-                    <Text>{work.title}</Text>
-                    <Ionicons
-                      name='chevron-forward'
-                      size={18}
-                      color={colors.dark}
-                    />
-                  </View>
-                </Callout>
-              )}
+              <Callout
+                onPress={() =>
+                  navigation.navigate('ArtworkDetail', {
+                    id: work.artworkId,
+                    artistId: work.artistId,
+                  })
+                }
+              >
+                <View style={styles.callout}>
+                  <Text>{work.title}</Text>
+                  <Ionicons
+                    name='chevron-forward'
+                    size={18}
+                    color={colors.dark}
+                  />
+                </View>
+              </Callout>
             </Marker>
           ))}
         </MapView>
