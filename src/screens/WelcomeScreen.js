@@ -22,7 +22,7 @@ const WelcomeScreen = ({ navigation }) => {
 
   return (
     <ImageBackground
-      source={require('../../assets/background.png')}
+      source={require('../../assets/welcome_bg.jpg')}
       style={styles.background}
     >
       <View style={{ paddingVertical: 80 }}>
