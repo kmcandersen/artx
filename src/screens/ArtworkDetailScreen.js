@@ -71,7 +71,7 @@ const ArtworkDetailScreen = ({ route, navigation }) => {
   // if there's only 1 photo, slider is still needed, for tap to enlarge
   if (work) {
     return (
-      <View>
+      <>
         <ScrollView bounces={false}>
           <BackIcon
             color='white'
@@ -148,7 +148,7 @@ const ArtworkDetailScreen = ({ route, navigation }) => {
             <ConfSnackbar message={route.params.snackbarMessage} />
           )}
         </View>
-      </View>
+      </>
     );
   }
   return null;
