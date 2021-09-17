@@ -11,7 +11,11 @@ const BrowseNavigator = () => {
   return (
     <Tab.Navigator
       initialRouteName='List'
-      tabBarOptions={{ indicatorStyle: { backgroundColor: colors.secondary } }}
+      tabBarOptions={{
+        indicatorStyle: { backgroundColor: colors.secondary },
+        activeTintColor: colors.dark,
+        inactiveTintColor: colors.medium,
+      }}
     >
       <Tab.Screen name='List' component={BrowseScreen} />
       <Tab.Screen name='Map' component={MapScreen} />
