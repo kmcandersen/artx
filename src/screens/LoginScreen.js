@@ -1,12 +1,11 @@
 import React, { useContext, useState } from 'react';
 import {
   Image,
-  Keyboard,
   KeyboardAvoidingView,
   Platform,
+  ScrollView,
   StyleSheet,
   TouchableOpacity,
-  TouchableWithoutFeedback,
   View,
 } from 'react-native';
 import * as Yup from 'yup';
@@ -17,7 +16,6 @@ import {
   SubmitButton,
 } from '../components/forms';
 import { Content } from '../components/wrappers/Content';
-import Screen from '../components/wrappers/Screen';
 import AppText from '../components/AppText';
 import AuthContext from '../contexts/AuthContext';
 import ArtworkContext from '../contexts/ArtworkContext';
@@ -34,87 +32,82 @@ const LoginScreen = ({ navigation }) => {
   const [keyboardShift, setKeyboardShift] = useState(true);
 
   return (
-    <Screen
-      style={{
-        justifyContent: 'center',
-      }}
-    >
+    <ScrollView bounces={false}>
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'position' : 'height'}
         enabled={keyboardShift}
       >
         <Content>
-          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-            <>
-              <Image
-                source={require('../../assets/logo.png')}
-                style={[
-                  styles.logo,
-                  {
-                    width: screenWidth * 0.3,
-                    height: (screenWidth * 0.3) / 1.9,
-                  },
-                ]}
+          <>
+            <Image
+              source={require('../../assets/logo-multi.png')}
+              style={[
+                styles.logo,
+                {
+                  width: screenWidth * 0.35,
+                  height: (screenWidth * 0.35) / 1.9,
+                },
+              ]}
+            />
+            <AppForm
+              //initialValues={{ email: 'wross@example.com', password: 'test123' }}
+              initialValues={{ email: '', password: '' }}
+              onSubmit={onLogin}
+              validationSchema={validationSchema}
+            >
+              <ErrorMessage
+                error='Invalid email and/or password'
+                visible={error}
               />
-              <AppForm
-                //initialValues={{ email: 'wross@example.com', password: 'test123' }}
-                initialValues={{ email: '', password: '' }}
-                onSubmit={onLogin}
-                validationSchema={validationSchema}
-              >
-                <ErrorMessage
-                  error='Invalid email and/or password'
-                  visible={error}
-                />
-                <AppFormField
-                  autoCapitalize='none'
-                  autoCorrect={false}
-                  keyboardType='email-address'
-                  name='email'
-                  label='Email'
-                  textContentType='emailAddress'
-                  onFocus={() => setKeyboardShift(true)}
-                />
-                <AppFormField
-                  autoCapitalize='none'
-                  autoCorrect={false}
-                  name='password'
-                  label='Password'
-                  secureTextEntry
-                  textContentType='password'
-                  onFocus={() => setKeyboardShift(true)}
-                />
+              <AppFormField
+                autoCapitalize='none'
+                autoCorrect={false}
+                keyboardType='email-address'
+                name='email'
+                label='Email'
+                textContentType='emailAddress'
+                onFocus={() => setKeyboardShift(true)}
+              />
+              <AppFormField
+                autoCapitalize='none'
+                autoCorrect={false}
+                name='password'
+                label='Password'
+                secureTextEntry
+                textContentType='password'
+                onFocus={() => setKeyboardShift(true)}
+              />
 
-                <SubmitButton label='Log In' />
-              </AppForm>
-              <View style={styles.textLinkRow}>
-                <AppText variant='itemMessage'>
-                  Don't have an account yet?{' '}
-                </AppText>
-                <TouchableOpacity
-                  activeOpacity={0.6}
-                  onPress={() => navigation.navigate('Register')}
+              <SubmitButton label='Log In' />
+            </AppForm>
+            <View style={styles.textLinkRow}>
+              <AppText variant='itemMessage'>
+                Don't have an account yet?{' '}
+              </AppText>
+              <TouchableOpacity
+                activeOpacity={0.6}
+                onPress={() => navigation.navigate('Register')}
+              >
+                <AppText
+                  variant='itemMessage'
+                  addlStyle={{ textDecorationLine: 'underline' }}
                 >
-                  <AppText
-                    variant='itemMessage'
-                    addlStyle={{ textDecorationLine: 'underline' }}
-                  >
-                    Register
-                  </AppText>
-                </TouchableOpacity>
-              </View>
-            </>
-          </TouchableWithoutFeedback>
+                  Register
+                </AppText>
+              </TouchableOpacity>
+            </View>
+          </>
         </Content>
       </KeyboardAvoidingView>
-    </Screen>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   logo: {
     resizeMode: 'contain',
-    marginBottom: 25,
+    marginTop: 15,
+    marginBottom: 20,
     alignSelf: 'center',
   },
   textLinkRow: {

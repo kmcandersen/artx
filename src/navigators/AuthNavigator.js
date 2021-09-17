@@ -11,7 +11,12 @@ import { colors, spacing } from '../config/theme';
 const Stack = createStackNavigator();
 
 const AuthNavigator = () => (
-  <Stack.Navigator>
+  <Stack.Navigator
+    screenOptions={{
+      headerStyle: { elevation: 0 },
+      cardStyle: { backgroundColor: colors.background },
+    }}
+  >
     <Stack.Screen
       name='Welcome'
       component={WelcomeScreen}
