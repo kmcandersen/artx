@@ -10,6 +10,7 @@ import UserProfileScreen from '../screens/UserProfileScreen';
 import EditUserScreen from '../screens/EditUserScreen';
 import WelcomeScreen from '../screens/WelcomeScreen';
 import RegisterScreen from '../screens/RegisterScreen';
+import { colors } from '../config/theme';
 
 const Stack = createStackNavigator();
 
@@ -17,7 +18,7 @@ const ArtworkNavigator = () => (
   <Stack.Navigator
     screenOptions={{
       headerStyle: { elevation: 0 },
-      cardStyle: { backgroundColor: '#fff' },
+      cardStyle: { backgroundColor: colors.background },
     }}
   >
     <Stack.Screen

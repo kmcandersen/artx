@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Switch, Text, View } from 'react-native';
 import { useFormikContext } from 'formik';
+import { colors } from '../../config/theme';
 
 function AppFormSwitch({ name, label1, label2 }) {
   const { setFieldValue, values } = useFormikContext();
@@ -10,9 +11,9 @@ function AppFormSwitch({ name, label1, label2 }) {
   return (
     <View style={styles.displayEmailRow}>
       <Switch
-        trackColor={{ false: '#767577', true: '#0336ff' }}
-        thumbColor={isSwitchOn ? '#ffde03' : '#f4f3f4'}
-        ios_backgroundColor='#3e3e3e'
+        trackColor={{ false: colors.mediumLight, true: colors.primary }}
+        thumbColor={isSwitchOn ? colors.tertiary : colors.white}
+        ios_backgroundColor={colors.darkGray}
         onValueChange={toggleSwitch}
         value={isSwitchOn}
       />
