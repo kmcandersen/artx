@@ -9,16 +9,5 @@ npm-debug.*
 *.orig.*
 web-build/
 src/config/vars.js
-src/contexts/ArtworkContext_reducer.js
-src/screens/LoginScreen_woFormik.js
-src/screens/RegisterScreen_woFormik.js
-src/screens/CreateArtworkScreen_woFormik.js
-src/screens/EditArtworkScreen_woFormik.js
-src/screens/BrowseScreen_wMap.js
-src/contexts/ArtistsContext_v1.js
-src/contexts/AuthContext_v2.js
-src/contexts/AuthContext_v3_works.js
-src/screens/ArtworkDetailScreen_removeBroken.js
-src/components/AppButton_orig.js
 # macOS
 .DS_Store
