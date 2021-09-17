@@ -11,5 +11,5 @@ export default {
   white: '#fff',
   background: '#fff',
   danger: '#bd1515',
-  confirm: '#03A9F4',
+  confirm: '#595959',
 };
