@@ -90,7 +90,7 @@ const BrowseScreen = ({ navigation }) => {
                 variant='category'
                 addlStyle={{
                   paddingLeft: spacing.content,
-                  paddingTop: spacing.section2,
+                  paddingTop: spacing.section3,
                 }}
               >
                 All Artists
@@ -141,7 +141,7 @@ const BrowseScreen = ({ navigation }) => {
               <AppText
                 variant='category'
                 addlStyle={{
-                  paddingTop: spacing.section2,
+                  paddingTop: spacing.section3,
                 }}
               >
                 All Artwork

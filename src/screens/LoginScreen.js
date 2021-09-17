@@ -9,6 +9,7 @@ import {
   View,
 } from 'react-native';
 import * as Yup from 'yup';
+
 import {
   ErrorMessage,
   AppForm,
@@ -16,6 +17,8 @@ import {
   SubmitButton,
 } from '../components/forms';
 import { Content } from '../components/wrappers/Content';
+import { spacing } from '../config/theme';
+
 import AppText from '../components/AppText';
 import AuthContext from '../contexts/AuthContext';
 import ArtworkContext from '../contexts/ArtworkContext';
@@ -106,8 +109,8 @@ const LoginScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   logo: {
     resizeMode: 'contain',
-    marginTop: 15,
-    marginBottom: 20,
+    marginTop: spacing.loginLogoTop,
+    marginBottom: spacing.loginLogoBottom,
     alignSelf: 'center',
   },
   textLinkRow: {

@@ -269,13 +269,13 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     flexWrap: 'wrap',
-    paddingBottom: spacing.section1a,
+    paddingBottom: spacing.section1,
   },
   buttonRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginVertical: spacing.section1,
-    marginBottom: spacing.section2,
+    marginBottom: spacing.section3,
   },
   mapContainer: {
     height: 300,
