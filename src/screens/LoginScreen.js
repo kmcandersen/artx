@@ -35,7 +35,7 @@ const LoginScreen = ({ navigation }) => {
   const [keyboardShift, setKeyboardShift] = useState(true);
 
   return (
-    <ScrollView bounces={false}>
+    <ScrollView keyboardShouldPersistTaps='always'>
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'position' : 'height'}
         enabled={keyboardShift}

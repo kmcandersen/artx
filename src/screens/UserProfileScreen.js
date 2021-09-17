@@ -96,7 +96,7 @@ const UserProfileScreen = ({ navigation, route }) => {
 
   return (
     <>
-      <ScrollView bounces={false}>
+      <ScrollView>
         <Content>
           {/* Back button only visible if screen not accessed from bottom Tab */}
           {artistId !== undefined && (

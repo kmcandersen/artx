@@ -47,7 +47,7 @@ const EditArtworkScreen = ({ route, navigation }) => {
   };
 
   return (
-    <ScrollView>
+    <ScrollView keyboardShouldPersistTaps='always'>
       <Content>
         <AppForm
           initialValues={initialValues}

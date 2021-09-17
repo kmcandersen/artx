@@ -43,7 +43,7 @@ const CreateArtworkScreen = ({ navigation }) => {
   };
 
   return (
-    <ScrollView>
+    <ScrollView keyboardShouldPersistTaps='always'>
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'position' : 'height'}
         style={{ flex: 1 }}
