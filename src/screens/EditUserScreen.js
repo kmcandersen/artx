@@ -1,12 +1,10 @@
 import React, { useContext, useState } from 'react';
 import {
   Dimensions,
-  Keyboard,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
   StyleSheet,
-  TouchableWithoutFeedback,
   View,
 } from 'react-native';
 import * as Yup from 'yup';
@@ -78,86 +76,81 @@ const EditUserScreen = ({ route, navigation }) => {
             onSubmit={editArtist}
             validationSchema={validationSchema}
           >
-            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-              <>
-                <ErrorMessage error={artistError} visible={artistError} />
-                {!profile.profilePhotoUrl[0] && (
-                  <View style={styles.profilePhotoContainer}>
-                    <FormImagePicker
-                      name='profilePhotoUrl'
-                      imageType='profile'
-                    />
-                  </View>
-                )}
-                <AppFormField
-                  autoCapitalize='words'
-                  autoCorrect={false}
-                  name='name'
-                  label='Full Name'
-                  placeholder='Full Name'
-                  textContentType='name'
-                  onFocus={() => setKeyboardShift(false)}
-                />
-                <AppFormSwitch
-                  name='displayEmail'
-                  label1='Show my email address in public profile'
-                  label2='Hide my email address in public profile'
-                />
-                <AppFormField
-                  name='city'
-                  label='City'
-                  placeholder='City'
-                  textContentType='addressCity'
-                  autoCapitalize='words'
-                  autoCompleteType='off'
-                  autoCorrect={false}
-                  onFocus={() => setKeyboardShift(false)}
-                />
-                <AppDropdownPicker
-                  items={states}
-                  name='state'
-                  prompt='Select a US State'
-                  btnLabel='Select'
-                  icon='form-dropdown'
-                  itemHeight={itemHeight}
-                />
-                <AppFormField
-                  name='country'
-                  label='Country'
-                  placeholder='Country'
-                  textContentType='countryName'
-                  autoCapitalize='words'
-                  autoCompleteType='off'
-                  onFocus={() => setKeyboardShift(true)}
-                />
-                <AppFormField
-                  name='aboutMe'
-                  label='About Me'
-                  placeholder='About Me'
-                  textContentType='none'
-                  maxLength={450}
-                  multiline
-                  textAlignVertical='top'
-                  autoCapitalize='sentences'
-                  autoCompleteType='off'
-                  autoCorrect={false}
-                  onFocus={() => setKeyboardShift(true)}
-                />
-                <AppFormField
-                  name='moreInfo'
-                  label='More Info'
-                  placeholder='Where to find more info (website, social, etc.)'
-                  textContentType='none'
-                  maxLength={40}
-                  multiline
-                  textAlignVertical='top'
-                  autoCapitalize='none'
-                  autoCompleteType='off'
-                  autoCorrect={false}
-                  onFocus={() => setKeyboardShift(true)}
-                />
-              </>
-            </TouchableWithoutFeedback>
+            <>
+              <ErrorMessage error={artistError} visible={artistError} />
+              {!profile.profilePhotoUrl[0] && (
+                <View style={styles.profilePhotoContainer}>
+                  <FormImagePicker name='profilePhotoUrl' imageType='profile' />
+                </View>
+              )}
+              <AppFormField
+                autoCapitalize='words'
+                autoCorrect={false}
+                name='name'
+                label='Full Name'
+                placeholder='Full Name'
+                textContentType='name'
+                onFocus={() => setKeyboardShift(false)}
+              />
+              <AppFormSwitch
+                name='displayEmail'
+                label1='Show my email address in public profile'
+                label2='Hide my email address in public profile'
+              />
+              <AppFormField
+                name='city'
+                label='City'
+                placeholder='City'
+                textContentType='addressCity'
+                autoCapitalize='words'
+                autoCompleteType='off'
+                autoCorrect={false}
+                onFocus={() => setKeyboardShift(false)}
+              />
+              <AppDropdownPicker
+                items={states}
+                name='state'
+                prompt='Select a US State'
+                btnLabel='Select'
+                icon='form-dropdown'
+                itemHeight={itemHeight}
+              />
+              <AppFormField
+                name='country'
+                label='Country'
+                placeholder='Country'
+                textContentType='countryName'
+                autoCapitalize='words'
+                autoCompleteType='off'
+                onFocus={() => setKeyboardShift(true)}
+              />
+              <AppFormField
+                name='aboutMe'
+                label='About Me'
+                placeholder='About Me'
+                textContentType='none'
+                maxLength={450}
+                multiline
+                textAlignVertical='top'
+                autoCapitalize='sentences'
+                autoCompleteType='off'
+                autoCorrect={false}
+                onFocus={() => setKeyboardShift(true)}
+              />
+              <AppFormField
+                name='moreInfo'
+                label='More Info'
+                placeholder='Where to find more info (website, social, etc.)'
+                textContentType='none'
+                maxLength={40}
+                multiline
+                textAlignVertical='top'
+                autoCapitalize='none'
+                autoCompleteType='off'
+                autoCorrect={false}
+                onFocus={() => setKeyboardShift(true)}
+              />
+            </>
             <SubmitButton label='Update Profile' />
             <AppButtonOutlined
               label='Back'

@@ -1,11 +1,5 @@
 import React, { useContext, useState } from 'react';
-import {
-  Keyboard,
-  KeyboardAvoidingView,
-  ScrollView,
-  StyleSheet,
-  TouchableWithoutFeedback,
-} from 'react-native';
+import { KeyboardAvoidingView, ScrollView, StyleSheet } from 'react-native';
 import * as Yup from 'yup';
 import {
   ErrorMessage,
