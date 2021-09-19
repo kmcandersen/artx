@@ -15,6 +15,7 @@ const AuthNavigator = () => (
     screenOptions={{
       headerStyle: { elevation: 0 },
       cardStyle: { backgroundColor: colors.background },
+      headerTitleAlign: 'center',
     }}
   >
     <Stack.Screen
