@@ -67,23 +67,25 @@ const PointsMap = ({ navigation, data, width, height }) => {
                 longitude: work.long || 0,
               }}
             >
-              <Callout
-                onPress={() =>
-                  navigation.navigate('ArtworkDetail', {
-                    id: work.artworkId,
-                    artistId: work.artistId,
-                  })
-                }
-              >
-                <View style={styles.callout}>
-                  <Text>{work.title}</Text>
-                  <Ionicons
-                    name='chevron-forward'
-                    size={18}
-                    color={colors.dark}
-                  />
-                </View>
-              </Callout>
+              {navigation && (
+                <Callout
+                  onPress={() =>
+                    navigation.navigate('ArtworkDetail', {
+                      id: work.artworkId,
+                      artistId: work.artistId,
+                    })
+                  }
+                >
+                  <View style={styles.callout}>
+                    <Text>{work.title}</Text>
+                    <Ionicons
+                      name='chevron-forward'
+                      size={18}
+                      color={colors.dark}
+                    />
+                  </View>
+                </Callout>
+              )}
             </Marker>
           ))}
         </MapView>
