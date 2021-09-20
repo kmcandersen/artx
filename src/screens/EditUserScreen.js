@@ -107,14 +107,27 @@ const EditUserScreen = ({ route, navigation }) => {
                 autoCorrect={false}
                 onFocus={() => setKeyboardShift(false)}
               />
-              <AppDropdownPicker
-                items={states}
-                name='state'
-                prompt='Select a US State'
-                btnLabel='Select'
-                icon='form-dropdown'
-                itemHeight={itemHeight}
-              />
+              {Platform.OS === 'ios' ? (
+                <AppDropdownPicker
+                  items={states}
+                  name='state'
+                  prompt='Select a US State'
+                  btnLabel='Select'
+                  icon='form-dropdown'
+                  itemHeight={itemHeight}
+                />
+              ) : (
+                <AppFormField
+                  name='state'
+                  label='State'
+                  placeholder='State, e.g. "TX"'
+                  textContentType='addressState'
+                  autoCapitalize='words'
+                  autoCompleteType='off'
+                  autoCorrect={true}
+                  onFocus={() => setKeyboardShift(false)}
+                />
+              )}
               <AppFormField
                 name='country'
                 label='Country'
