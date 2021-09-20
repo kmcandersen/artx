@@ -38,7 +38,7 @@ const LoginScreen = ({ navigation }) => {
     <ScrollView keyboardShouldPersistTaps='always'>
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'position' : 'height'}
-        enabled={keyboardShift}
+        enabled={Platform.OS === 'ios' ? keyboardShift : null}
       >
         <Content>
           <>
@@ -53,7 +53,10 @@ const LoginScreen = ({ navigation }) => {
               ]}
             />
             <AppForm
-              //initialValues={{ email: 'wross@example.com', password: 'test123' }}
+              // initialValues={{
+              //   email: 'wross@example.com',
+              //   password: 'test123',
+              // }}
               initialValues={{ email: '', password: '' }}
               onSubmit={onLogin}
               validationSchema={validationSchema}

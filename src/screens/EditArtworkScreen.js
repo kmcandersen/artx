@@ -1,5 +1,10 @@
-import React, { useContext } from 'react';
-import { ScrollView, StyleSheet } from 'react-native';
+import React, { useContext, useState } from 'react';
+import {
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  StyleSheet,
+} from 'react-native';
 import * as Yup from 'yup';
 import {
   ErrorMessage,
@@ -17,6 +22,7 @@ const EditArtworkScreen = ({ route, navigation }) => {
   const item = route.params.work;
 
   const { error, editArtwork, currYear } = useContext(ArtworkContext);
+  const [keyboardShift, setKeyboardShift] = useState(true);
 
   const validationSchema = Yup.object().shape({
     title: Yup.string().required().max(85),
@@ -48,62 +54,73 @@ const EditArtworkScreen = ({ route, navigation }) => {
 
   return (
     <ScrollView keyboardShouldPersistTaps='always'>
-      <Content>
-        <AppForm
-          initialValues={initialValues}
-          onSubmit={editArtwork}
-          validationSchema={validationSchema}
-        >
-          <>
-            <ErrorMessage error={error} visible={error} />
-            <AppFormField
-              name='title'
-              label='Title'
-              placeholder='Title'
-              autoCapitalize='sentences'
-              autoCompleteType='off'
-              autoCorrect={false}
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'position' : 'height'}
+        style={{ flex: 1 }}
+        enabled={Platform.OS === 'ios' ? keyboardShift : null}
+        keyboardVerticalOffset={Platform.OS === 'android' ? 30 : null}
+      >
+        <Content>
+          <AppForm
+            initialValues={initialValues}
+            onSubmit={editArtwork}
+            validationSchema={validationSchema}
+          >
+            <>
+              <ErrorMessage error={error} visible={error} />
+              <AppFormField
+                name='title'
+                label='Title'
+                placeholder='Title'
+                autoCapitalize='sentences'
+                autoCompleteType='off'
+                autoCorrect={false}
+                onFocus={() => setKeyboardShift(false)}
+              />
+              <AppFormField
+                name='address'
+                label='Address or Intersection'
+                placeholder='Address or Intersection'
+                textContentType='streetAddressLine1'
+                autoCapitalize='words'
+                autoCompleteType='off'
+                onFocus={() => setKeyboardShift(false)}
+                autoCorrect={false}
+              />
+              <AppFormField
+                keyboardType='number-pad'
+                name='year'
+                label='Year'
+                placeholder='Year completed'
+                maxLength={4}
+                onFocus={() => setKeyboardShift(false)}
+              />
+              <AppFormField
+                name='aboutText'
+                label='About this project'
+                placeholder='About this project'
+                textContentType='none'
+                maxLength={450}
+                multiline
+                textAlignVertical='top'
+                autoCapitalize='sentences'
+                autoCompleteType='off'
+                autoCorrect={false}
+                onFocus={() => setKeyboardShift(true)}
+              />
+            </>
+            <SubmitButton label='Update Artwork' />
+            <AppButtonOutlined
+              label='Back'
+              onPress={() => navigation.goBack()}
+              width='wide'
+              outlineColor='secondary'
+              textColor='black'
+              icon='chevron-left'
             />
-            <AppFormField
-              name='address'
-              label='Address or Intersection'
-              placeholder='Address or Intersection'
-              textContentType='streetAddressLine1'
-              autoCapitalize='words'
-              autoCompleteType='off'
-              autoCorrect={false}
-            />
-            <AppFormField
-              keyboardType='number-pad'
-              name='year'
-              label='Year'
-              placeholder='Year completed'
-              maxLength={4}
-            />
-            <AppFormField
-              name='aboutText'
-              label='About this project'
-              placeholder='About this project'
-              textContentType='none'
-              maxLength={450}
-              multiline
-              textAlignVertical='top'
-              autoCapitalize='sentences'
-              autoCompleteType='off'
-              autoCorrect={false}
-            />
-          </>
-          <SubmitButton label='Update Artwork' />
-          <AppButtonOutlined
-            label='Back'
-            onPress={() => navigation.goBack()}
-            width='wide'
-            outlineColor='secondary'
-            textColor='black'
-            icon='chevron-left'
-          />
-        </AppForm>
-      </Content>
+          </AppForm>
+        </Content>
+      </KeyboardAvoidingView>
     </ScrollView>
   );
 };

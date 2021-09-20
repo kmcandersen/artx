@@ -47,7 +47,7 @@ const CreateArtworkScreen = ({ navigation }) => {
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'position' : 'height'}
         style={{ flex: 1 }}
-        enabled={keyboardShift}
+        enabled={Platform.OS === 'ios' ? keyboardShift : null}
       >
         <Content>
           <AppForm

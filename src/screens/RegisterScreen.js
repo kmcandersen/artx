@@ -44,7 +44,7 @@ const RegisterScreen = ({ navigation }) => {
     <ScrollView keyboardShouldPersistTaps='always'>
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'position' : 'height'}
-        enabled={keyboardShift}
+        enabled={Platform.OS === 'ios' ? keyboardShift : null}
       >
         <Content>
           <>
