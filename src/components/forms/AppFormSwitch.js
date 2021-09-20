@@ -12,7 +12,7 @@ function AppFormSwitch({ name, label1, label2 }) {
     <View style={styles.displayEmailRow}>
       <Switch
         trackColor={{ false: colors.mediumLight, true: colors.primary }}
-        thumbColor={isSwitchOn ? colors.tertiary : colors.white}
+        thumbColor={isSwitchOn ? colors.tertiary : colors.light}
         ios_backgroundColor={colors.darkGray}
         onValueChange={toggleSwitch}
         value={isSwitchOn}
