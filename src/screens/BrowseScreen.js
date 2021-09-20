@@ -85,58 +85,55 @@ const BrowseScreen = ({ navigation }) => {
       return (
         <Screen>
           <ScrollView>
-            <View>
-              <AppText
-                variant='category'
-                addlStyle={{
-                  paddingLeft: spacing.content,
-                  paddingTop: spacing.section3,
-                }}
-              >
-                All Artists
-              </AppText>
-              <FlatList
-                data={artistList}
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                keyExtractor={(item) => item.artistId}
-                style={styles.artistPhotosContainer}
-                contentContainerStyle={styles.alignRowItems}
-                renderItem={({ item }) => {
-                  return (
-                    <>
-                      <TouchableOpacity
-                        onPress={() =>
-                          navigation.navigate('UserProfile', {
-                            artistId: item.artistId,
-                          })
-                        }
-                        activeOpacity={0.6}
-                      >
-                        {item.profilePhotoUrl.length ? (
-                          <Image
-                            source={{ uri: item.profilePhotoUrl[0] }}
-                            style={styles.profilePhoto}
-                          />
-                        ) : (
-                          <Avatar.Text
-                            size={90}
-                            label={item.initials}
-                            color={colors.white}
-                            style={{
-                              backgroundColor: colors.primary,
-                            }}
-                          />
-                        )}
-                      </TouchableOpacity>
-                    </>
-                  );
-                }}
-                // adds padding to right of last item
-                ListFooterComponent={<View style={{ width: 44 }}></View>}
-              />
-            </View>
-
+            <AppText
+              variant='category'
+              addlStyle={{
+                paddingLeft: spacing.content,
+                paddingTop: Platform.OS === 'ios' ? spacing.section3 : 0,
+              }}
+            >
+              All Artists
+            </AppText>
+            <FlatList
+              data={artistList}
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              keyExtractor={(item) => item.artistId}
+              style={styles.artistPhotosContainer}
+              contentContainerStyle={styles.alignRowItems}
+              renderItem={({ item }) => {
+                return (
+                  <>
+                    <TouchableOpacity
+                      onPress={() =>
+                        navigation.navigate('UserProfile', {
+                          artistId: item.artistId,
+                        })
+                      }
+                      activeOpacity={0.6}
+                    >
+                      {item.profilePhotoUrl.length ? (
+                        <Image
+                          source={{ uri: item.profilePhotoUrl[0] }}
+                          style={styles.profilePhoto}
+                        />
+                      ) : (
+                        <Avatar.Text
+                          size={90}
+                          label={item.initials}
+                          color={colors.white}
+                          style={{
+                            backgroundColor: colors.primary,
+                          }}
+                        />
+                      )}
+                    </TouchableOpacity>
+                  </>
+                );
+              }}
+              // adds padding to right of last item
+              ListFooterComponent={<View style={{ width: 44 }}></View>}
+            />
             <Content>
               <AppText
                 variant='category'
@@ -146,7 +143,7 @@ const BrowseScreen = ({ navigation }) => {
               >
                 All Artwork
               </AppText>
-              <ScrollView style={styles.list}>
+              <ScrollView style={styles.list} nestedScrollEnabled={true}>
                 {artwork.map((item) => (
                   <TouchableOpacity
                     key={item._id}
