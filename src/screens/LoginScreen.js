@@ -53,10 +53,6 @@ const LoginScreen = ({ navigation }) => {
               ]}
             />
             <AppForm
-              // initialValues={{
-              //   email: 'wross@example.com',
-              //   password: 'test123',
-              // }}
               initialValues={{ email: '', password: '' }}
               onSubmit={onLogin}
               validationSchema={validationSchema}
