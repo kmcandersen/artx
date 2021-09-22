@@ -1,6 +1,6 @@
 # ArTX mobile app
 
-Connects street artists in Austin, TX (“ATX”) with fans, and potential clients interested in commissioning original murals. The project is inspired by the [clickable prototype](https://xd.adobe.com/view/d0fec993-89bb-4a7f-b98e-7d6e63b4f987-85ad/?fullscreen) my team created during the Adobe/General Assembly Creative Jam, a 70-hour design challenge in August 2020. See [artx-server](https://github.com/kmcandersen/artx-server) repo for server-side code.
+Connects street artists in Austin, TX (“ATX”) with fans, and potential clients interested in commissioning original murals. The project is inspired by the [clickable Adobe XD prototype](https://xd.adobe.com/view/d0fec993-89bb-4a7f-b98e-7d6e63b4f987-85ad/?fullscreen) my team created during the Adobe/General Assembly Creative Jam, a 70-hour design challenge in August 2020. See [artx-server](https://github.com/kmcandersen/artx-server) repo for server-side code.
 
 **Demo videos**
 
@@ -17,6 +17,7 @@ Connects street artists in Austin, TX (“ATX”) with fans, and potential clien
 - Add, update user details
 - User authentication
 - View artwork locations on a map
+- Photo slider
 
 ### Technologies
 
